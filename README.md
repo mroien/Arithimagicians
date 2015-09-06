@@ -1,9 +1,9 @@
 # Arithimagicians
 
-Team project for ICS 499 Capstone at Metropolitan State Universtity
+Team project for ICS 499 Capstone at Metropolitan State University
 
 
 
 
-"# Team Members"
+# Team Members
 Tim Oien
