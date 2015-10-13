@@ -26,10 +26,11 @@ public class Android {
 	
 	public String checkPowerUps(String userId) throws SQLException {
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
-		String queryUser = "SELECT * from PowerUps WHERE userId = '" + userId + "'" + "and dateUsed IS NULL";
+		String queryUser = "SELECT * from PowerUps WHERE userId = ? and dateUsed IS NULL";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryUser);
+			PreparedStatement prepState = conn.prepareStatement(queryUser);
+			prepState.setString(1, userId);
+			ResultSet rs = prepState.executeQuery(queryUser);
 			if(rs.absolute(1))
 			{
 				return rs.toString();

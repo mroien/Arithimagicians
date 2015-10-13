@@ -31,10 +31,12 @@ public class Website {
 	public String loginUser(String userName, String password) throws SQLException {
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
 		String hash = encrypt(password);
-		String queryUser = "SELECT * from Users WHERE username = '" + userName + "'" + "and hash = '" + hash +"'";
+		String queryUser = "SELECT * from Users WHERE username = ? and hash = ?";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryUser);
+			PreparedStatement prepState = conn.prepareStatement(queryUser);
+			prepState.setString(1, userName);
+			prepState.setString(2, hash);
+			ResultSet rs = prepState.executeQuery(queryUser);
 			if(rs.absolute(1))
 			{
 				return "Success";
@@ -53,10 +55,11 @@ public class Website {
 				+ "(userName, email, hash, salt) VALUES"
 				+ "(?,?,?,?)";
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
-		String queryUser = "SELECT * from Users WHERE username = '" + userName + "'";
+		String queryUser = "SELECT * from Users WHERE username = ?";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryUser);
+			PreparedStatement prepStateFirst = conn.prepareStatement(queryUser);
+			prepStateFirst.setString(1, userName);
+			ResultSet rs = prepStateFirst.executeQuery(queryUser);
 			if(rs.absolute(1))
 			{
 				return "User already found";
@@ -97,15 +100,18 @@ public class Website {
  * @throws SQLException 
  */
 	public String deleteAccount(String userName) throws SQLException {
-		String deleteUser = "DELETE FROM user WHERE userName = '" + userName + "'";
+		String deleteUser = "DELETE FROM user WHERE userName = ?";
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
-		String queryUser = "SELECT * from Users WHERE username = '" + userName + "'";
+		String queryUser = "SELECT * from Users WHERE username = ?";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryUser);
+			PreparedStatement prepStateFirst = conn.prepareStatement(queryUser);
+			prepStateFirst.setString(1, userName);
+			ResultSet rs = prepStateFirst.executeQuery(queryUser);
 			if(rs.absolute(1))
 			{
-				st.executeUpdate(deleteUser);
+				PreparedStatement prepStateDelete = conn.prepareStatement(deleteUser);
+				prepStateDelete.setString(1, userName);
+				prepStateDelete.executeUpdate(deleteUser);
 				return "Account Delete";
 			}
 			
@@ -119,10 +125,11 @@ public class Website {
 
 	public String getTransactions(String accountId) throws SQLException {
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
-		String queryTrans = "SELECT * from Transactions WHERE username = '" + userName + "'";
+		String queryTrans = "SELECT * from Transactions WHERE accountId = ?";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryTrans);
+			PreparedStatement prepStateFirst = conn.prepareStatement(queryTrans);
+			prepStateFirst.setString(1, accountId);
+			ResultSet rs = prepStateFirst.executeQuery(queryTrans);
 			if(rs != null){
 				return rs.toString();
 			}
@@ -138,8 +145,8 @@ public class Website {
 		conn = DriverManager.getConnection(ip, dbUser, dbPass);
 		String queryLeaderboards = "SELECT top 20 from Leaderboard";
 		try {
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(queryLeaderboards);
+			PreparedStatement prepStateFirst = conn.prepareStatement(queryLeaderboards);
+			ResultSet rs = prepStateFirst.executeQuery(queryLeaderboards);
 			if(rs != null){
 				return rs.toString();
 			}
