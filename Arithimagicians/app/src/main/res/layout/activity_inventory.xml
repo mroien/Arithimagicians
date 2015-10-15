@@ -11,27 +11,28 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/healthPotionButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="25dp"
-        android:src="@android:drawable/ic_btn_speak_now"/>
+        android:src="@android:drawable/ic_btn_speak_now"
+        android:onClick="useHealthPotion"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton2"
+        android:id="@+id/manaPotionButton"
         android:src="@android:drawable/ic_btn_speak_now"
-        android:layout_alignTop="@+id/imageButton"
+        android:layout_alignTop="@+id/healthPotionButton"
         android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
+        android:id="@+id/randomShitbutton"
         android:src="@android:drawable/ic_btn_speak_now"
-        android:layout_alignTop="@+id/imageButton2"
+        android:layout_alignTop="@+id/manaPotionButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -40,8 +41,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
-        android:id="@+id/textView"
-        android:layout_below="@+id/imageButton"
+        android:id="@+id/healthPotionTextView"
+        android:layout_below="@+id/healthPotionButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="25dp"/>
@@ -52,7 +53,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1"
         android:id="@+id/textView2"
-        android:layout_below="@+id/imageButton2"
+        android:layout_below="@+id/manaPotionButton"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -61,8 +62,17 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
         android:id="@+id/textView3"
-        android:layout_below="@+id/imageButton2"
+        android:layout_below="@+id/randomShitbutton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="25dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/closeButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="closeClick"/>
 </RelativeLayout>
