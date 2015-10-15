@@ -9,7 +9,7 @@
     </style>
 
     <style name="InventoryDialog" parent="@android:style/Theme.Holo.Dialog">
-        <item name="android:windowBackground">@drawable/title_splash_screenres</item>
+       <item name="android:windowBackground">@drawable/title_splash_screenres</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
