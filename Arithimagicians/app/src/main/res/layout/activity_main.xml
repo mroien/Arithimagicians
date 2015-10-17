@@ -11,12 +11,25 @@
         android:layout_width="270dp"
         android:layout_height="60dp"
         android:text=""
+        android:id="@+id/loadGameButton"
+        android:background ="@null"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="loadGameClicked"
+        android:layout_above="@+id/newGameButton"
+        android:layout_alignLeft="@+id/newGameButton"
+        android:layout_alignStart="@+id/newGameButton" />
+
+    <Button
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:text=""
         android:id="@+id/newGameButton"
-        android:layout_marginBottom="108dp"
         android:background ="@null"
         android:clickable="true"
         android:enabled="true"
         android:onClick="newGameClicked"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp" />
 </RelativeLayout>
