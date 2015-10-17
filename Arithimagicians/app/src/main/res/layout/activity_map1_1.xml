@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingBottom="8dp"
     android:background="@drawable/map1_1"
     tools:context="ics499.arithimagicians.DisplayMap">
 
@@ -21,4 +21,17 @@
         android:clickable="true"
         android:enabled="true"
         android:onClick="inventoryClicked"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/button1_1"
+        android:background="@null"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="button1_1Clicked"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="245dp"
+        android:layout_marginBottom="-5dp"/>
 </RelativeLayout>

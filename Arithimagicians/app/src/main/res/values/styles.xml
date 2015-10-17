@@ -9,8 +9,16 @@
     </style>
 
     <style name="InventoryDialog" parent="@android:style/Theme.Holo.Dialog">
-       <item name="android:windowBackground">@drawable/title_splash_screenres</item>
+       <item name="android:windowBackground">@drawable/mapdesc</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="MapDescriptionDialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowBackground">@drawable/mapdesc</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
