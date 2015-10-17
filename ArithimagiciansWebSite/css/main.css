@@ -1,0 +1,56 @@
+body {
+    background-image:url("../images/forest.jpg");
+
+}
+
+/*called peas carrots font*/
+@font-face {
+    font-family:'Peas & Carrots';
+    src: url('../fonts/peas_carrots/Peas & Carrots.ttf');
+}
+
+h1#title {
+    text-align: center;
+    font-family:'Peas & Carrots';
+    font-size: 70px;
+    text-shadow: 2px 0 0 black;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    color: cadetblue;
+    text-shadow: 2px 0 0 black;
+}
+
+.leftNav {
+    display:block;
+    left: 10px;
+    position:absolute;
+    max-width: 10%;
+}
+
+.btn-default{
+    margin:3px;
+}
+
+form {
+    position: absolute;
+    /*border: 3px solid red;*/
+    margin: auto;
+    left: 26em;
+    top: 11em;
+    right:0;
+    bottom:0;
+    height: 260px;
+
+}
+
+label {
+    width: 108px;
+    color:white;
+    text-shadow: 2px 0 0 black;
+    text-align: right;
+
+
+}
