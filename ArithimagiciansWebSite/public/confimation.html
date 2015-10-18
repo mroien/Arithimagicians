@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>LogIn</title>
+    <title>Confirmation Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -13,28 +13,19 @@
 <body>
 <div class="container">
     <div class="row">
-        <h1>LogIn</h1>
+        <h1>Confirmation Page</h1>
         <div class="leftNav col-xs-2 col-xl-2">
             <a href="index.html" class="btn-default btn">Home</a>
             <a href="signup.html" class="btn-default btn">Sign Up</a>
+            <a href="login.html" class="btn-default btn">Login</a>
             <a href="download.html" class="btn-default btn">Download</a>
             <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
             <a href="about.html" class="btn-default btn">About</a>
+
         </div>
         <img src="../images/Scroll.png" class="scroll">
-        <form method="post" action="" id="login">
-            <fieldset>
-                <label for="username">
-                    Username:
-                </label>
-                <input type="text" id="username" name="username" placeholder="Username" autofocus required pattern="[\w\D]{5,15}"><br>
-                <label for="password">
-                    Password:
-                </label>
-                <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{5,15}"><br>
-                <input type="submit" id="submit" name="submit">
-            </fieldset>
-        </form>
+        <p class="description confirm"> Congratulations, you created an account!
+        </p>
     </div>
 </div>
 

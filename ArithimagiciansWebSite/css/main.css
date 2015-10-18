@@ -9,16 +9,10 @@ body {
     src: url('../fonts/peas_carrots/Peas & Carrots.ttf');
 }
 
-h1#title {
+h1 {
     text-align: center;
     font-family:'Peas & Carrots';
     font-size: 70px;
-    text-shadow: 2px 0 0 black;
-}
-
-h1 {
-    text-align: center;
-    font-size: 50px;
     color: cadetblue;
     text-shadow: 2px 0 0 black;
 }
@@ -34,23 +28,55 @@ h1 {
     margin:3px;
 }
 
+.description {
+    color:black;
+    font-size: medium;
+    position: absolute;
+    width: 220px;
+    margin: auto;
+    left: 2em;
+    top: -12em;
+    right:0;
+    bottom:0;
+    height: 140px;
+    font-family: fantasy;
+}
+
 form {
     position: absolute;
     /*border: 3px solid red;*/
     margin: auto;
-    left: 26em;
+    left: 30em;
     top: 11em;
     right:0;
     bottom:0;
     height: 260px;
-
+    z-index: 999999;
 }
 
 label {
     width: 108px;
-    color:white;
-    text-shadow: 2px 0 0 black;
     text-align: right;
 
-
 }
+
+#submit {
+    left: 5%;
+}
+
+.scroll {
+    position: absolute;
+    margin: auto;
+    left: 2em;
+    top: -1em;
+    right:0;
+    bottom:0;
+}
+
+.confirm {
+    font-size: x-large;
+    top: -5em;
+}
+
+
+
