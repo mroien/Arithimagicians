@@ -1,6 +1,5 @@
 body {
     background-image:url("../images/forest.jpg");
-
 }
 
 /*called peas carrots font*/
@@ -21,7 +20,7 @@ h1 {
     display:block;
     left: 10px;
     position:absolute;
-    max-width: 10%;
+    max-width: 5%;
 }
 
 .btn-default{
