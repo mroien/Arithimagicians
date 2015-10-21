@@ -9,30 +9,36 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/healthPotionButton"
-        android:src="@android:drawable/ic_btn_speak_now"
+        android:src="@null"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Item"
         android:onClick="useHealthPotion"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="40dp"
 />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/manaPotionButton"
-        android:src="@android:drawable/ic_btn_speak_now"
+        android:src="@null"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Item"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="137dp"
       />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/randomShitbutton"
-        android:src="@android:drawable/ic_btn_speak_now"
+        android:src="@null"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Item"
         android:layout_marginLeft="235dp"
         android:layout_marginTop="80dp"
 

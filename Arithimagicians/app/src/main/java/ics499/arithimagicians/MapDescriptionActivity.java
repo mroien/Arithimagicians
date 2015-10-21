@@ -37,6 +37,13 @@ public class MapDescriptionActivity extends Activity {
         this.finish();
     }
 
+    public void fightClick(View view)
+    {
+        Intent fightIntent = new Intent(this, FightActivity.class);
+        fightIntent.putExtra("player", player);
+        startActivity(fightIntent);
+    }
+
     public void setDesc(String level)
     {
         TextView t = (TextView) findViewById(R.id.mapDescTextView);
