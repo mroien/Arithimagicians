@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    < class="row">
         <h1>Sign Up Page</h1>
 
         <div class="leftNav col-xs-4 col-xl-2">
@@ -22,7 +22,7 @@
             <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
             <a href="about.html" class="btn-default btn">About</a>
         </div>
-
+        <img src="../images/Scroll.png" class="scroll">
         <form action="confirmation.html" method="post" id="signUpForm" class="col-xs-8 col-xl-10">
 
             <fieldset>
@@ -95,12 +95,10 @@
                 <input type="number" name="zip" id="zip" placeholder="Zip Code" pattern="[\D-]{5,10}" required/><br>
                 <label for="email">Email Address:*</label>
                 <input type="email" name="email" id="email" placeholder="Email Address" pattern="[\w\D]{5,50}" required/><br>
-                <div class="center">
-                <input type="submit" name="submit" id="submit" value="Submit"/><br>
-                </div>
+                <input type="submit" name="submit" class="bottomButton"/>
+                <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
-        <img src="../images/Scroll.png" class="scroll">
     </div>
 </div>
 
