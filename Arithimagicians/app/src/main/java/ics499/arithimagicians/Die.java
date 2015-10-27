@@ -1,9 +1,12 @@
 package ics499.arithimagicians;
 
+import java.io.Serializable;
+import java.security.SecureRandom;
+
 /**
  * Created by Jacob Kinzer on 10/15/2015.
  */
-public class Die {
+public class Die implements Serializable{
     private int diceValue;
     private String diceType;
     private int bonusDamage;

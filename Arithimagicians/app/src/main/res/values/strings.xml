@@ -5,6 +5,23 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="MapDescriptionActivity">MapDescriptionActivity</string>
-    <string name="Level1_1">LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-LEVEL 1-1 Desc-</string>
-    <string name="Level1_2">LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-LEVEL1-2 Desc-</string>
+    <string name="Level1_1">To get to the University, you need to sneak through the Nolfwood. Dispatch this gobloid scout before he warns the nearby village!</string>
+    <string name="Level1_2">A gobloid ambush! That scout must not have been alone.</string>
+    <string name="Level1_3">You\'ve stumbled onto a gobloid village and alerted the guards. Defeat these two and get out of here!</string>
+    <string name="Level1_4">You ran the wrong way. Now the village shaman and personal guards are here.</string>
+    <string name="Level1_5">You\'ve fought your way to the edge of the forest. Just as you\'re about to escape, a skeletonian shows up!</string>
+    <string name="Level2_1">The Battlefield of Haygor is infested with Skeletonians. Defeat these two and move through here quickly.</string>
+    <string name="Level2_2">Old King Hradrick fell here. His personal guards are still protecting him, though.</string>
+    <string name="Level2_3">You\'re halfway to the University. You can make it!</string>
+    <string name="Level2_4">Uh Oh. It looks like you woke up an old evil wizard. You better get out of here!</string>
+    <string name="Level2_5">That wizard won\'t give up, but you can see the King\'s Highway from here. Defeat the wizard again.</string>
+    <string name="Level3_1">These skeletonians won\'t stop chasing you, and it looks like the gobloids have ran around the battlefield.</string>
+    <string name="Level3_2">The stone marker here means the University watchtower can see you. Hopefully they send out some guards soon!</string>
+    <string name="Level3_3">You\'re in the valley below the University now, and an army of gobloids and skeletonians are chasing you. Keep fighting! Keep moving! You can see help on the way.</string>
+    <string name="Level3_4">The First Gate is unmanned, but arithimagicians are starting to fight some of the other enemies. You\'re almost there!</string>
+    <string name="Level3_5">The Dean stands at the top of the gate, commanding the other students. Defeat these last foes and you\'re home free!</string>
+    <string name="title_activity_dice">DiceActivity</string>
+
+
+
 </resources>

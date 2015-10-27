@@ -21,12 +21,14 @@ import java.io.ObjectOutputStream;
 public class MapDescriptionActivity extends Activity {
     private Player player;
     private String level;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent getIntent = getIntent();
         player = (Player) getIntent.getSerializableExtra("player");
         level = getIntent.getStringExtra("level");
+
         setContentView(R.layout.activity_map_descripition);
         setDesc(level);
 
@@ -41,6 +43,7 @@ public class MapDescriptionActivity extends Activity {
     {
         Intent fightIntent = new Intent(this, FightActivity.class);
         fightIntent.putExtra("player", player);
+        fightIntent.putExtra("level", level);
         startActivity(fightIntent);
     }
 
@@ -54,6 +57,47 @@ public class MapDescriptionActivity extends Activity {
             case "1_2":
                 t.setText(getResources().getString(R.string.Level1_2));
                 break;
+            case "1_3":
+                t.setText(getResources().getString(R.string.Level1_3));
+                break;
+            case "1_4":
+                t.setText(getResources().getString(R.string.Level1_4));
+                break;
+            case "1_5":
+                t.setText(getResources().getString(R.string.Level1_5));
+                break;
+            case "2_1":
+                t.setText(getResources().getString(R.string.Level2_1));
+                break;
+            case "2_2":
+                t.setText(getResources().getString(R.string.Level2_2));
+                break;
+            case "2_3":
+                t.setText(getResources().getString(R.string.Level2_3));
+                break;
+            case "2_4":
+                t.setText(getResources().getString(R.string.Level2_4));
+                break;
+            case "2_5":
+                t.setText(getResources().getString(R.string.Level2_5));
+                break;
+            case "3_1":
+                t.setText(getResources().getString(R.string.Level3_1));
+                break;
+            case "3_2":
+                t.setText(getResources().getString(R.string.Level3_2));
+                break;
+            case "3_3":
+                t.setText(getResources().getString(R.string.Level3_3));
+                break;
+            case "3_4":
+                t.setText(getResources().getString(R.string.Level3_4));
+                break;
+            case "3_5":
+                t.setText(getResources().getString(R.string.Level3_5));
+                break;
+
+
         }
     }
 

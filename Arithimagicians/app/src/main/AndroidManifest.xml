@@ -33,6 +33,11 @@
             android:label="MapDescription"
             android:theme="@style/MapDescriptionDialog" >
         </activity>
+        <activity
+            android:name=".DiceActivity"
+            android:label="@string/title_activity_dice"
+            android:theme="@style/MapDescriptionDialog" >
+        </activity>
     </application>
 
 </manifest>
