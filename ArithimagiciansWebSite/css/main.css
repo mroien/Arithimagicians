@@ -1,5 +1,6 @@
 body {
-    background-image:url("../images/forest.jpg");
+    background: url("../images/forest.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 /*called peas carrots font*/
@@ -16,11 +17,12 @@ h1 {
     text-shadow: 2px 0 0 black;
 }
 
-.leftNav {
+.leftNav, .infoBtnWrapper{
     display:block;
     left: 10px;
     position:absolute;
     max-width: 5%;
+    top: 14%;
 }
 
 .btn-default{
@@ -41,16 +43,27 @@ h1 {
     font-family: fantasy;
 }
 
-form {
+form#login {
+    position: absolute;
+    /*border: 3px solid red;*/
+    text-align: center;
+    margin: auto;
+    left: 43%;
+    top: 43%;
+    height: 260px;
+    z-index: 999;
+}
+
+form#signUpForm {
     position: absolute;
     /*border: 3px solid red;*/
     margin: auto;
-    left: 30em;
-    top: 11em;
-    right:0;
-    bottom:0;
-    height: 260px;
-    z-index: 999999;
+    left: 39%;
+    top: 28%;
+    max-height: 27%;
+    min-width: 35%;
+    z-index: 999;
+    width:19%;
 }
 
 label {
@@ -59,15 +72,17 @@ label {
 
 }
 
-#submit {
-    left: 5%;
+.bottomButton {
+    position: relative;
+    left: 34%;
+    margin: auto;
 }
 
 .scroll {
     position: absolute;
     margin: auto;
-    left: 2em;
-    top: -1em;
+    left: 2%;
+    top: -5%;
     right:0;
     bottom:0;
 }
@@ -77,5 +92,12 @@ label {
     top: -5em;
 }
 
+.scrollWrapper {
+    width: 100%;
+    height: 100%;
+}
 
-
+.infoBtnWrapper {
+    display: block;
+    text-align: right;
+}
