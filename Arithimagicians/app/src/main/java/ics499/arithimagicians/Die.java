@@ -30,4 +30,6 @@ public class Die implements Serializable{
     public int rollDice() {
         return 0;
     }
+
+    public String getDiceType(){ return this.diceType; }
 }

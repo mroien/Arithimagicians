@@ -2,10 +2,12 @@ package ics499.arithimagicians;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,10 +33,11 @@ public class FightActivity extends AppCompatActivity {
 
     public void attackClicked(View view)
     {
-        String firstRowFirstDice;
-        String firstRowSecondDice;
-        String secondRowFirstDice;
-        String secondRowSecondDice;
+        ImageButton firstRowFirstDice = (ImageButton) findViewById(R.id.firstRowFirstDice);
+        Drawable firstRowFirstDiceDraw = firstRowFirstDice.getBackground();
+        ImageButton firstRowSecondDice = (ImageButton) findViewById(R.id.firstRowSecondDice);
+        ImageButton secondRowFirstDice = (ImageButton) findViewById(R.id.secondRowFirstDice);
+        ImageButton secondRowSecondDice = (ImageButton) findViewById(R.id.secondRowSecondDice);
 
     }
     public void inventoryClicked(View view) {
@@ -66,7 +69,40 @@ public class FightActivity extends AppCompatActivity {
     public void diceClicked(View view){
         Intent diceIntent = new Intent(this, DiceActivity.class);
         diceIntent.putExtra("player", player);
-        startActivityForResult(diceIntent, 100);
+        switch(view.getId()){
+            case R.id.firstRowFirstDice:
+                diceIntent.putExtra("diceLoc", "firstRowFirstDice");
+                startActivityForResult(diceIntent, 110);
+                break;
+            case R.id.firstRowSecondDice:
+                diceIntent.putExtra("diceLoc", "firstRowSecondDice");
+                startActivityForResult(diceIntent, 110);
+                break;
+            case R.id.secondRowFirstDice:
+                diceIntent.putExtra("diceLoc", "secondRowFirstDice");
+                startActivityForResult(diceIntent, 110);
+                break;
+            case R.id.secondRowSecondDice:
+                diceIntent.putExtra("diceLoc", "secondRowSecondDice");
+                startActivityForResult(diceIntent, 110);
+                break;
+
+        }
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 104){
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d4);
+        }
     }
 
 }

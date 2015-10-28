@@ -12,39 +12,39 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/d4Dice"
+        android:id="@+id/d4"
         android:src="@null"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Item"
         android:onClick="selectDice"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="50dp"
-        android:background="@drawable/dicex"
+        android:background="@drawable/d4"
         />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/d6Dice"
+        android:id="@+id/d6"
         android:src="@null"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Item"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="145dp"
-        android:background="@drawable/dicex"
+        android:background="@drawable/d4"
         android:onClick="selectDice"
         />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/d8Dice"
+        android:id="@+id/d8"
         android:src="@null"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Item"
         android:layout_marginLeft="242dp"
         android:layout_marginTop="80dp"
-        android:background="@drawable/dicex"
+        android:background="@drawable/d4"
         android:onClick="selectDice"
 
         />
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
-        android:id="@+id/healthPotionTextView"
+        android:id="@+id/d4TextView"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="110dp"
         android:textColor="#000000" />
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
-        android:id="@+id/textView2"
+        android:id="@+id/d6TextView"
         android:layout_marginLeft="156dp"
         android:layout_marginTop="110dp"
         android:textColor="#000000" />
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
-        android:id="@+id/textView3"
+        android:id="@+id/d8TextView"
         android:layout_marginLeft="253dp"
         android:layout_marginTop="110dp"
         android:textColor="#000000" />

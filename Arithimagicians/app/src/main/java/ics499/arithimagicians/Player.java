@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Player extends Character implements Serializable {
     private ArrayList<Die> dice;
+    private ArrayList<Die> diceUsed;
     private int xp;
     private ArrayList<PowerUpItem> powerUps;
     private ArrayList<Item> inventory;
@@ -23,6 +24,7 @@ public class Player extends Character implements Serializable {
         // Change to actual values
         super(100, 1);
         this.dice = new ArrayList<Die>();
+        this.diceUsed = new ArrayList<Die>();
         Die dice = new Die();
         this.dice.add(dice);
         this.dice.add(dice);
@@ -79,4 +81,17 @@ public class Player extends Character implements Serializable {
         this.inventory = inv;
     }
 
+    public ArrayList<Die> getDice(){ return this.dice;}
+
+    public void setDiceUsed(Die dice){
+        diceUsed.add(dice);
+    }
+
+    public ArrayList<Die> getDiceUsed(){
+        return diceUsed;
+    }
+
+    public void resetDiceUsed(){
+        diceUsed = new ArrayList<Die>();
+    }
 }
