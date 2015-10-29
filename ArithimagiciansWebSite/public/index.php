@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 require('leftNav.php');
-echo basename($_SERVER['PHP_SELF']);
+//echo basename($_SERVER['PHP_SELF']);
 ?>
 <html>
 

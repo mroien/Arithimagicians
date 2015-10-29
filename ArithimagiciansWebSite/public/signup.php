@@ -22,6 +22,7 @@ require('leftNav.php');
         <form action="confirmation.php" method="post" id="signUpForm" class="col-xs-8 col-xl-10">
 
             <fieldset>
+                <div class="red">Required Fields * </div><br>
                 <label for="firstName">First Name:*</label>
                 <input type="text" name="firstName" id="firstName" placeholder="First Name" autofocus pattern="[\w]{1,20}" required/><br>
                 <label for="lastName">Last Name:*</label>
@@ -92,7 +93,7 @@ require('leftNav.php');
                 <label for="username">Username:*</label>
                 <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,10}" required/><br>
                 <label for="password1">Password:*</label>
-                <input type="password" name="password1" id="password1" placeholder="Password" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
+                <input type="password" name="password1" id="password1" placeholder="Pwd must be 6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>
                 <input type="password" name="password2" id="password2" placeholder="Confirm Password" pattern="[\w\D]{6,15}" required/><br>
                 <input type="submit" name="submit" class="bottomButton"/>

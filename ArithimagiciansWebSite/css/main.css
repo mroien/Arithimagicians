@@ -59,7 +59,7 @@ form#signUpForm {
     /*border: 3px solid red;*/
     margin: auto;
     left: 39%;
-    top: 28%;
+    top: 22%;
     max-height: 27%;
     min-width: 35%;
     z-index: 999;
@@ -100,4 +100,7 @@ label {
 .infoBtnWrapper {
     display: block;
     text-align: right;
+}
+.red {
+    color: red;
 }
