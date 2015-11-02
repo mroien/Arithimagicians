@@ -6,7 +6,7 @@ Team project for ICS 499 Capstone at Metropolitan State University
 
 
 # Team Members
-- [Tim Oien](www.github.com/mroien)
+- [Tim Oien](www.github.com/)
 - [David Otten](www.github.com/davidotten)
 - [Brian Shaffer](www.github.com/Shafeman)
 - [Jacob Kinzer](www.github.com/jacobkinzer01)
