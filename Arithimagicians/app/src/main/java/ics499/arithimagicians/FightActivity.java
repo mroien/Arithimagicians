@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jacob Kinzer on 10/20/2015.
  */
@@ -21,6 +23,7 @@ public class FightActivity extends AppCompatActivity {
     private String secondRowOp;
     private String firstRowAns;
     private String secondRowAns;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,12 @@ public class FightActivity extends AppCompatActivity {
         ImageButton firstRowSecondDice = (ImageButton) findViewById(R.id.firstRowSecondDice);
         ImageButton secondRowFirstDice = (ImageButton) findViewById(R.id.secondRowFirstDice);
         ImageButton secondRowSecondDice = (ImageButton) findViewById(R.id.secondRowSecondDice);
-
+        //firstRowFirstDice.getBackground()
+        //ArrayList<Die> dice = player.getDiceUsed();
+        int playerAttack = 0;
+        //for(Die d : dice){
+        //    playerAttack += d.rollDice();
+      //  }
     }
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);

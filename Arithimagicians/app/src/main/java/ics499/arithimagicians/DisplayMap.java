@@ -13,8 +13,12 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
+/**
+ * Display map activity that shows what location a player can fight on
+ */
 public class DisplayMap extends AppCompatActivity {
     private Player player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,13 @@ public class DisplayMap extends AppCompatActivity {
         setContent();
     }
 
+    /**
+     * Inventory clicked method that will be used when a player clicks the inventory icon
+     * Create the new inventory intent, put the player object into it, and start the activity for a result,
+     * so we know which powerup or consumable they used
+     *
+     * @param view
+     */
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
@@ -31,9 +42,13 @@ public class DisplayMap extends AppCompatActivity {
 
     }
 
-    public void button1_1Clicked(View view){
+    /**
+     * Used when a fight location is clicked. Create the level descripition event then switch off which location was clicked
+     * Put in the player object and put which level was clicked into the intent
+     */
+    public void button1_1Clicked(View view) {
         Intent levelDescripitionEvent = new Intent(this, MapDescriptionActivity.class);
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.button1_1:
                 levelDescripitionEvent.putExtra("player", player);
                 levelDescripitionEvent.putExtra("level", "1_1");
@@ -47,15 +62,19 @@ public class DisplayMap extends AppCompatActivity {
         }
 
     }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
     }
 
-    public void setContent(){
+    /**
+     * Set content method to display which map to show based of what location a player has last beat
+     */
+    public void setContent() {
         String lastMap = player.getLastMap();
-        switch(lastMap){
+        switch (lastMap) {
             case "1_1":
                 setContentView(R.layout.activity_map1_1);
                 break;
@@ -66,19 +85,19 @@ public class DisplayMap extends AppCompatActivity {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         ObjectOutput out = null;
         String fileName = "savedGame";
-        File saved = new File(getFilesDir(),fileName);
+        File saved = new File(getFilesDir(), fileName);
 
-        try{
+        try {
             out = new ObjectOutputStream(new FileOutputStream(saved));
             out.writeObject(player);
             out.close();
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

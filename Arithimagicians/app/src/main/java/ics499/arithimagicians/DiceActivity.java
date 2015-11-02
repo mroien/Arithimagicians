@@ -4,15 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Dice activity class that pops up when a user selects to use a dice in a fight activity
+ */
 public class DiceActivity extends Activity {
     private Player player;
     private ArrayList<Die> dice;
     private String diceLoc;
     private ArrayList<Die> diceUsed;
+    private String currentElement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +29,17 @@ public class DiceActivity extends Activity {
         diceLoc = getIntent.getStringExtra("diceLoc");
         generateDice();
         setDiceCount();
+
     }
 
+    /**
+     * Performed when the close button is clicked on the dialog
+     * Create the new intent that is going back to the fight activity
+     * Put the player object into the intent so that we can keep variables between intents
+     * Send a result of 100, meaning close click and finish this intent
+     *
+     * @param view View of the dialog
+     */
     public void closeClick(View view) {
         Intent previous = new Intent(getApplicationContext(), FightActivity.class);
         previous.putExtra("player", this.player);
@@ -32,12 +47,22 @@ public class DiceActivity extends Activity {
         this.finish();
     }
 
+
+
+    /**
+     * Select dice method that is used when a dice in the dice dialog is clicked
+     * Create a new intent to go back to the fight activity, put in the player object, which dice is selected, and the location that was selected from the fight activity
+     * Switch off which dice was clicked, if D4 we swap the D4 out of the inventory and put it into the diceUsed array to signify it is being used
+     * Then set the result to the dice number, eg 104 for D4, then finish the dialog
+     *
+     * @param view View of the dialog
+     */
     public void selectDice(View view) {
         Intent previous = new Intent(getApplicationContext(), FightActivity.class);
         previous.putExtra("player", this.player);
         previous.putExtra("diceSelected", view.getId());
         previous.putExtra("diceLoc", diceLoc);
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.d4:
                 swapDice("D4");
                 setResult(104, previous);
@@ -57,9 +82,15 @@ public class DiceActivity extends Activity {
 
     }
 
-    public void swapDice(String diceClicked){
-        for(Die d : dice){
-            if(d.getDiceType().equals(diceClicked)){
+    /**
+     * Swap dice method used to take a dice from the player inventory and put it into the players usedDice array
+     *
+     * @param diceClicked String value of what dice was clicked
+     */
+    public void swapDice(String diceClicked) {
+        for (Die d : dice) {
+            if (d.getDiceType().equals(diceClicked)) {
+                d.setElement(currentElement);
                 dice.remove(d);
                 diceUsed.add(d);
                 break;
@@ -67,10 +98,44 @@ public class DiceActivity extends Activity {
         }
     }
 
+    public void selectEle(View view)
+    {
+        CheckBox checkIce  = (CheckBox) findViewById(R.id.iceCheck);
+        CheckBox checkLight  = (CheckBox) findViewById(R.id.lightCheck);
+        CheckBox checkFire  = (CheckBox) findViewById(R.id.fireCheck);
+
+        switch(view.getId()){
+            case R.id.ice:
+                currentElement = "Ice";
+                checkIce.setChecked(true);
+                checkLight.setChecked(false);
+                checkFire.setChecked(false);
+                break;
+            case R.id.lightning:
+                currentElement = "Light";
+                checkIce.setChecked(false);
+                checkLight.setChecked(true);
+                checkFire.setChecked(false);
+                break;
+            case R.id.fire:
+                currentElement = "Fire";
+                checkIce.setChecked(false);
+                checkLight.setChecked(false);
+                checkFire.setChecked(true);
+                break;
+        }
+    }
+
+    /**
+     * Generate dice method to populate dice array with the players available dice
+     */
     public void generateDice() {
         dice = player.getDice();
     }
 
+    /**
+     * Method to set the dice textfields to state how many dice of each the player has
+     */
     public void setDiceCount() {
         int d4 = 0;
         int d6 = 0;
@@ -116,9 +181,9 @@ public class DiceActivity extends Activity {
 
         TextView t = (TextView) findViewById(R.id.d4TextView);
         t.setText(Integer.toString(d4));
-         t = (TextView) findViewById(R.id.d6TextView);
+        t = (TextView) findViewById(R.id.d6TextView);
         t.setText(Integer.toString(d6));
-         t = (TextView) findViewById(R.id.d8TextView);
+        t = (TextView) findViewById(R.id.d8TextView);
         t.setText(Integer.toString(d8));
 
     }

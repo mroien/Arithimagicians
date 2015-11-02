@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Inventory activity to display the inventory of the user
+ */
 public class InventoryActivity extends Activity {
     private int healthPotionCount;
     private Player player;
@@ -26,11 +29,21 @@ public class InventoryActivity extends Activity {
 
     }
 
+    /**
+     * Use item 1 in the inventory click handler. Decerement the amt of item in the inventory and the set the player inventory
+     *
+     * @param view View of the dialog
+     */
     public void useHealthPotion(View view) {
         inventory.get(0).decrementValue();
         setInventoryCount();
     }
 
+    /**
+     * Close button clicked. Create a previous intent to go back to the map class, put the player object in there, then start it
+     *
+     * @param view View of the dialog
+     */
     public void closeClick(View view) {
         player.setInventory(inventory);
         Intent previous = new Intent(getApplicationContext(), DisplayMap.class);
@@ -39,6 +52,9 @@ public class InventoryActivity extends Activity {
         this.finish();
     }
 
+    /**
+     * Method to set the count of the inventory of the player
+     */
     public void setInventoryCount() {
         int healthPotion = inventory.get(0).getValue();
         TextView t = (TextView) findViewById(R.id.healthPotionTextView);

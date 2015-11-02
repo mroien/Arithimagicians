@@ -35,8 +35,8 @@
         </activity>
         <activity
             android:name=".DiceActivity"
-            android:label="@string/title_activity_dice"
-            android:theme="@style/MapDescriptionDialog" >
+            android:label="Dice"
+            android:theme="@style/DiceDialog" >
         </activity>
     </application>
 
