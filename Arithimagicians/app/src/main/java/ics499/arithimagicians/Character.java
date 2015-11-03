@@ -7,18 +7,20 @@ import java.io.Serializable;
  * Main Charcacter super class for opponents and players
  */
 public class Character implements Serializable {
-    private int health;
+    private int currentHealth;
     private int attack;
+    private int totalHealth;
 
     /**
      * Constructor for creating a Character
      *
-     * @param health int health number of the character
+     * @param currentHealth int currentHealth number of the character
      * @param attack int attack number of the character
      */
-    public Character(int health, int attack) {
-        this.health = health;
+    public Character(int currentHealth, int attack) {
+        this.currentHealth = currentHealth;
         this.attack = attack;
+        this.totalHealth = currentHealth;
     }
 
     /**
@@ -29,5 +31,18 @@ public class Character implements Serializable {
     private Double calculateDamage() {
 
         return 0.0;
+    }
+
+    public void takeDamage(int damage){
+        this.currentHealth = this.currentHealth - damage;
+    }
+
+    public int getCurrentHealth(){
+        return this.currentHealth;
+    }
+
+    public int getPercentHealthLeft(){
+        double z = ((double)this.currentHealth / (double)this.totalHealth) * 100;
+        return (int) z;
     }
 }

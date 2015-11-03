@@ -22,7 +22,7 @@ public class Player extends Character implements Serializable {
 
     public Player() {
         // Change to actual values
-        super(100, 1);
+        super(10, 1);
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();
         Die dice = new Die();
@@ -93,5 +93,13 @@ public class Player extends Character implements Serializable {
 
     public void resetDiceUsed(){
         diceUsed = new ArrayList<Die>();
+    }
+
+    public void swapDiceBackToInv(){
+        for(Die d : diceUsed){
+            Die temp = d;
+            dice.add(d);
+        }
+        diceUsed.clear();
     }
 }

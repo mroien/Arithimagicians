@@ -15,7 +15,7 @@ public class Die implements Serializable{
 
     public Die() {
         this.diceValue = 4;
-        this.diceType = "D4";
+        this.diceType = "d4";
         this.bonusDamage = 0;
         this.element = "";
     }
@@ -32,7 +32,7 @@ public class Die implements Serializable{
 
     public int rollDice() {
         Random random = new Random();
-        int roll = random.nextInt(this.diceValue - 1) + 1;
+        int roll = random.nextInt(this.diceValue -1) + 1;
         return roll;
     }
 

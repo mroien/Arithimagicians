@@ -62,19 +62,20 @@ public class DiceActivity extends Activity {
         previous.putExtra("player", this.player);
         previous.putExtra("diceSelected", view.getId());
         previous.putExtra("diceLoc", diceLoc);
+        previous.putExtra("element", currentElement );
         switch (view.getId()) {
             case R.id.d4:
-                swapDice("D4");
+                swapDice("d4");
                 setResult(104, previous);
                 this.finish();
                 break;
             case R.id.d6:
-                swapDice("D6");
+                swapDice("d6");
                 setResult(106, previous);
                 this.finish();
                 break;
             case R.id.d8:
-                swapDice("D8");
+                swapDice("d8");
                 setResult(108, previous);
                 this.finish();
                 break;
@@ -148,31 +149,31 @@ public class DiceActivity extends Activity {
         int d20 = 0;
         for (Die d : dice) {
             switch (d.getDiceType()) {
-                case "D4":
+                case "d4":
                     d4++;
                     break;
-                case "D6":
+                case "d6":
                     d6++;
                     break;
-                case "D8":
+                case "d8":
                     d8++;
                     break;
-                case "D10":
+                case "d10":
                     d10++;
                     break;
-                case "D12":
+                case "d12":
                     d12++;
                     break;
-                case "D14":
+                case "d14":
                     d14++;
                     break;
-                case "D16":
+                case "d16":
                     d16++;
                     break;
-                case "D18":
+                case "d18":
                     d18++;
                     break;
-                case "D20":
+                case "d20":
                     d20++;
                     break;
 
