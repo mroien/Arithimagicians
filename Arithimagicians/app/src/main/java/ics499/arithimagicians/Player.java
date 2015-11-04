@@ -27,10 +27,11 @@ public class Player extends Character implements Serializable {
         this.diceUsed = new ArrayList<Die>();
         Die dice = new Die();
         Die dice6 = new Die(6, "d6", 0);
+        Die dice6Two = new Die(6, "d6", 0);
         Die dice8 = new Die(8, "d8", 0);
         this.dice.add(dice);
         this.dice.add(dice6);
-        this.dice.add(dice6);
+        this.dice.add(dice6Two);
         this.dice.add(dice8);
         this.xp = 0;
         this.powerUps = new ArrayList<PowerUpItem>();
@@ -39,7 +40,7 @@ public class Player extends Character implements Serializable {
         this.xPRate = 1.0;
         this.damageRate = 1.0;
         this.regenRate = 1.0;
-        this.lastStage = "1_1";
+        this.lastStage = "1_3";
         prepareInventory();
     }
 

@@ -88,7 +88,9 @@ public class FightActivity extends AppCompatActivity {
         diceUsed = player.getDiceUsed();
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
-
+        boolean generateOps = false;
+        TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
+        TextView secondRowFirstOp = (TextView) findViewById(R.id.secondRowFirstOp);
         // Loop through the dice used array list to figure out which dice was used in which row
         for (int i = 0; i < diceUsed.size(); i++) {
             // If the dice selected equals the string value of the first row first position dice and the first row array list is less than 2, add it to the first row list
@@ -110,11 +112,45 @@ public class FightActivity extends AppCompatActivity {
         int secondRowTotal = 0;
         // For every dice in the first row list, have them roll dice and add it to the total
         for (Die d : firstRow) {
-            firstRowTotal += d.rollDice();
+            if(firstRow.indexOf(d) == 0) {
+                firstRowTotal += d.rollDice();
+            }
+            else
+            {
+                if(firstRowFirstOp.getText().equals("+")){
+                    firstRowTotal += d.rollDice();
+                }
+                else if(firstRowFirstOp.getText().equals("-")){
+                    firstRowTotal = firstRowTotal - d.rollDice();
+                }
+                else if(firstRowFirstOp.getText().equals("*")){
+                    firstRowTotal = firstRowTotal * d.rollDice();
+                }
+                else{
+                    firstRowTotal = firstRowTotal / d.rollDice();
+                }
+            }
         }
         // For every dice in the second row list, have them roll dice and add it to the total
         for (Die d : secondRow) {
-            secondRowTotal += d.rollDice();
+            if(secondRow.indexOf(d) == 0) {
+                secondRowTotal += d.rollDice();
+            }
+            else
+            {
+                if(secondRowFirstOp.getText().equals("+")){
+                    secondRowTotal += d.rollDice();
+                }
+                else if(secondRowFirstOp.getText().equals("-")){
+                    secondRowTotal = secondRowTotal - d.rollDice();
+                }
+                else if(secondRowFirstOp.getText().equals("*")){
+                    secondRowTotal = secondRowTotal * d.rollDice();
+                }
+                else{
+                    secondRowTotal = secondRowTotal / d.rollDice();
+                }
+            }
         }
         // If the selected element is fire, add + 1 to each row
         if (currentElement.equals("Fire")) {
@@ -138,6 +174,7 @@ public class FightActivity extends AppCompatActivity {
             if (currOpponet.getCurrentHealth() <= 0) {
                 player.swapDiceBackToInv();
                 opponents.remove(0);
+                generateOps = true;
                 generateNextOpponent();
             }
             // Else if it is less than the answer
@@ -152,7 +189,7 @@ public class FightActivity extends AppCompatActivity {
 
         }
         // IF the second row total from the dice is greater or equal to the answer
-        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && currOpponet.getCurrentHealth() != 0) {
+        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0)) {
             // do attack,
             int attack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
             currOpponet.takeDamage(attack);
@@ -166,10 +203,11 @@ public class FightActivity extends AppCompatActivity {
                 player.swapDiceBackToInv();
                if(opponents.size() > 0)
                    opponents.remove(0);
+                generateOps = true;
                 generateNextOpponent();
             }
             // Else if it is less than the answer
-        } else {
+        } else if(!(currOpponet.getCurrentHealth() < 0)){
             // do enemy attack,
             int attack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
             player.takeDamage(attack);
@@ -187,13 +225,14 @@ public class FightActivity extends AppCompatActivity {
         // Generate new answers
         // Generate new operations
         // Swap the dice from the players usedDice array to the inventory and keep fighting
-        else {
+        else if(generateOps == false) {
             // reset operations and dice
             resetDicePics();
             generateAns(level);
             generateOperations(currOpponet.getOp());
             player.swapDiceBackToInv();
         }
+
     }
 
     private void generateDeathScreen() {
@@ -264,13 +303,13 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case "1_2":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
+                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                currOpponet = one;
                 playerHealth.setText("Player HP : " + player.getCurrentHealth());
                 playerProgressBar.setProgress(player.getPercentHealthLeft());
                 opHealth.setText("Opponent HP: 4");
                 opList.clear();
                 opList.add("+");
-                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                currOpponet = one;
                 one.setOp(opList);
                 opponents.add(one);
                 generateOperations(opList);
@@ -280,15 +319,17 @@ public class FightActivity extends AppCompatActivity {
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
                 playerHealth.setText("Player HP : " + player.getCurrentHealth());
                 playerProgressBar.setProgress(player.getPercentHealthLeft());
-                opHealth.setText("Opponent HP: 3");
+                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                Opponent two = new Opponent(4, 1, "Gobloid Spearman", "zone1gobloidspearman");
+                currOpponet = one;
+                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
-                one = new Opponent(4, 1, "Gobloid Spearman", "zone1gobloidspearman");
-                currOpponet = one;
+                two.setOp(opList);
                 one.setOp(opList);
                 opponents.add(one);
-                opponents.add(one);
+                opponents.add(two);
                 generateOperations(opList);
                 generateAns(level);
                 break;
@@ -354,6 +395,8 @@ public class FightActivity extends AppCompatActivity {
             resetDicePics();
             generateAns(level);
             generateOperations(currOpponet.getOp());
+            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+            opHealth.setText("Opponent Health : " + currOpponet.getCurrentHealth());
         }
     }
 
@@ -362,6 +405,7 @@ public class FightActivity extends AppCompatActivity {
         diceIntent.putExtra("player", player);
         diceIntent.putExtra("opponents", opponents);
         diceIntent.putExtra("opList", opList);
+
         switch (view.getId()) {
             case R.id.firstRowFirstDice:
                 ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
