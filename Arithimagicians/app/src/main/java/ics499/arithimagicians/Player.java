@@ -22,14 +22,16 @@ public class Player extends Character implements Serializable {
 
     public Player() {
         // Change to actual values
-        super(10, 1);
+        super(100, 1);
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();
         Die dice = new Die();
+        Die dice6 = new Die(6, "d6", 0);
+        Die dice8 = new Die(8, "d8", 0);
         this.dice.add(dice);
-        this.dice.add(dice);
-        this.dice.add(dice);
-        this.dice.add(dice);
+        this.dice.add(dice6);
+        this.dice.add(dice6);
+        this.dice.add(dice8);
         this.xp = 0;
         this.powerUps = new ArrayList<PowerUpItem>();
         this.inventory = new ArrayList<Item>();
@@ -37,7 +39,7 @@ public class Player extends Character implements Serializable {
         this.xPRate = 1.0;
         this.damageRate = 1.0;
         this.regenRate = 1.0;
-        this.lastStage = "1_2";
+        this.lastStage = "1_1";
         prepareInventory();
     }
 
@@ -101,5 +103,9 @@ public class Player extends Character implements Serializable {
             dice.add(d);
         }
         diceUsed.clear();
+    }
+
+    public void setLevel(String level){
+        this.lastStage = level;
     }
 }

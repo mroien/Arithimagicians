@@ -18,6 +18,10 @@ public class DiceActivity extends Activity {
     private String diceLoc;
     private ArrayList<Die> diceUsed;
     private String currentElement;
+    private boolean filled;
+    private String diceFilled;
+    private ArrayList<String> opList;
+    private ArrayList<Opponent> opponents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,10 @@ public class DiceActivity extends Activity {
         player = (Player) getIntent.getSerializableExtra("player");
         diceUsed = player.getDiceUsed();
         diceLoc = getIntent.getStringExtra("diceLoc");
+        filled = getIntent.getBooleanExtra("alreadyFilled", false);
+        diceFilled = getIntent.getStringExtra("diceFilled");
+        opList = getIntent.getStringArrayListExtra("opList");
+        opponents = (ArrayList<Opponent>) getIntent.getSerializableExtra("opponents");
         generateDice();
         setDiceCount();
 
@@ -63,6 +71,8 @@ public class DiceActivity extends Activity {
         previous.putExtra("diceSelected", view.getId());
         previous.putExtra("diceLoc", diceLoc);
         previous.putExtra("element", currentElement );
+        previous.putExtra("opList", opList);
+        previous.putExtra("opponents", opponents);
         switch (view.getId()) {
             case R.id.d4:
                 swapDice("d4");
@@ -79,6 +89,21 @@ public class DiceActivity extends Activity {
                 setResult(108, previous);
                 this.finish();
                 break;
+            case R.id.d10:
+                swapDice("d10");
+                setResult(110, previous);
+                this.finish();
+                break;
+            case R.id.d12:
+                swapDice("d12");
+                setResult(112, previous);
+                this.finish();
+                break;
+            case R.id.d20:
+                swapDice("d20");
+                setResult(120, previous);
+                this.finish();
+                break;
         }
 
     }
@@ -89,6 +114,19 @@ public class DiceActivity extends Activity {
      * @param diceClicked String value of what dice was clicked
      */
     public void swapDice(String diceClicked) {
+       if(filled == true){
+           Die temp;
+           for(Die d : diceUsed){
+               if(d.getDiceType().equals(diceFilled)){
+                   temp = d;
+                   diceUsed.remove(d);
+                   dice.add(d);
+                   break;
+               }
+           }
+
+       }
+
         for (Die d : dice) {
             if (d.getDiceType().equals(diceClicked)) {
                 d.setElement(currentElement);
@@ -143,9 +181,6 @@ public class DiceActivity extends Activity {
         int d8 = 0;
         int d10 = 0;
         int d12 = 0;
-        int d14 = 0;
-        int d16 = 0;
-        int d18 = 0;
         int d20 = 0;
         for (Die d : dice) {
             switch (d.getDiceType()) {
@@ -163,15 +198,6 @@ public class DiceActivity extends Activity {
                     break;
                 case "d12":
                     d12++;
-                    break;
-                case "d14":
-                    d14++;
-                    break;
-                case "d16":
-                    d16++;
-                    break;
-                case "d18":
-                    d18++;
                     break;
                 case "d20":
                     d20++;

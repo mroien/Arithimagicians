@@ -59,6 +59,72 @@ public class DisplayMap extends AppCompatActivity {
                 levelDescripitionEvent.putExtra("level", "1_2");
                 startActivity(levelDescripitionEvent);
                 break;
+            case R.id.button1_3:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "1_3");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button1_4:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "1_4");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button1_5:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "1_5");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button2_1:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "2_1");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button2_2:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "2_2");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button2_3:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "2_3");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button2_4:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "2_4");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button2_5:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "2_5");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button3_1:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "3_1");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button3_2:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "3_2");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button3_3:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "3_3");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button3_4:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "3_4");
+                startActivity(levelDescripitionEvent);
+                break;
+            case R.id.button3_5:
+                levelDescripitionEvent.putExtra("player", player);
+                levelDescripitionEvent.putExtra("level", "3_5");
+                startActivity(levelDescripitionEvent);
+                break;
+
         }
 
     }
@@ -81,6 +147,46 @@ public class DisplayMap extends AppCompatActivity {
             case "1_2":
                 setContentView(R.layout.activity_map1_2);
                 break;
+            case "1_3":
+                setContentView(R.layout.activity_map1_3);
+                break;
+            case "1_4":
+                setContentView(R.layout.activity_map1_4);
+                break;
+            case "1_5":
+                setContentView(R.layout.activity_map1_5);
+                break;
+            case "2_1":
+                setContentView(R.layout.activity_map2_1);
+                break;
+            case "2_2":
+                setContentView(R.layout.activity_map2_2);
+                break;
+            case "2_3":
+                setContentView(R.layout.activity_map2_3);
+                break;
+            case "2_4":
+                setContentView(R.layout.activity_map2_4);
+                break;
+            case "2_5":
+                setContentView(R.layout.activity_map2_5);
+                break;
+            case "3_1":
+                setContentView(R.layout.activity_map3_1);
+                break;
+            case "3_2":
+                setContentView(R.layout.activity_map3_2);
+                break;
+            case "3_3":
+                setContentView(R.layout.activity_map3_3);
+                break;
+            case "3_4":
+                setContentView(R.layout.activity_map3_4);
+                break;
+            case "3_5":
+                setContentView(R.layout.activity_map3_5);
+                break;
+
         }
     }
 

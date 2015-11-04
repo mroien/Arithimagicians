@@ -33,6 +33,7 @@ public class FightActivity extends AppCompatActivity {
     private ProgressBar opProgressBar;
     private ProgressBar playerProgressBar;
     private ArrayList<Die> diceUsed;
+    private ArrayList<String> opList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +44,22 @@ public class FightActivity extends AppCompatActivity {
         opponents = new ArrayList<Opponent>();
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
-
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        opHealth = (TextView) findViewById(R.id.oppTextView);
+        opList = getIntent.getStringArrayListExtra("opList");
+        opponents = (ArrayList<Opponent>) getIntent.getSerializableExtra("opponents");
+        if(opList == null){
+            opList = new ArrayList<String>();
+        }
+        if(opponents == null){
+            opponents = new ArrayList<Opponent>();
+        }
         setContentView(R.layout.activity_fight);
         setContent();
     }
 
     public void attackClicked(View view) {
+        currentElement = "Light";
         // Generate all of the stuff we need to calculate damage
         // Create the list of the dice in the first row
         ArrayList<Die> firstRow = new ArrayList<Die>();
@@ -126,7 +137,8 @@ public class FightActivity extends AppCompatActivity {
             // Check op health if dead rewards screen,
             if (currOpponet.getCurrentHealth() <= 0) {
                 player.swapDiceBackToInv();
-                rewardsScreen();
+                opponents.remove(0);
+                generateNextOpponent();
             }
             // Else if it is less than the answer
         } else {
@@ -140,7 +152,7 @@ public class FightActivity extends AppCompatActivity {
 
         }
         // IF the second row total from the dice is greater or equal to the answer
-        if (secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) {
+        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && currOpponet.getCurrentHealth() != 0) {
             // do attack,
             int attack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
             currOpponet.takeDamage(attack);
@@ -152,7 +164,9 @@ public class FightActivity extends AppCompatActivity {
             // Check op health if dead rewards screen,
             if (currOpponet.getCurrentHealth() <= 0) {
                 player.swapDiceBackToInv();
-                rewardsScreen();
+               if(opponents.size() > 0)
+                   opponents.remove(0);
+                generateNextOpponent();
             }
             // Else if it is less than the answer
         } else {
@@ -203,7 +217,17 @@ public class FightActivity extends AppCompatActivity {
     private void rewardsScreen() {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
         rewardsIntent.putExtra("player", player);
+        rewardsIntent.putExtra("level", level);
         startActivity(rewardsIntent);
+    }
+
+    private boolean checkFrozen(){
+        Random r = new Random();
+        int value = r.nextInt(100);
+        if(value > 35){
+            return true;
+        }
+        return false;
     }
 
     public void inventoryClicked(View view) {
@@ -217,8 +241,10 @@ public class FightActivity extends AppCompatActivity {
     public void setContent() {
         String lastMap = player.getLastMap();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
-
-        ArrayList<String> opList = new ArrayList<String>();
+        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        opHealth = (TextView) findViewById(R.id.oppTextView);
         switch (level) {
             case "1_1":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
@@ -229,7 +255,7 @@ public class FightActivity extends AppCompatActivity {
                 opHealth.setText("Opponent HP: 3");
                 opList.clear();
                 opList.add("+");
-                Opponent one = new Opponent(3, 0, "Gobloid Spearman");
+                Opponent one = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
                 currOpponet = one;
                 one.setOp(opList);
                 opponents.add(one);
@@ -243,9 +269,25 @@ public class FightActivity extends AppCompatActivity {
                 opHealth.setText("Opponent HP: 4");
                 opList.clear();
                 opList.add("+");
-                one = new Opponent(4, 1, "Gobloid slasher");
+                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
                 currOpponet = one;
                 one.setOp(opList);
+                opponents.add(one);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "1_3":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
+                playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+                opHealth.setText("Opponent HP: 3");
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                one = new Opponent(4, 1, "Gobloid Spearman", "zone1gobloidspearman");
+                currOpponet = one;
+                one.setOp(opList);
+                opponents.add(one);
                 opponents.add(one);
                 generateOperations(opList);
                 generateAns(level);
@@ -264,6 +306,16 @@ public class FightActivity extends AppCompatActivity {
             case "1_2":
                 ansMax = 9;
                 break;
+            case "1_3":
+                ansMax = 9;
+                break;
+            case "1_4":
+                ansMax = 9;
+                break;
+            case "1_5":
+                ansMax = 12;
+                break;
+
         }
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
@@ -290,33 +342,64 @@ public class FightActivity extends AppCompatActivity {
 
     }
 
-    public void generateNextOpponent(View view) {
+    public void generateNextOpponent() {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
         if (opponents.size() == 0) {
-            // generate rewards screen
+            rewardsScreen();
         } else {
             Opponent next = opponents.get(0);
-            rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
+            currOpponet = next;
+            int resId = getResources().getIdentifier(next.getLayout(), "drawable", getPackageName());
+            rl.setBackground(ContextCompat.getDrawable(this, resId));
+            resetDicePics();
+            generateAns(level);
+            generateOperations(currOpponet.getOp());
         }
     }
 
     public void diceClicked(View view) {
         Intent diceIntent = new Intent(this, DiceActivity.class);
         diceIntent.putExtra("player", player);
+        diceIntent.putExtra("opponents", opponents);
+        diceIntent.putExtra("opList", opList);
         switch (view.getId()) {
             case R.id.firstRowFirstDice:
+                ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
+                if(frfd.getTag() != null)
+                {
+                    diceIntent.putExtra("diceFilled", frfd.getTag().toString());
+                    diceIntent.putExtra("alreadyFilled", true);
+                }
                 diceIntent.putExtra("diceLoc", "firstRowFirstDice");
                 startActivityForResult(diceIntent, 110);
                 break;
             case R.id.firstRowSecondDice:
+                ImageButton frsd = (ImageButton) findViewById(R.id.firstRowSecondDice);
+                if(frsd.getTag() != null)
+                {
+                    diceIntent.putExtra("diceFilled", frsd.getTag().toString());
+                    diceIntent.putExtra("alreadyFilled", true);
+                }
                 diceIntent.putExtra("diceLoc", "firstRowSecondDice");
                 startActivityForResult(diceIntent, 110);
                 break;
             case R.id.secondRowFirstDice:
+                ImageButton srfd = (ImageButton) findViewById(R.id.secondRowFirstDice);
+                if(srfd.getTag() != null)
+                {
+                    diceIntent.putExtra("diceFilled", srfd.getTag().toString());
+                    diceIntent.putExtra("alreadyFilled", true);
+                }
                 diceIntent.putExtra("diceLoc", "secondRowFirstDice");
                 startActivityForResult(diceIntent, 110);
                 break;
             case R.id.secondRowSecondDice:
+                ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
+                if(srsd.getTag() != null)
+                {
+                    diceIntent.putExtra("diceFilled", srsd.getTag().toString());
+                    diceIntent.putExtra("alreadyFilled", true);
+                }
                 diceIntent.putExtra("diceLoc", "secondRowSecondDice");
                 startActivityForResult(diceIntent, 110);
                 break;
@@ -338,6 +421,51 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
+        }
+        else if (resultCode == 106) {
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+            currentElement = data.getStringExtra("element");
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d6);
+            img.setTag("d6");
+        }
+        else if (resultCode == 108) {
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+            currentElement = data.getStringExtra("element");
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d8);
+            img.setTag("d8");
+        }
+        else if (resultCode == 110) {
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+            currentElement = data.getStringExtra("element");
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d10);
+            img.setTag("d10");
+        }
+        else if (resultCode == 112) {
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+            currentElement = data.getStringExtra("element");
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d12);
+            img.setTag("d12");
+        }
+        else if (resultCode == 120) {
+            this.player = (Player) data.getSerializableExtra("player");
+            String dice = data.getStringExtra("diceSelected");
+            String diceLoc = data.getStringExtra("diceLoc");
+            currentElement = data.getStringExtra("element");
+            ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
+            img.setBackgroundResource(R.drawable.d20);
+            img.setTag("d20");
         }
     }
 
