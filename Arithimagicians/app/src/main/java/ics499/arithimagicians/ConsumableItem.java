@@ -9,7 +9,7 @@ public class ConsumableItem extends Item {
     /**
      * Public constructor to create the consumable item by sending the values up to the super Item class
      */
-    public ConsumableItem(String name, String bonus, int value) {
-        super(name, bonus, value);
+    public ConsumableItem(String name, String bonus, int quantity) {
+        super(name, bonus, quantity);
     }
 }

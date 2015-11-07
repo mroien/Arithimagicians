@@ -27,26 +27,26 @@ public class Item implements Serializable{
 
     private String name;
     private String bonus;
-    private int value;
+    private int quantity;
 
     public Item() {
         this.name = "";
         this.bonus = "";
-        this.value = 0;
+        this.quantity = 0;
     }
 
     public Item(String name, String bonus, int value) {
         this.name = name;
         this.bonus = bonus;
-        this.value = value;
+        this.quantity = value;
 
     }
 
     public int getValue(){
-        return value;
+        return quantity;
     }
 
     public void decrementValue(){
-        this.value--;
+        this.quantity--;
     }
 }
