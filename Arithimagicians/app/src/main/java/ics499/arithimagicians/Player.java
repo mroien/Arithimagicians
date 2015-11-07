@@ -8,7 +8,10 @@ import java.util.ArrayList;
 /**
  * Created by Jacob Kinzer on 10/15/2015.
  */
+
+
 public class Player extends Character implements Serializable {
+
     private ArrayList<Die> dice;
     private ArrayList<Die> diceUsed;
     private int xp;
@@ -45,8 +48,8 @@ public class Player extends Character implements Serializable {
     }
 
     private void prepareInventory() {
-        ConsumableItem healthPotion = new ConsumableItem("Health Potion", "+5", 2);
-        inventory.add(healthPotion);
+        ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "+5", 2);
+        inventory.add(Item.Type.HEALTHPOTION.ordinal(), healthPotion);
     }
 
     private void loseHealth(int damage) {
