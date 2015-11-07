@@ -45,6 +45,10 @@
         </activity>
         <activity android:name=".DeathActivity" >
         </activity>
+        <activity android:name=".DiceRollResults"
+            android:label="diceRoll"
+            android:theme="@style/DiceRollResults" >
+        </activity>
     </application>
 
 </manifest>
