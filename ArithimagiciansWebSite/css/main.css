@@ -1,3 +1,11 @@
+#signUpForm {
+  /*position: absolute;*/
+  margin: auto;
+  /*left: 39%;*/
+  /*top: 22%;*/
+  z-index: 999;
+  width: 33%; }
+
 body {
   background: url("../images/forest.jpg") no-repeat center center fixed;
   background-size: cover; }
@@ -21,12 +29,12 @@ h1 {
   top: 14%; }
 
 .scrollWrapper {
-  background: url("../images/Scroll.png") no-repeat center center fixed;
+  background: url("../images/Scroll.png") no-repeat center center;
   display: flex;
   height: 500px;
   /*width: 900px;*/
   justify-content: center;
-  /*border: 5px solid blue;*/
+  border: 5px solid blue;
   /*background-position: 10%,50%;*/
   margin: 10px; }
 
@@ -40,14 +48,8 @@ h1 {
 .description {
   color: black;
   font-size: medium;
-  position: absolute;
   width: 220px;
   margin: auto;
-  left: 2em;
-  top: -12em;
-  right: 0;
-  bottom: 0;
-  height: 140px;
   font-family: fantasy; }
 
 form#login {
@@ -59,17 +61,6 @@ form#login {
   top: 43%;
   height: 260px;
   z-index: 999; }
-
-form#signUpForm {
-  position: absolute;
-  /*border: 3px solid red;*/
-  margin: auto;
-  left: 39%;
-  top: 22%;
-  max-height: 27%;
-  min-width: 35%;
-  z-index: 999;
-  width: 19%; }
 
 label {
   width: 108px;
