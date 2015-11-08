@@ -15,6 +15,7 @@ body {
   font-family: 'Peas & Carrots';
   src: url("../fonts/peas_carrots/Peas & Carrots.ttf"); }
 h1 {
+<<<<<<< HEAD
   text-align: center;
   font-family: "Peas & Carrots";
   font-size: 70px;
@@ -44,6 +45,25 @@ h1 {
 
 .btn-default {
   margin: 3px; }
+=======
+    text-align: center;
+    font-family:'Peas & Carrots';
+    font-size: 70px;
+    color: cadetblue;
+    text-shadow: 2px 0 0 black;
+}
+
+.leftNav {
+    display:block;
+    left: 10px;
+    position: absolute;
+    max-width: 5%;
+}
+
+.btn-default{
+    margin:3px;
+}
+>>>>>>> 8731366f6d8e3316ef6f2ffd3073d58ec171740e
 
 .description {
   color: black;
