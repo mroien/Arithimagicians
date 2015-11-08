@@ -11,15 +11,24 @@ require('leftNav.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <h1>Sign Up Page</h1>
 
-        <img src="../images/Scroll.png" class="scroll">
-        <form action="confirmation.php" method="post" id="signUpForm" class="col-xs-8 col-xl-10">
+        <div class="leftNav">
+            <a href="index.html" class="btn-default btn">Home</a>
+            <!--<a href="signup.html" class="btn-default btn">Sign Up</a>-->
+            <a href="login.html" class="btn-default btn">Login</a>
+            <a href="download.html" class="btn-default btn">Download</a>
+            <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
+            <a href="about.html" class="btn-default btn">About</a>
+            <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
+        </div>
+        <div class="scrollWrapper">
+        <form action="../confirmation.html" method="post" id="signUpForm" class="col-xs-8 col-xl-10">
 
             <fieldset>
                 <div class="red">Required Fields * </div><br>
@@ -93,13 +102,14 @@ require('leftNav.php');
                 <label for="username">Username:*</label>
                 <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,10}" required/><br>
                 <label for="password1">Password:*</label>
-                <input type="password" name="password1" id="password1" placeholder="Pwd must be 6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
+                <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>
                 <input type="password" name="password2" id="password2" placeholder="Confirm Password" pattern="[\w\D]{6,15}" required/><br>
                 <input type="submit" name="submit" class="bottomButton"/>
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
+        </div>
     </div>
 </div>
 
