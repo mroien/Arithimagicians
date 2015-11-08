@@ -1,10 +1,14 @@
 package ics499.arithimagicians;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +28,9 @@ public class InventoryActivity extends Activity {
         player = (Player) getIntent.getSerializableExtra("player");
         setContentView(R.layout.activity_inventory);
         inventory = player.getInventory();
+        final ListView listview = (ListView) findViewById(R.id.listview);
+        final ItemArrayAdapter adapter = new ItemArrayAdapter(this, R.layout.activity_inventory, inventory);
+        listview.setAdapter(adapter);
         setInventoryCount();
 
 
@@ -56,8 +63,48 @@ public class InventoryActivity extends Activity {
      * Method to set the count of the inventory of the player
      */
     public void setInventoryCount() {
-        int healthPotion = inventory.get(0).getValue();
-        TextView t = (TextView) findViewById(R.id.healthPotionTextView);
-        t.setText(Integer.toString(healthPotion));
+        int healthPotion = inventory.get(0).getQuantity();
+        //TextView t = (TextView) findViewById(R.id.healthPotionTextView);
+        //t.setText(Integer.toString(healthPotion));
+    }
+
+    private class ItemArrayAdapter extends ArrayAdapter<Item>{
+
+        Context context;
+        int layoutResourceId;
+        ArrayList<Item> items = null;
+
+        private ItemArrayAdapter(Context context, int layoutResourceId, ArrayList<Item> items){
+            super(context, layoutResourceId, items);
+            this.layoutResourceId = layoutResourceId;
+            this.context = context;
+            this.items = items;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View row = convertView;
+            ItemHolder holder = new ItemHolder();
+
+            if (row == null) {
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(layoutResourceId, parent, false);
+                row.setTag(holder);
+            } else {
+                holder = (ItemHolder)row.getTag();
+            }
+            if (items.get(position) != null) {
+                Item itemDisplay = items.get(position);
+                holder.item = (TextView) row.findViewById(R.id.invtext);
+                holder.item.setText(itemDisplay.getName() + " " + itemDisplay.getQuantity());
+            }
+
+            return row;
+
+        }
+    }
+
+    static class ItemHolder {
+        TextView item;
     }
 }
