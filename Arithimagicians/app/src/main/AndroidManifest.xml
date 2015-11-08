@@ -33,6 +33,22 @@
             android:label="MapDescription"
             android:theme="@style/MapDescriptionDialog" >
         </activity>
+        <activity
+            android:name=".DiceActivity"
+            android:label="Dice"
+            android:theme="@style/DiceDialog" >
+        </activity>
+        <activity
+            android:name=".RewardActivity"
+            android:label="@string/title_activity_reward"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity android:name=".DeathActivity" >
+        </activity>
+        <activity android:name=".DiceRollResults"
+            android:label="diceRoll"
+            android:theme="@style/DiceRollResults" >
+        </activity>
     </application>
 
 </manifest>

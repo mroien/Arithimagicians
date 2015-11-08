@@ -11,6 +11,30 @@
     tools:context="ics499.arithimagicians.FightActivity"
     >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/firstRowFirstDice"
+        android:layout_alignRight="@+id/firstRowFirstAns"
+        android:layout_alignEnd="@+id/firstRowFirstAns"
+        android:layout_alignBottom="@+id/firstRowFirstDice"
+        android:background="#ffffff"
+        android:layout_alignLeft="@+id/firstRowFirstDice"
+        android:layout_alignStart="@+id/firstRowFirstDice" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignTop="@+id/secondRowFirstDice"
+        android:layout_alignRight="@+id/secondRowAns"
+        android:layout_alignEnd="@+id/secondRowAns"
+        android:layout_alignBottom="@+id/secondRowFirstDice"
+        android:background="#ffffff"
+        android:layout_alignLeft="@+id/secondRowFirstDice"
+        android:layout_alignStart="@+id/secondRowFirstDice" />
+
     <Button
         android:layout_width="60dp"
         android:layout_height="50dp"
@@ -38,7 +62,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp" />
 
-    <ImageView
+    <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/firstRowFirstDice"
@@ -46,7 +70,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/dicex"/>
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/border"
+        android:onClick="diceClicked"/>
 
     <TextView
         android:layout_width="30dp"
@@ -55,19 +81,20 @@
         android:text="+"
         android:id="@+id/firstRowFirstOp"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="100dp"
         android:background="#ffffff"
         android:textColor="#000000"
         android:textAlignment="center" />
 
-    <ImageView
+    <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/firstRowSecondDice"
         android:layout_below="@+id/inventoryButton"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="150dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/dicex"/>
+        android:background="@drawable/border"
+        android:onClick="diceClicked"/>
 
     <TextView
         android:layout_width="30dp"
@@ -76,7 +103,7 @@
         android:text=">"
         android:id="@+id/firstRowSecondOp"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="200dp"
         android:background="#ffffff"
         android:textColor="#000000"
         android:textAlignment="center" />
@@ -88,21 +115,21 @@
         android:text="8"
         android:id="@+id/firstRowFirstAns"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="240dp"
         android:background="#ffffff"
         android:textColor="#000000"
         android:textAlignment="center" />
 
 
-    <ImageView
+    <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/secondRowFirstDice"
         android:layout_below="@+id/inventoryButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="170dp"
-        android:background="@drawable/dicex"/>
+        android:layout_marginLeft="50dp"
+        android:onClick="diceClicked"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/border"/>
 
     <TextView
         android:layout_width="30dp"
@@ -110,20 +137,21 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="+"
         android:id="@+id/secondRowFirstOp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="290dp"
         android:background="#ffffff"
         android:textColor="#000000"
         android:textAlignment="center" />
 
-    <ImageView
+    <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/secondRowSecondDice"
         android:layout_below="@+id/inventoryButton"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="170dp"
-        android:background="@drawable/dicex"/>
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/border"
+        android:onClick="diceClicked"/>
 
     <TextView
         android:layout_width="30dp"
@@ -131,9 +159,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=">"
         android:id="@+id/secondRowSecondOp"
-        android:layout_marginTop="240dp"
-        android:layout_marginLeft="150dp"
-        android:background="#ffffff"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="200dp"
+
         android:textColor="#000000"
         android:textAlignment="center" />
 
@@ -143,9 +171,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="5"
         android:id="@+id/secondRowAns"
-        android:layout_marginTop="240dp"
-        android:layout_marginLeft="200dp"
-        android:background="#ffffff"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="240dp"
         android:textColor="#000000"
         android:textAlignment="center" />
 
@@ -161,7 +188,7 @@
         android:progressBackgroundTint="#ffffff"
         android:layout_alignTop="@+id/inventoryButton"
         android:layout_alignLeft="@+id/firstRowFirstOp"
-        android:layout_alignStart="@+id/firstRowFirstOp"
+        android:layout_alignStart="@+id/firstRowFirstDice"
         android:layout_alignRight="@+id/firstRowFirstAns"
         android:layout_alignEnd="@+id/firstRowFirstAns"
         android:visibility="visible"
@@ -184,12 +211,12 @@
         android:id="@+id/playerHealthTextView" />
 
     <ProgressBar
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="30dp"
         android:id="@+id/oppProgressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:max="100"
-        android:progress="50"
+        android:progress="100"
         android:indeterminate="false"
         android:progressTint="#fd0808"
         android:progressBackgroundTint="#ffffff"
@@ -199,7 +226,7 @@
         android:layout_marginTop="490dp"
         android:progressDrawable="@drawable/progressbar2"/>
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="160dp"
         android:layout_height="20dp"
         android:text="Enemy HP : 50"
         android:background="#00000000"

@@ -135,7 +135,7 @@ public class Website {
 				prepStateDelete.setString(1, userName);
 				prepStateDelete.executeUpdate();
 				conn.close();
-				return "Account Delete";
+				return "Account Deleted";
 			}
 
 		} catch (SQLException e) {

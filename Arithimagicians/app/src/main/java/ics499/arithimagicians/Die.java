@@ -1,17 +1,23 @@
 package ics499.arithimagicians;
 
+import java.io.Serializable;
+import java.security.SecureRandom;
+import java.util.Random;
+
 /**
  * Created by Jacob Kinzer on 10/15/2015.
  */
-public class Die {
+public class Die implements Serializable{
     private int diceValue;
     private String diceType;
     private int bonusDamage;
+    private String element;
 
     public Die() {
-        this.diceValue = 1;
-        this.diceType = "D4";
+        this.diceValue = 4;
+        this.diceType = "d4";
         this.bonusDamage = 0;
+        this.element = "";
     }
 
     public Die(int diceValue, String diceType, int bonusDamage) {
@@ -25,6 +31,13 @@ public class Die {
     }
 
     public int rollDice() {
-        return 0;
+        Random random = new Random();
+        int roll = random.nextInt(this.diceValue -1) + 1;
+        return roll;
     }
-}
+
+    public String getDiceType(){ return this.diceType; }
+
+    public void setElement(String ele){
+        this.element = ele;
+    }}

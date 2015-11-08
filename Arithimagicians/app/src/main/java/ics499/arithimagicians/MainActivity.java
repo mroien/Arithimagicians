@@ -17,7 +17,10 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
-public class MainActivity extends AppCompatActivity  implements Serializable{
+/**
+ * Main activity class of the application
+ */
+public class MainActivity extends AppCompatActivity implements Serializable {
     private boolean splash = false;
     private String account;
     private Player player;
@@ -28,6 +31,13 @@ public class MainActivity extends AppCompatActivity  implements Serializable{
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Handler for new game button clicked
+     * If the player does not have a saved account, create a pop up dialog asking to make an account, then send to the website.
+     * Otherwise create a new player, and send the activity to the display map activity
+     *
+     * @param view View of the activity
+     */
     public void newGameClicked(View view) {
         // if no account found, ask if they want to make an account and display the webpage
         if (account == null) {
@@ -57,16 +67,24 @@ public class MainActivity extends AppCompatActivity  implements Serializable{
         }
     }
 
-    public void loadGameClicked(View view){
+    /**
+     * Handler for loading a game
+     * @param view
+     */
+    public void loadGameClicked(View view) {
         read();
     }
 
-    public void read(){
+    /**
+     * Find the saved game object and read in the player object. Create a displaymap intent and put the player object into it
+     * Start the activity
+     */
+    public void read() {
         ObjectInputStream input;
         String filename = "savedGame";
 
         try {
-            input = new ObjectInputStream(new FileInputStream(new File(new File(getFilesDir(),"")+File.separator+filename)));
+            input = new ObjectInputStream(new FileInputStream(new File(new File(getFilesDir(), "") + File.separator + filename)));
             Player player = (Player) input.readObject();
             input.close();
             Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
