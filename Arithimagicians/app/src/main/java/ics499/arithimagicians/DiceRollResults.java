@@ -28,6 +28,7 @@ public class DiceRollResults extends Activity {
     private int firstRowAttack;
     private String secondRowUserString;
     private int secondRowAttack;
+    private boolean isDeadOnFirstRoll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class DiceRollResults extends Activity {
         secondRowUserString = getIntent.getStringExtra("secondRowUser");
         firstRowAttack = getIntent.getIntExtra("firstRowAttack", 0);
         secondRowAttack = getIntent.getIntExtra("secondRowAttack", 0);
+        isDeadOnFirstRoll = getIntent.getBooleanExtra("isDeadOnFirstRoll", false);
 
         generateResults();
     }
@@ -69,19 +71,29 @@ public class DiceRollResults extends Activity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView secondRowResults = (TextView) findViewById(R.id.secondRowResults);
 
-
-        firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
-        firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
-        secondRowFirstValue.setText(Integer.toString(secondRowFirstDice));
-        secondRowSecondValue.setText(Integer.toString(secondRowSecondDice));
-        firstRowOp.setText(firstRowOpString);
-        firstRowSecondOp.setText(firstRowSecondOpString);
-        firstRowAns.setText(firstRowAnsString);
-        firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
-        secondRowOp.setText(secondRowOpString);
-        secondRowSecondOp.setText(secondRowSecondOpString);
-        secondRowAns.setText(secondRowAnsString);
-        secondRowResults.setText(secondRowUserString + " takes " + Integer.toString(secondRowAttack) + " Damage");
+        if(isDeadOnFirstRoll == false) {
+            firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
+            firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
+            secondRowFirstValue.setText(Integer.toString(secondRowFirstDice));
+            secondRowSecondValue.setText(Integer.toString(secondRowSecondDice));
+            firstRowOp.setText(firstRowOpString);
+            firstRowSecondOp.setText(firstRowSecondOpString);
+            firstRowAns.setText(firstRowAnsString);
+            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+            secondRowOp.setText(secondRowOpString);
+            secondRowSecondOp.setText(secondRowSecondOpString);
+            secondRowAns.setText(secondRowAnsString);
+            secondRowResults.setText(secondRowUserString + " takes " + Integer.toString(secondRowAttack) + " Damage");
+        }
+        else
+        {
+            firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
+            firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
+            firstRowOp.setText(firstRowOpString);
+            firstRowSecondOp.setText(firstRowSecondOpString);
+            firstRowAns.setText(firstRowAnsString);
+            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+        }
     }
 
     /**

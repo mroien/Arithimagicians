@@ -112,4 +112,13 @@ public class Player extends Character implements Serializable {
     public void setLevel(String level){
         this.lastStage = level;
     }
+
+    public boolean checkDice(String dice){
+        for(Die d : this.dice){
+            if(d.getDiceType().equals(dice)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
