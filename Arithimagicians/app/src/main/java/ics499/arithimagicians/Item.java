@@ -13,7 +13,8 @@ public class Item implements Serializable{
         DMGBONUS ("Damage bonus"),
         LOOTBONUS ("Loot Bonus"),
         HPFULLREFRESH ("Health Refresh"),
-        HPREGEN ("Regeneration Potion");
+        HPREGEN ("Regeneration Potion"),
+        LAST ("Last Item");
 
         private final String name;
         Type(String name){
@@ -42,8 +43,16 @@ public class Item implements Serializable{
 
     }
 
-    public int getValue(){
+    public int getQuantity(){
         return quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBonus(){
+        return bonus;
     }
 
     public void decrementValue(){

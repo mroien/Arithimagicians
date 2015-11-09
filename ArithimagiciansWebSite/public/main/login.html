@@ -12,15 +12,25 @@ require('leftNav.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <h1>LogIn</h1>
 
-        <img src="../images/Scroll.png" class="scroll">
-        <form method="post" action="confirmation.php" id="login">
+        <div class="leftNav">
+            <a href="index.html" class="btn-default btn">Home</a>
+            <a href="signup.html" class="btn-default btn">Sign Up</a>
+            <!--<a href="login.html" class="btn-default btn">Login</a>-->
+            <a href="download.html" class="btn-default btn">Download</a>
+            <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
+            <a href="about.html" class="btn-default btn">About</a>
+            <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
+        </div>
+        <!--<img src="../../images/Scroll.png" class="scroll">-->
+        <div class="scrollWrapper">
+        <form method="post" action="../confirmation.html" id="login">
             <fieldset>
                 <label for="username">
                     Username:
@@ -34,6 +44,7 @@ require('leftNav.php');
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
+        </div>
     </div>
 </div>
 

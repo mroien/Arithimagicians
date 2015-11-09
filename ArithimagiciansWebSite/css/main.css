@@ -1,106 +1,164 @@
+#signUpForm {
+  /*position: absolute;*/
+  margin: auto;
+  /*left: 39%;*/
+  /*top: 22%;*/
+  z-index: 999;
+  width: 33%; }
+
 body {
-    background: url("../images/forest.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
+  background: url("../images/forest.jpg") no-repeat center center fixed;
+  background-size: cover; }
 
 /*called peas carrots font*/
 @font-face {
-    font-family:'Peas & Carrots';
-    src: url('../fonts/peas_carrots/Peas & Carrots.ttf');
-}
-
+  font-family: 'Peas & Carrots';
+  src: url("../fonts/peas_carrots/Peas & Carrots.ttf"); }
 h1 {
-    text-align: center;
-    font-family:'Peas & Carrots';
-    font-size: 70px;
-    color: cadetblue;
-    text-shadow: 2px 0 0 black;
-}
+  text-align: center;
+  font-family: "Peas & Carrots";
+  font-size: 70px;
+  color: cadetblue;
+  text-shadow: 2px 0 0 black; }
 
-.leftNav, .infoBtnWrapper{
-    display:block;
-    left: 10px;
-    position:absolute;
-    max-width: 5%;
-    top: 14%;
-}
-
-.btn-default{
-    margin:3px;
-}
-
-.description {
-    color:black;
-    font-size: medium;
-    position: absolute;
-    width: 220px;
-    margin: auto;
-    left: 2em;
-    top: -12em;
-    right:0;
-    bottom:0;
-    height: 140px;
-    font-family: fantasy;
-}
-
-form#login {
-    position: absolute;
-    /*border: 3px solid red;*/
-    text-align: center;
-    margin: auto;
-    left: 43%;
-    top: 43%;
-    height: 260px;
-    z-index: 999;
-}
-
-form#signUpForm {
-    position: absolute;
-    /*border: 3px solid red;*/
-    margin: auto;
-    left: 39%;
-    top: 22%;
-    max-height: 27%;
-    min-width: 35%;
-    z-index: 999;
-    width:19%;
-}
-
-label {
-    width: 108px;
-    text-align: right;
-
-}
-
-.bottomButton {
-    position: relative;
-    left: 34%;
-    margin: auto;
-}
-
-.scroll {
-    position: absolute;
-    margin: auto;
-    left: 2%;
-    top: -5%;
-    right:0;
-    bottom:0;
-}
-
-.confirm {
-    font-size: x-large;
-    top: -5em;
-}
+.leftNav, .infoBtnWrapper {
+  display: block;
+  left: 10px;
+  position: absolute;
+  max-width: 5%;
+  top: 14%; }
 
 .scrollWrapper {
-    width: 100%;
-    height: 100%;
-}
+  background: url("../images/Scroll.png") no-repeat center center;
+  display: flex;
+  height: 500px;
+  /*width: 900px;*/
+  justify-content: center;
+  border: 5px solid blue;
+  /*background-position: 10%,50%;*/
+  margin: 10px; }
+
+.progress {
+  width: 300px;
+  align-self: center; }
+
+.btn-default {
+  margin: 3px; }
+
+.description {
+  color: black;
+  font-size: medium;
+  width: 220px;
+  margin: auto;
+  font-family: fantasy; }
+
+form#login {
+  position: absolute;
+  /*border: 3px solid red;*/
+  text-align: center;
+  margin: auto;
+  left: 43%;
+  top: 43%;
+  height: 260px;
+  z-index: 999; }
+
+label {
+  width: 108px;
+  text-align: right; }
+
+.bottomButton {
+  position: relative;
+  left: 34%;
+  margin: auto; }
+
+.scroll {
+  display: flex;
+  position: absolute;
+  margin: auto;
+  left: 2%;
+  top: -5%;
+  right: 0;
+  bottom: 0; }
+
+.confirm {
+  font-size: x-large;
+  top: -5em; }
 
 .infoBtnWrapper {
-    display: block;
-    text-align: right;
-}
+  display: block;
+  text-align: right; }
+
 .red {
-    color: red;
-}
+  color: red; }
+
+#leaderboard {
+  display: flex;
+  justify-content: center;
+  /*align-items: center;*/
+  /*background-color: white;*/
+  margin-left: auto;
+  margin-right: auto;
+  /*border: 5px solid red;*/
+  height: 500px;
+  width: 700px; }
+
+th {
+  border: 2px solid black;
+  padding: 2px; }
+
+.itemHeader {
+  width: auto;
+  border: 2px solid black;
+  margin: 3px; }
+
+#deleteWrapper {
+  font-family: "Peas & Carrots";
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  /*border: 5px solid red;*/
+  text-align: center;
+  color: cadetblue;
+  font-size: 28px;
+  top: 32%;
+  right: 39%;
+  z-index: 999; }
+
+.yes, .no {
+  position: relative; }
+
+#viewTransactions {
+  position: absolute;
+  border: 5px solid red;
+  height: 500px;
+  width: 700px;
+  top: 40%;
+  right: 30%; }
+
+#purchaseForm {
+  border: 5px solid red;
+  height: 300px;
+  width: 373px;
+  position: absolute;
+  /*text-align: right;*/
+  top: 28%;
+  right: 36%; }
+
+.align-col {
+  flex-flow: column;
+  align-self: center; }
+
+.downloadText {
+  font-family: "Peas & Carrots";
+  color: cadetblue;
+  font-size: 25px;
+  position: absolute;
+  left: 38%;
+  top: 34%; }
+
+.download {
+  position: absolute;
+  top: 60%;
+  left: 46%; }
+
+/*# sourceMappingURL=main.css.map */

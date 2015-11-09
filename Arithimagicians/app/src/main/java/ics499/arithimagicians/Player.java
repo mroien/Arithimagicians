@@ -15,7 +15,6 @@ public class Player extends Character implements Serializable {
     private ArrayList<Die> dice;
     private ArrayList<Die> diceUsed;
     private int xp;
-    private ArrayList<PowerUpItem> powerUps;
     private ArrayList<Item> inventory;
     private Double lootRate;
     private Double xPRate;
@@ -37,7 +36,6 @@ public class Player extends Character implements Serializable {
         this.dice.add(dice6Two);
         this.dice.add(dice8);
         this.xp = 0;
-        this.powerUps = new ArrayList<PowerUpItem>();
         this.inventory = new ArrayList<Item>();
         this.lootRate = 1.0;
         this.xPRate = 1.0;
@@ -48,8 +46,14 @@ public class Player extends Character implements Serializable {
     }
 
     private void prepareInventory() {
+        //set up inventory as an empty list
+        for(int i = 0; i < Item.Type.LAST.ordinal(); i++){
+            inventory.add(i, null);
+        }
         ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "+5", 2);
         inventory.add(Item.Type.HEALTHPOTION.ordinal(), healthPotion);
+        inventory.add(Item.Type.DMGBONUS.ordinal(), new PowerUpItem(Item.Type.DMGBONUS.getName(), "+1", 1));
+        inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "+1", 1));
     }
 
     private void loseHealth(int damage) {
