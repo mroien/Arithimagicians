@@ -36,7 +36,7 @@ public class Player extends Character implements Serializable {
         this.dice.add(dice6Two);
         this.dice.add(dice8);
         this.xp = 0;
-        this.inventory = new ArrayList<Item>();
+        this.inventory = new ArrayList<Item>(6);
         this.lootRate = 1.0;
         this.xPRate = 1.0;
         this.damageRate = 1.0;
@@ -47,7 +47,7 @@ public class Player extends Character implements Serializable {
 
     private void prepareInventory() {
         //set up inventory as an empty list
-        for(int i = 0; i < Item.Type.LAST.ordinal(); i++){
+        for(int i = 0; i < 6; i++){
             inventory.add(i, null);
         }
         ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "+5", 2);
