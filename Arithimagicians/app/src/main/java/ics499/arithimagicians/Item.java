@@ -8,12 +8,12 @@ import java.io.Serializable;
 public class Item implements Serializable{
 
     public static enum Type {
-        HEALTHPOTION ("Health Potion"),
-        XPBONUS ("Experience Bonus"),
-        DMGBONUS ("Damage bonus"),
-        LOOTBONUS ("Loot Bonus"),
-        HPFULLREFRESH ("Health Refresh"),
-        HPREGEN ("Regeneration Potion"),
+        HEALTHPOTION ("HP\nPotion"),
+        XPBONUS ("XP\nBonus"),
+        DMGBONUS ("Dmg\nBonus"),
+        LOOTBONUS ("Loot\nBonus"),
+        HPFULLREFRESH ("HP\nRefresh"),
+        HPREGEN ("Regen\nPotion"),
         LAST ("Last Item");
 
         private final String name;

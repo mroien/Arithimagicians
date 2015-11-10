@@ -7,79 +7,132 @@
     android:contentDescription="Inventory"
     tools:context="ics499.arithimagicians.InventoryActivity"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="325dp"
+    android:gravity="center_horizontal"
+    android:id="@+id/gridWrapper">
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/healthPotionButton"
-        android:src="@null"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Item"
-        android:onClick="useHealthPotion"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="40dp"
-        />
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="55dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:id="@+id/rowOne"></LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/manaPotionButton"
-        android:src="@null"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Item"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="137dp"
-        />
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="135dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:id="@+id/rowTwo"></LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/randomShitbutton"
-        android:src="@null"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Item"
-        android:layout_marginLeft="235dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/rowTwo"
+        android:layout_alignParentBottom="true">
 
-        />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level Up"
+            android:id="@+id/levelButton"
+            android:onClick="closeClick" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="0"
-        android:id="@+id/healthPotionTextView"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="130dp"
-        android:textColor="#000000" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            android:id="@+id/closeButton"
+            android:onClick="closeClick"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="1"
-        android:id="@+id/textView2"
-        android:layout_marginLeft="161dp"
-        android:layout_marginTop="130dp"
-        android:textColor="#000000" />
+    <!--   <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/healthPotionButton"
+           android:src="@null"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="Health\nPotion"
+           android:onClick="useHealthPotion"
+           android:layout_marginTop="80dp"
+           android:layout_marginLeft="40dp"
+           />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="0"
-        android:id="@+id/textView3"
-        android:layout_marginLeft="258dp"
-        android:layout_marginTop="130dp"
-        android:textColor="#000000" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/manaPotionButton"
+           android:src="@null"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="XP\nBonus"
+           android:layout_marginTop="80dp"
+           android:layout_marginLeft="137dp"
+           />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close"
-        android:id="@+id/closeButton"
-        android:onClick="closeClick"
-        android:layout_marginTop="230dp"
-        android:layout_marginLeft="130dp"/>
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/randomShitbutton"
+           android:src="@null"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="Dmg\nBonus"
+           android:layout_marginLeft="235dp"
+           android:layout_marginTop="80dp"
+
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="0"
+           android:id="@+id/healthPotionTextView"
+           android:layout_marginLeft="65dp"
+           android:layout_marginTop="130dp"
+           android:textColor="#000000" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="1"
+           android:id="@+id/textView2"
+           android:layout_marginLeft="161dp"
+           android:layout_marginTop="130dp"
+           android:textColor="#000000" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:text="0"
+           android:id="@+id/textView3"
+           android:layout_marginLeft="258dp"
+           android:layout_marginTop="130dp"
+           android:textColor="#000000" />
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Close"
+           android:id="@+id/closeButton"
+           android:onClick="closeClick"
+           android:layout_marginTop="230dp"
+           android:layout_marginLeft="130dp"/>
+           -->
 </RelativeLayout>
