@@ -1,6 +1,7 @@
 package ics499.arithimagicians;
 
 import android.content.ClipData;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Player extends Character implements Serializable {
     public Player() {
         // Change to actual values
         super(100, 1);
+        this.xp = 0;
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();
         Die dice = new Die();
@@ -50,30 +52,65 @@ public class Player extends Character implements Serializable {
         for(int i = 0; i < 6; i++){
             inventory.add(i, null);
         }
-        ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "+5", 2);
+        ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "5", 2);
         inventory.add(Item.Type.HEALTHPOTION.ordinal(), healthPotion);
-        inventory.add(Item.Type.DMGBONUS.ordinal(), new PowerUpItem(Item.Type.DMGBONUS.getName(), "+1", 1));
-        inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "+1", 1));
-    }
-
-    private void loseHealth(int damage) {
-
+        inventory.add(Item.Type.DMGBONUS.ordinal(), new PowerUpItem(Item.Type.DMGBONUS.getName(), "1.5", 1));
+        inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "1.5", 1));
     }
 
     private void addItem(Item item) {
-
+        int index = -1;
+        for (Item.Type type : Item.Type.values()) {
+            if (type.getName().equals(item.getName())){
+                index = type.ordinal();
+            }
+        }
+        if (index > -1){
+            inventory.add(index, item);
+        }
     }
 
-    private void useItem(Item item) {
+    public void useItem(Item item) {
+        if(item.getQuantity() > 0) {
+            String name = item.getName();
+            switch (name) {
+                case ("HP\nPotion"):
+                    int missingHealth = getTotalHealth() - getCurrentHealth();
+                    if (missingHealth > Integer.parseInt(item.getBonus())) {
+                        gainHealth(Integer.parseInt(item.getBonus()));
+                    } else { gainHealth(missingHealth); }
 
-    }
-
-    private void gainHealth(int amt) {
-
+                    item.decrementValue();
+                    Log.i("potion", "Player life is now " + getCurrentHealth());
+                    break;
+                case ("XP\nBonus"):
+                    //set clock. need a timer to reset to bonus to 1 on all bonus items
+                    xPRate = xPRate * Double.parseDouble(item.getBonus());
+                    item.decrementValue();
+                    break;
+                case ("Dmg\nBonus"):
+                    damageRate = damageRate * Double.parseDouble(item.getBonus());
+                    item.decrementValue();
+                    break;
+                case ("Loot\nBonus"):
+                    lootRate = lootRate * Double.parseDouble(item.getBonus());
+                    item.decrementValue();
+                    break;
+                case ("HP\nRefresh"):
+                    int hpDiff = getTotalHealth() - getCurrentHealth();
+                    item.decrementValue();
+                    gainHealth(hpDiff);
+                    break;
+                case ("Regen\nPotion"):
+                    regenRate = regenRate * Double.parseDouble(item.getBonus());
+                    item.decrementValue();
+                    break;
+            }
+        }
     }
 
     private void gainXP(int amt) {
-
+        xp += amt;
     }
 
     private void spendXP(int amt) {

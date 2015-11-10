@@ -25,6 +25,7 @@ public class InventoryActivity extends Activity {
     private int healthPotionCount;
     private Player player;
     private ArrayList<Item> inventory;
+    private ArrayList<TextView> invCounts = new ArrayList<TextView>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class InventoryActivity extends Activity {
         LinearLayout rowOne = (LinearLayout) findViewById(R.id.rowOne);
         LinearLayout rowTwo = (LinearLayout) findViewById(R.id.rowTwo);
         for (int i = 0; i < Item.Type.LAST.ordinal(); i++){
-            Item item = inventory.get(i);
+            final Item item = inventory.get(i);
             if (item  != null){
                 LinearLayout btnTotalWrap = new LinearLayout(this);
                 btnTotalWrap.setOrientation(LinearLayout.VERTICAL);
@@ -45,39 +46,39 @@ public class InventoryActivity extends Activity {
 
                 Button btn = new Button(this);
                 btn.setText(item.getName());
+
                 btnTotalWrap.addView(btn);
 
                 TextView itemCount = new TextView(this);
                 itemCount.setText(Integer.toString(item.getQuantity()));
                 itemCount.setGravity(Gravity.CENTER_HORIZONTAL);
                 itemCount.setTextColor(Color.BLACK);
+                invCounts.add(itemCount);
+                itemCount.setId(invCounts.indexOf(itemCount));
                 btnTotalWrap.addView(itemCount);
+
+                btn.setOnClickListener(new MyOnClickListener(item, itemCount.getId()));
 
                 if (i <= Item.Type.LAST.ordinal() / 2){
                     rowOne.addView(btnTotalWrap);
                 } else {
                     rowTwo.addView(btnTotalWrap);
                 }
-
-
             }
         }
 
-        setInventoryCount();
-
-
+        //setInventoryCount();
     }
-
 
     /**
      * Use item 1 in the inventory click handler. Decerement the amt of item in the inventory and the set the player inventory
      *
      * @param view View of the dialog
-     */
+
     public void useHealthPotion(View view) {
         inventory.get(0).decrementValue();
         setInventoryCount();
-    }
+    } */
 
     /**
      * Close button clicked. Create a previous intent to go back to the map class, put the player object in there, then start it
@@ -95,9 +96,27 @@ public class InventoryActivity extends Activity {
     /**
      * Method to set the count of the inventory of the player
      */
-    public void setInventoryCount() {
+/*    public void setInventoryCount() {
         int healthPotion = inventory.get(0).getQuantity();
         //TextView t = (TextView) findViewById(R.id.healthPotionTextView);
         //t.setText(Integer.toString(healthPotion));
+    } */
+
+    public class MyOnClickListener implements View.OnClickListener {
+
+        Item itemUsed;
+        int index;
+
+
+        public MyOnClickListener(Item item, int i) {
+            this.itemUsed = item;
+            this.index = i;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            player.useItem(itemUsed);
+            invCounts.get(index).setText(Integer.toString(itemUsed.getQuantity()));
+        }
     }
 }

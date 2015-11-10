@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
 
+
     public static enum Type {
         HEALTHPOTION ("HP\nPotion"),
         XPBONUS ("XP\nBonus"),
@@ -16,15 +17,25 @@ public class Item implements Serializable{
         HPREGEN ("Regen\nPotion"),
         LAST ("Last Item");
 
+        private final int index;
         private final String name;
         Type(String name){
             this.name = name;
+            index = Item.Type.this.ordinal();
         }
 
         public String getName(){
             return name;
         }
+        public int getIndex() { return index; }
     }
+
+    public static final int HEALTHPOTION = Type.HEALTHPOTION.getIndex();
+    public static final int XPBONUS = Type.XPBONUS.getIndex();
+    public static final int DMGBONUS = Type.DMGBONUS.getIndex();
+    public static final int LOOTBONUS = Type.LOOTBONUS.getIndex();
+    public static final int HPFULLREFRESH = Type.HPFULLREFRESH.getIndex();
+    public static final int HPREGEN = Type.HPREGEN.getIndex();
 
     private String name;
     private String bonus;
