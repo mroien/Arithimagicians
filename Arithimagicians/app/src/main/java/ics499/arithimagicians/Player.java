@@ -58,11 +58,11 @@ public class Player extends Character implements Serializable {
         inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "1.5", 1));
     }
 
-    private void addItem(Item item) {
+    public void addItem(Item item) {
         int index = -1;
         for (Item.Type type : Item.Type.values()) {
             if (type.getName().equals(item.getName())){
-                index = type.ordinal();
+                inventory.get(type.ordinal()).incrementValue();
             }
         }
         if (index > -1){
@@ -165,5 +165,8 @@ public class Player extends Character implements Serializable {
 
     public int getXp() {
         return xp;
+    }
+    public double getLootRate() {
+        return lootRate;
     }
 }

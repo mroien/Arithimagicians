@@ -207,13 +207,13 @@ public class FightActivity extends AppCompatActivity {
                 isDeadOnFirstRoll = true;
                 isDead = true;
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
-                while (!displayedResults) {
+            /*    while (!displayedResults) {
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
+                } */
                 generateNextOpponent();
                 displayedResults = false;
             }
@@ -252,13 +252,13 @@ public class FightActivity extends AppCompatActivity {
                     isDead = true;
                     player.swapDiceBackToInv();
                     generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-                    while (!displayedResults) {
+                /*    while (!displayedResults) {
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    }
+                    } */
                     generateNextOpponent();
                     displayedResults = false;
                 }
@@ -279,14 +279,14 @@ public class FightActivity extends AppCompatActivity {
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-            while(!displayedResults){
+        /*    while(!displayedResults){
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            generateDeathScreen();
+            generateDeathScreen(); */
             displayedResults = false;
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
@@ -315,7 +315,11 @@ public class FightActivity extends AppCompatActivity {
 
     }
 
-    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice, int secondRowSecondDice, String firstRowOp, String secondRowOp, String firstRowSecondOp, String secondRowSecondOp, String firstRowAns, String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack, String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
+    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
+                                 int secondRowSecondDice, String firstRowOp, String secondRowOp,
+                                 String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
+                                 String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -380,7 +384,6 @@ public class FightActivity extends AppCompatActivity {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
-
     }
 
 

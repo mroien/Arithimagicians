@@ -11,10 +11,15 @@ import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.Random;
+
 public class RewardActivity extends AppCompatActivity {
     private Player player;
     private String level;
     private int XP;
+    private final static double LOOTRATE = 0.25;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,28 @@ public class RewardActivity extends AppCompatActivity {
         Log.i("Prereward", "Pre XP is " + Integer.toString(player.getXp()));
         player.gainXP(XP);
         Log.i("Postreward", "New XP is " + Integer.toString(player.getXp()));
+        TextView xPRewards = (TextView) findViewById(R.id.XPreward);
+        xPRewards.setText("You earned " + Integer.toString(XP) + " experience.\n" +
+                "Your total is now " + Integer.toString(player.getXp()) + ".");
+        Item loot = checkLootReward();
+        if(loot != null){
+            TextView lootReward = (TextView)findViewById(R.id.lootReward);
+            lootReward.setText("You gained a " + loot.getName() + " as well.");
+        }
     }
+
+    public Item checkLootReward(){
+        Random random = new Random();
+        float roll = random.nextFloat();
+        System.out.println(random);
+        if(roll > LOOTRATE * player.getLootRate()){
+            Item loot = new Item(Item.Type.HEALTHPOTION.getName(), "+5", 1);
+            player.addItem(loot);
+            return loot;
+        }
+        return null;
+    }
+
     public void closeClick(View view){
         Intent mapIntent = new Intent(this, DisplayMap.class);
         mapIntent.putExtra("player", player);
