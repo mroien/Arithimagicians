@@ -1,13 +1,14 @@
-//imports
-
-@import "signUpForm";
-
 //variables
 
 $font-family: 'Peas & Carrots';
 $font-color: cadetblue;
 
+//imports
 
+@import "signUpForm";
+@import "home";
+@import "login";
+@import "download";
 
 
 body {
@@ -52,47 +53,8 @@ h1 {
     width: 300px;
     align-self: center;
 }
-.btn-default{
-    margin:3px;
-}
-
-.description {
-    color:black;
-    font-size: medium;
-    //position: absolute;
-    width: 220px;
-    margin: auto;
-    //left: 2em;
-    //top: -12em;
-    //right:0;
-    //bottom:0;
-    //height: 140px;
-    font-family: fantasy;
-}
-
-form#login {
-    position: absolute;
-    /*border: 3px solid red;*/
-    text-align: center;
-    margin: auto;
-    left: 43%;
-    top: 43%;
-    height: 260px;
-    z-index: 999;
-}
-
-
-
-label {
-    width: 108px;
-    text-align: right;
-
-}
-
-.bottomButton {
-    position: relative;
-    left: 34%;
-    margin: auto;
+.btn-default {
+    margin: 3px;
 }
 
 .scroll {
@@ -183,17 +145,4 @@ th{
     align-self: center;
 }
 
-.downloadText {
-    font-family:$font-family;
-    color: $font-color;
-    font-size: 25px;
-    position: absolute;
-    left: 38%;
-    top: 34%
-}
 
-.download {
-    position: absolute;
-    top: 60%;
-    left: 46%
-}

@@ -1,11 +1,6 @@
 #signUpForm {
-    /*position: absolute;*/
-    //border: 13px solid red;
-    margin: auto;
-    /*left: 39%;*/
-    /*top: 22%;*/
-    //max-height: 27%;
-    //min-width: 35%;
+    display: flex;
+    justify-content: space-around;
+    top: 11%;
     z-index: 999;
-    width:33%;
 }
