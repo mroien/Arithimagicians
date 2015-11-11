@@ -37,6 +37,7 @@ public class FightActivity extends AppCompatActivity {
     private ArrayList<String> opList;
     private boolean generateOps;
     private boolean displayedResults;
+    private int totalEnemyHP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,10 @@ public class FightActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_fight);
         setContent();
+        totalEnemyHP = 0;
+        for(Opponent enemy : opponents) {
+            totalEnemyHP += enemy.getTotalHealth();
+        }
     }
 
     public void attackClicked(View view) {
@@ -202,6 +207,15 @@ public class FightActivity extends AppCompatActivity {
                 isDeadOnFirstRoll = true;
                 isDead = true;
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
+
+            /*    while (!displayedResults) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } */
+
                 generateNextOpponent();
             }
             // Else if it is less than the answer
@@ -239,6 +253,15 @@ public class FightActivity extends AppCompatActivity {
                     isDead = true;
                     player.swapDiceBackToInv();
                     generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
+
+                /*    while (!displayedResults) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } */
+
                     generateNextOpponent();
                 }
                 // Else if it is less than the answer
@@ -258,6 +281,14 @@ public class FightActivity extends AppCompatActivity {
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
+
+        /*    while(!displayedResults){
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }*/
             generateDeathScreen();
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
@@ -286,7 +317,11 @@ public class FightActivity extends AppCompatActivity {
 
     }
 
-    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice, int secondRowSecondDice, String firstRowOp, String secondRowOp, String firstRowSecondOp, String secondRowSecondOp, String firstRowAns, String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack, String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
+    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
+                                 int secondRowSecondDice, String firstRowOp, String secondRowOp,
+                                 String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
+                                 String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -314,6 +349,7 @@ public class FightActivity extends AppCompatActivity {
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
+        deathIntent.putExtra("XP", (int) totalEnemyHP / 2);
         startActivity(deathIntent);
     }
 
@@ -333,6 +369,7 @@ public class FightActivity extends AppCompatActivity {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
         rewardsIntent.putExtra("player", player);
         rewardsIntent.putExtra("level", level);
+        rewardsIntent.putExtra("XP", totalEnemyHP);
         startActivity(rewardsIntent);
     }
 
@@ -349,7 +386,6 @@ public class FightActivity extends AppCompatActivity {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
-
     }
 
 
