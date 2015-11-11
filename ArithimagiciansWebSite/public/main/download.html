@@ -12,10 +12,10 @@
     <script>
         $(document).ready(function() {
             $('.download').click(function () {
-                $('.progress').removeClass('hide');
+                $('.progress, .cancel').removeClass('hide');
             });
             $('.cancel').click(function(){
-                $('.progress').addClass('hide');
+                $('.progress, .cancel').addClass('hide');
             })
         });
     </script>
@@ -44,7 +44,7 @@
             </div>
             <div class="downloadText align-col">Do you want to download the app?</div>
             <button class="download btn btn-success align-col btn-lg">Download</button>
-                <button class="cancel btn btn-danger align-col btn-lg">Cancel</button>
+                <button class="cancel btn btn-danger align-col btn-lg hide">Cancel</button>
             </span>
         </div>
     </div>
