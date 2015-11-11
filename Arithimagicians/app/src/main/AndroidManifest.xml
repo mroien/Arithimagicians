@@ -47,7 +47,8 @@
         </activity>
         <activity android:name=".DiceRollResults"
             android:label="diceRoll"
-            android:theme="@style/DiceRollResults" >
+            android:theme="@style/DiceRollResults"
+       >
         </activity>
     </application>
 

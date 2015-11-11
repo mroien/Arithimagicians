@@ -1,6 +1,7 @@
 package ics499.arithimagicians;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,7 @@ public class FightActivity extends AppCompatActivity {
     private ArrayList<Die> diceUsed;
     private ArrayList<String> opList;
     private boolean generateOps;
-
+    private boolean displayedResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,11 @@ public class FightActivity extends AppCompatActivity {
         opHealth = (TextView) findViewById(R.id.oppTextView);
         opList = getIntent.getStringArrayListExtra("opList");
         opponents = (ArrayList<Opponent>) getIntent.getSerializableExtra("opponents");
-        if(opList == null){
+        displayedResults = false;
+        if (opList == null) {
             opList = new ArrayList<String>();
         }
-        if(opponents == null){
+        if (opponents == null) {
             opponents = new ArrayList<Opponent>();
         }
         setContentView(R.layout.activity_fight);
@@ -89,7 +91,7 @@ public class FightActivity extends AppCompatActivity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView firstRowSecondOp = (TextView) findViewById(R.id.firstRowSecondOp);
         TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
-
+        boolean isDead;
         diceUsed = player.getDiceUsed();
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
@@ -121,55 +123,50 @@ public class FightActivity extends AppCompatActivity {
         }
         int firstRowTotal = 0;
         int secondRowTotal = 0;
+
         // For every dice in the first row list, have them roll dice and add it to the total
         for (Die d : firstRow) {
-            if(firstRow.indexOf(d) == 0) {
+            if (firstRow.indexOf(d) == 0) {
                 firstRowFirstDiceRoll = d.rollDice();
                 firstRowTotal += firstRowFirstDiceRoll;
-            }
-            else
-            {
-                if(firstRowFirstOp.getText().equals("+")){
+            } else {
+                if (firstRowFirstOp.getText().equals("+")) {
                     firstRowSecondDiceRoll = d.rollDice();
                     firstRowTotal += firstRowSecondDiceRoll;
-                }
-                else if(firstRowFirstOp.getText().equals("-")){
+                } else if (firstRowFirstOp.getText().equals("-")) {
                     firstRowSecondDiceRoll = d.rollDice();
                     firstRowTotal = firstRowTotal - firstRowSecondDiceRoll;
-                }
-                else if(firstRowFirstOp.getText().equals("*")){
+
+                } else if (firstRowFirstOp.getText().equals("*")) {
                     firstRowSecondDiceRoll = d.rollDice();
                     firstRowTotal = firstRowTotal * firstRowSecondDiceRoll;
-                }
-                else{
+                } else {
                     firstRowSecondDiceRoll = d.rollDice();
                     firstRowTotal = firstRowTotal / firstRowSecondDiceRoll;
+
                 }
             }
         }
         // For every dice in the second row list, have them roll dice and add it to the total
         for (Die d : secondRow) {
-            if(secondRow.indexOf(d) == 0) {
+            if (secondRow.indexOf(d) == 0) {
                 secondRowFirstDiceRoll = d.rollDice();
                 secondRowTotal += secondRowFirstDiceRoll;
-            }
-            else
-            {
-                if(secondRowFirstOp.getText().equals("+")){
+            } else {
+                if (secondRowFirstOp.getText().equals("+")) {
                     secondRowSecondDiceRoll = d.rollDice();
                     secondRowTotal += secondRowSecondDiceRoll;
-                }
-                else if(secondRowFirstOp.getText().equals("-")){
+                } else if (secondRowFirstOp.getText().equals("-")) {
                     secondRowSecondDiceRoll = d.rollDice();
                     secondRowTotal = secondRowTotal - secondRowSecondDiceRoll;
-                }
-                else if(secondRowFirstOp.getText().equals("*")){
+
+                } else if (secondRowFirstOp.getText().equals("*")) {
                     secondRowSecondDiceRoll = d.rollDice();
                     secondRowTotal = secondRowTotal * secondRowSecondDiceRoll;
-                }
-                else{
+                } else {
                     secondRowSecondDiceRoll = d.rollDice();
                     secondRowTotal = secondRowTotal / secondRowSecondDiceRoll;
+
                 }
             }
         }
@@ -191,7 +188,7 @@ public class FightActivity extends AppCompatActivity {
             // do attack,
             firstRowAttack = firstRowTotal - Integer.parseInt(firstRowAns.getText().toString());
             currOpponet.takeDamage(firstRowAttack);
-            firstRowUser ="Enemy";
+            firstRowUser = "Enemy";
             // recalc health,
             int gj2 = currOpponet.getCurrentHealth();
             opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
@@ -203,8 +200,17 @@ public class FightActivity extends AppCompatActivity {
                 opponents.remove(0);
                 generateOps = true;
                 isDeadOnFirstRoll = true;
-                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll);
+                isDead = true;
+                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
+                while (!displayedResults) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 generateNextOpponent();
+                displayedResults = false;
             }
             // Else if it is less than the answer
         } else {
@@ -218,44 +224,65 @@ public class FightActivity extends AppCompatActivity {
             playerProgressBar.setProgress(player.getPercentHealthLeft());
 
         }
+
+
+
         // IF the second row total from the dice is greater or equal to the answer
-        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0)) {
-            // do attack,
-            secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
-            currOpponet.takeDamage(secondRowAttack);
-            secondRowUser = "Enemy";
-            // recalc health,
-            int o1 = currOpponet.getCurrentHealth();
-            opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
-            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0)) {
+                // do attack,
+                secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
+                currOpponet.takeDamage(secondRowAttack);
+                secondRowUser = "Enemy";
+                // recalc health,
+                int o1 = currOpponet.getCurrentHealth();
+                opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
+                opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
-            // Check op health if dead rewards screen,
-            if (currOpponet.getCurrentHealth() <= 0) {
-                player.swapDiceBackToInv();
-               if(opponents.size() > 0)
-                   opponents.remove(0);
-                generateOps = true;
-                player.swapDiceBackToInv();
-                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false);
-                generateNextOpponent();
+                // Check op health if dead rewards screen,
+                if (currOpponet.getCurrentHealth() <= 0) {
+                    player.swapDiceBackToInv();
+                    if (opponents.size() > 0)
+                        opponents.remove(0);
+                    generateOps = true;
+                    isDead = true;
+                    player.swapDiceBackToInv();
+                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
+                    while (!displayedResults) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    generateNextOpponent();
+                    displayedResults = false;
+                }
+                // Else if it is less than the answer
+            } else if (!(currOpponet.getCurrentHealth() < 0)) {
+                // do enemy attack,
+                secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
+                player.takeDamage(secondRowAttack);
+                secondRowUser = "Player";
+                // recalc health,
+                playerHealth.setText("Player Health: " + player.getCurrentHealth());
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+
             }
-            // Else if it is less than the answer
-        } else if(!(currOpponet.getCurrentHealth() < 0)){
-            // do enemy attack,
-            secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
-            player.takeDamage(secondRowAttack);
-            secondRowUser = "Player";
-            // recalc health,
-            playerHealth.setText("Player Health: " + player.getCurrentHealth());
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
 
-        }
+
         // If at this point we have not gotten pushed to the rewards screen, lets see if the player is dead
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
-            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false);
-
+            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
+            while(!displayedResults){
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             generateDeathScreen();
+            displayedResults = false;
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
         // Generate new answers
@@ -264,7 +291,7 @@ public class FightActivity extends AppCompatActivity {
         else if(generateOps == false) {
             // reset operations and dice
             player.swapDiceBackToInv();
-            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false);
+            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
             resetDicePics();
             generateAns(level);
             generateOperations(currOpponet.getOp());
@@ -283,7 +310,7 @@ public class FightActivity extends AppCompatActivity {
 
     }
 
-    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice, int secondRowSecondDice, String firstRowOp, String secondRowOp, String firstRowSecondOp, String secondRowSecondOp, String firstRowAns, String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack, String secondRowUser, boolean isDeadOnFirstRoll){
+    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice, int secondRowSecondDice, String firstRowOp, String secondRowOp, String firstRowSecondOp, String secondRowSecondOp, String firstRowAns, String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack, String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -305,6 +332,7 @@ public class FightActivity extends AppCompatActivity {
         results.putExtra("secondRowAttack", secondRowAttack);
         results.putExtra("secondRowUser", secondRowUser);
         results.putExtra("isDeadOnFirstRoll", isDeadOnFirstRoll);
+        results.putExtra("isDead", isDead);
         startActivityForResult(results, 100);
     }
     private void generateDeathScreen() {
@@ -356,6 +384,11 @@ public class FightActivity extends AppCompatActivity {
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
         opHealth = (TextView) findViewById(R.id.oppTextView);
+        Opponent spearman;
+        Opponent shaman;
+        Opponent grabber;
+        Opponent smasher;
+        Opponent wizard;
         switch (level) {
             case "1_1":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
@@ -366,45 +399,88 @@ public class FightActivity extends AppCompatActivity {
                 opHealth.setText("Opponent HP: 3");
                 opList.clear();
                 opList.add("+");
-                Opponent one = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
-                currOpponet = one;
-                one.setOp(opList);
-                opponents.add(one);
+                Opponent slasher = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                currOpponet = slasher;
+                slasher.setOp(opList);
+                opponents.add(slasher);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_2":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                currOpponet = one;
+                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                currOpponet = slasher;
                 playerHealth.setText("Player HP : " + player.getCurrentHealth());
                 playerProgressBar.setProgress(player.getPercentHealthLeft());
                 opHealth.setText("Opponent HP: 4");
                 opList.clear();
                 opList.add("+");
-                one.setOp(opList);
-                opponents.add(one);
+                slasher.setOp(opList);
+                opponents.add(slasher);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_3":
-                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
                 playerHealth.setText("Player HP : " + player.getCurrentHealth());
                 playerProgressBar.setProgress(player.getPercentHealthLeft());
-                one = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                Opponent two = new Opponent(4, 1, "Gobloid Spearman", "zone1gobloidspearman");
-                currOpponet = one;
+                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                currOpponet = slasher;
                 opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
-                two.setOp(opList);
-                one.setOp(opList);
-                opponents.add(one);
-                opponents.add(two);
+                spearman.setOp(opList);
+                slasher.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(spearman);
                 generateOperations(opList);
                 generateAns(level);
                 break;
+            case "1_4":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
+                playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                Opponent slasherTwo = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                 spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                currOpponet = slasher;
+                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                spearman.setOp(opList);
+                slasher.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(slasherTwo);
+                opponents.add(spearman);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "1_5":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
+                playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                shaman = new Opponent(5, 2, "Gobloid Shaman", "zone1gobloidshama");
+                grabber = new Opponent(4, 1, "Skeletonian Grabber", "zone1skeletoniangrabber");
+                currOpponet = spearman;
+                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                spearman.setOp(opList);
+                shaman.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(spearman);
+                opponents.add(shaman);
+                opponents.add(grabber);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+
+
         }
     }
 
@@ -449,6 +525,7 @@ public class FightActivity extends AppCompatActivity {
             int opIndex = r.nextInt((opList.size() - 1) + 1);
             if (i == 0) {
                 firstRowFirstOp.setText(opList.get(opIndex));
+
             } else
                 secondRowFirstOp.setText(opList.get(opIndex));
         }
@@ -471,6 +548,7 @@ public class FightActivity extends AppCompatActivity {
             Opponent next = opponents.get(0);
             currOpponet = next;
             int resId = getResources().getIdentifier(next.getLayout(), "drawable", getPackageName());
+            rl.setBackgroundColor(Color.WHITE);
             rl.setBackground(ContextCompat.getDrawable(this, resId));
             resetDicePics();
             generateAns(level);
@@ -596,6 +674,7 @@ public class FightActivity extends AppCompatActivity {
             this.opList = data.getStringArrayListExtra("opList");
             this.opponents = (ArrayList<Opponent>) data.getSerializableExtra("opponents");
             this.level = data.getStringExtra("level");
+            displayedResults = true;
 
         }
     }

@@ -29,6 +29,7 @@ public class DiceRollResults extends Activity {
     private String secondRowUserString;
     private int secondRowAttack;
     private boolean isDeadOnFirstRoll;
+    private boolean isDead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class DiceRollResults extends Activity {
         firstRowAttack = getIntent.getIntExtra("firstRowAttack", 0);
         secondRowAttack = getIntent.getIntExtra("secondRowAttack", 0);
         isDeadOnFirstRoll = getIntent.getBooleanExtra("isDeadOnFirstRoll", false);
-
+        isDead = getIntent.getBooleanExtra("isDead", false);
         generateResults();
     }
     public void generateResults(){
@@ -70,7 +71,11 @@ public class DiceRollResults extends Activity {
         TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView secondRowResults = (TextView) findViewById(R.id.secondRowResults);
-
+        TextView isDefeated = (TextView) findViewById(R.id.defeatedTextView);
+        if(isDead == true)
+        {
+            isDefeated.setText("Opponent Defeated");
+        }
         if(isDeadOnFirstRoll == false) {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));

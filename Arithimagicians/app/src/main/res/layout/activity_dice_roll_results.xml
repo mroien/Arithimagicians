@@ -130,4 +130,15 @@
         android:onClick="closeClick"
         android:layout_marginTop="365dp"
         android:layout_marginLeft= "140dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/defeatedTextView"
+        android:layout_below="@+id/secondRowResults"
+        android:layout_alignRight="@+id/closeButton"
+        android:layout_alignEnd="@+id/closeButton"
+        android:layout_marginTop="18dp" />
 </RelativeLayout>
