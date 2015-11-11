@@ -91,7 +91,7 @@ public class FightActivity extends AppCompatActivity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView firstRowSecondOp = (TextView) findViewById(R.id.firstRowSecondOp);
         TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
-        boolean isDead;
+        boolean isDead = false;
         diceUsed = player.getDiceUsed();
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
@@ -202,15 +202,7 @@ public class FightActivity extends AppCompatActivity {
                 isDeadOnFirstRoll = true;
                 isDead = true;
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
-                while (!displayedResults) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
                 generateNextOpponent();
-                displayedResults = false;
             }
             // Else if it is less than the answer
         } else {
@@ -228,7 +220,7 @@ public class FightActivity extends AppCompatActivity {
 
 
         // IF the second row total from the dice is greater or equal to the answer
-            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0)) {
+            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
                 // do attack,
                 secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
                 currOpponet.takeDamage(secondRowAttack);
@@ -247,18 +239,10 @@ public class FightActivity extends AppCompatActivity {
                     isDead = true;
                     player.swapDiceBackToInv();
                     generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-                    while (!displayedResults) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
                     generateNextOpponent();
-                    displayedResults = false;
                 }
                 // Else if it is less than the answer
-            } else if (!(currOpponet.getCurrentHealth() < 0)) {
+            } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
                 // do enemy attack,
                 secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
                 player.takeDamage(secondRowAttack);
@@ -274,15 +258,7 @@ public class FightActivity extends AppCompatActivity {
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-            while(!displayedResults){
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
             generateDeathScreen();
-            displayedResults = false;
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
         // Generate new answers
@@ -508,7 +484,7 @@ public class FightActivity extends AppCompatActivity {
         }
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
-            int opIndex = r.nextInt(ansMax - 1) + 1;
+            int opIndex = r.nextInt(ansMax - 1) + 3;
             if (i == 0) {
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
