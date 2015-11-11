@@ -1,10 +1,38 @@
 #signUpForm {
-  /*position: absolute;*/
+  display: flex;
+  justify-content: space-around;
+  top: 11%;
+  z-index: 999; }
+
+.description {
+  color: black;
+  font-size: medium;
+  width: 220px;
   margin: auto;
-  /*left: 39%;*/
-  /*top: 22%;*/
-  z-index: 999;
-  width: 33%; }
+  font-family: fantasy; }
+
+#login {
+  /*border: 3px solid red;*/
+  text-align: center;
+  margin: auto;
+  z-index: 999; }
+
+label {
+  width: 108px;
+  text-align: right; }
+
+.bottomButton {
+  margin: auto; }
+
+.download_wrapper, .downloadText {
+  font-family: "Peas & Carrots";
+  color: cadetblue;
+  font-size: 25px;
+  width: 342px;
+  margin: auto; }
+
+.download {
+  margin: auto; }
 
 body {
   background: url("../images/forest.jpg") no-repeat center center fixed;
@@ -44,32 +72,6 @@ h1 {
 
 .btn-default {
   margin: 3px; }
-
-.description {
-  color: black;
-  font-size: medium;
-  width: 220px;
-  margin: auto;
-  font-family: fantasy; }
-
-form#login {
-  position: absolute;
-  /*border: 3px solid red;*/
-  text-align: center;
-  margin: auto;
-  left: 43%;
-  top: 43%;
-  height: 260px;
-  z-index: 999; }
-
-label {
-  width: 108px;
-  text-align: right; }
-
-.bottomButton {
-  position: relative;
-  left: 34%;
-  margin: auto; }
 
 .scroll {
   display: flex;
@@ -147,18 +149,5 @@ th {
 .align-col {
   flex-flow: column;
   align-self: center; }
-
-.downloadText {
-  font-family: "Peas & Carrots";
-  color: cadetblue;
-  font-size: 25px;
-  position: absolute;
-  left: 38%;
-  top: 34%; }
-
-.download {
-  position: absolute;
-  top: 60%;
-  left: 46%; }
 
 /*# sourceMappingURL=main.css.map */
