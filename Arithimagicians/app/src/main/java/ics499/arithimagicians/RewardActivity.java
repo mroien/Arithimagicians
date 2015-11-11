@@ -6,12 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.TextView;
 
 public class RewardActivity extends AppCompatActivity {
     private Player player;
     private String level;
+    private int XP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +22,11 @@ public class RewardActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         player = (Player) getIntent.getSerializableExtra("player");
         level = getIntent.getStringExtra("level");
+        XP = getIntent.getIntExtra("XP", 0);
         setNewLevel();
+        Log.i("Prereward", "Pre XP is " + Integer.toString(player.getXp()));
+        player.gainXP(XP);
+        Log.i("Postreward", "New XP is " + Integer.toString(player.getXp()));
     }
     public void closeClick(View view){
         Intent mapIntent = new Intent(this, DisplayMap.class);

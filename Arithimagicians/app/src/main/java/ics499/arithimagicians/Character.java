@@ -45,4 +45,10 @@ public class Character implements Serializable {
         double z = ((double)this.currentHealth / (double)this.totalHealth) * 100;
         return (int) z;
     }
+
+    public void gainHealth(int amt) {
+        currentHealth += amt;
+    }
+
+    public int getTotalHealth() { return totalHealth; }
 }

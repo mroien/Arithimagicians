@@ -13,12 +13,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="roll"
         android:id="@+id/firstRowFirstValue"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="98dp" />
+        android:layout_marginTop="98dp"
+        android:layout_marginLeft="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,11 +22,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="op"
         android:id="@+id/firstRowOp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_alignTop="@+id/firstRowFirstValue"
-        android:layout_toRightOf="@+id/firstRowFirstValue"
-        android:layout_toEndOf="@+id/firstRowFirstValue" />
+        android:layout_marginTop="98dp"
+        android:layout_marginLeft="90dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,74 +31,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="roll"
         android:id="@+id/firstRowSecondValue"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:layout_alignTop="@+id/firstRowOp"
-        android:layout_toRightOf="@+id/firstRowOp"
-        android:layout_toEndOf="@+id/firstRowOp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="op"
-        android:id="@+id/firstRowSecondOp"
-        android:layout_alignTop="@+id/firstRowSecondValue"
-        android:layout_toRightOf="@+id/firstRowSecondValue"
-        android:layout_toEndOf="@+id/firstRowSecondValue"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ans"
-        android:id="@+id/firstRowAns"
-        android:layout_alignTop="@+id/firstRowSecondOp"
-        android:layout_toRightOf="@+id/firstRowSecondOp"
-        android:layout_toEndOf="@+id/firstRowSecondOp"
-        android:layout_marginLeft="41dp"
-        android:layout_marginStart="41dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="results"
-        android:id="@+id/firstRowResults"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="150dp"
-             />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="roll"
-        android:id="@+id/secondRowFirstValue"
-        android:layout_marginTop="48dp"
-        android:layout_below="@+id/firstRowResults"
-        android:layout_toLeftOf="@+id/firstRowOp"
-        android:layout_toStartOf="@+id/firstRowOp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="op"
-        android:id="@+id/secondRowOp"
-        android:layout_alignTop="@+id/secondRowFirstValue"
-        android:layout_alignLeft="@+id/firstRowOp"
-        android:layout_alignStart="@+id/firstRowOp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="roll"
-        android:id="@+id/secondRowSecondValue"
-        android:layout_alignTop="@+id/secondRowOp"
+        android:layout_marginTop="98dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -113,29 +40,87 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="op"
-        android:id="@+id/secondRowSecondOp"
-        android:layout_alignTop="@+id/secondRowSecondValue"
-        android:layout_alignLeft="@+id/firstRowSecondOp"
-        android:layout_alignStart="@+id/firstRowSecondOp" />
+        android:id="@+id/firstRowSecondOp"
+        android:layout_marginTop="98dp"
+        android:layout_marginLeft="215dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ans"
-        android:id="@+id/secondRowAns"
-        android:layout_alignTop="@+id/secondRowSecondOp"
-        android:layout_alignLeft="@+id/firstRowAns"
-        android:layout_alignStart="@+id/firstRowAns" />
+        android:id="@+id/firstRowAns"
+
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="98dp" />
+
+    <TextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="results"
+        android:id="@+id/firstRowResults"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignRight="@+id/firstRowAns"
+        android:layout_alignEnd="@+id/firstRowAns" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="results"
+        android:text=""
+        android:id="@+id/secondRowFirstValue"
+        android:layout_marginTop="224dp"
+        android:layout_marginLeft="30dp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/secondRowOp"
+        android:layout_marginTop="224dp"
+        android:layout_marginLeft="90dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/secondRowSecondValue"
+        android:layout_marginTop="224dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/secondRowSecondOp"
+        android:layout_marginTop="224dp"
+        android:layout_marginLeft="215dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/secondRowAns"
+        android:layout_marginTop="224dp"
+        android:layout_marginLeft="280dp"/>
+
+    <TextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
         android:id="@+id/secondRowResults"
         android:layout_marginTop="300dp"
-        android:layout_marginLeft="150dp"/>
+        android:layout_marginLeft="30dp"
+        android:layout_alignRight="@+id/secondRowAns"
+        android:layout_alignEnd="@+id/secondRowAns" />
 
     <Button
         android:layout_width="wrap_content"
@@ -143,8 +128,17 @@
         android:text="OK"
         android:id="@+id/closeButton"
         android:onClick="closeClick"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginLeft= "140dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/defeatedTextView"
         android:layout_below="@+id/secondRowResults"
-        android:layout_alignRight="@+id/secondRowResults"
-        android:layout_alignEnd="@+id/secondRowResults" />
+        android:layout_alignRight="@+id/closeButton"
+        android:layout_alignEnd="@+id/closeButton"
+        android:layout_marginTop="18dp" />
 </RelativeLayout>
