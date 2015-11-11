@@ -37,6 +37,7 @@ public class FightActivity extends AppCompatActivity {
     private ArrayList<String> opList;
     private boolean generateOps;
     private boolean displayedResults;
+    private int totalEnemyHP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,10 @@ public class FightActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_fight);
         setContent();
+        totalEnemyHP = 0;
+        for(Opponent enemy : opponents) {
+            totalEnemyHP += enemy.getTotalHealth();
+        }
     }
 
     public void attackClicked(View view) {
@@ -338,6 +343,7 @@ public class FightActivity extends AppCompatActivity {
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
+        deathIntent.putExtra("XP", (int) totalEnemyHP / 2);
         startActivity(deathIntent);
     }
 
@@ -357,6 +363,7 @@ public class FightActivity extends AppCompatActivity {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
         rewardsIntent.putExtra("player", player);
         rewardsIntent.putExtra("level", level);
+        rewardsIntent.putExtra("XP", totalEnemyHP);
         startActivity(rewardsIntent);
     }
 

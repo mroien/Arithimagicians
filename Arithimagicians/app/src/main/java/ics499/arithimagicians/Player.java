@@ -109,7 +109,7 @@ public class Player extends Character implements Serializable {
         }
     }
 
-    private void gainXP(int amt) {
+    public void gainXP(int amt) {
         xp += amt;
     }
 
@@ -161,5 +161,9 @@ public class Player extends Character implements Serializable {
             }
         }
         return false;
+    }
+
+    public int getXp() {
+        return xp;
     }
 }
