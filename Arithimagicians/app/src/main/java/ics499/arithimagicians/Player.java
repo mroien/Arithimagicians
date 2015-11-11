@@ -25,7 +25,7 @@ public class Player extends Character implements Serializable {
 
     public Player() {
         // Change to actual values
-        super(100, 1);
+        super(10, 1);
         this.xp = 0;
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();

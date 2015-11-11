@@ -11,10 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ya fucking dead"
+        android:text="Unfortunately, your hit points have reached 0.\nYou have died.\nLuckily, your magic dice have put you into stasis until your body recovers."
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="You earned"
+        android:id="@+id/XPreward"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp" />
 
     <Button
         android:layout_width="wrap_content"

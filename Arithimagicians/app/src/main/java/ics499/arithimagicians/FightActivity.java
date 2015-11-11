@@ -285,8 +285,8 @@ public class FightActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-            generateDeathScreen(); */
+            }*/
+            generateDeathScreen();
             displayedResults = false;
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
