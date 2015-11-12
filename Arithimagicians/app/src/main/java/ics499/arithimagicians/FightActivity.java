@@ -446,6 +446,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.add("-");
                 spearman.setOp(opList);
                 slasher.setOp(opList);
+                slasherTwo.setOp(opList);
                 opponents.add(slasher);
                 opponents.add(spearman);
                 opponents.add(slasherTwo);
@@ -497,6 +498,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
                 grabber.setOp(opList);
                 smasher.setOp(opList);
                 grabberTwo.setOp(opList);
@@ -516,6 +518,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
                 grabber.setOp(opList);
                 smasher.setOp(opList);
                 smasherTwo.setOp(opList);
@@ -533,6 +536,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
                 wizard.setOp(opList);
                 opponents.add(wizard);
                 generateOperations(opList);
@@ -547,6 +551,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
                 wizard.setOp(opList);
                 grabber.setOp(opList);
                 opponents.add(grabber);
@@ -564,6 +569,7 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
                 spearman.setOp(opList);
                 shaman.setOp(opList);
                 grabber.setOp(opList);
@@ -583,6 +589,8 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
+                opList.add("/");
                 smasher.setOp(opList);
                 slasher.setOp(opList);
                 grabber.setOp(opList);
@@ -602,6 +610,8 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
+                opList.add("/");
                 smasher.setOp(opList);
                 slasher.setOp(opList);
                 slasherTwo.setOp(opList);
@@ -621,6 +631,8 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
+                opList.add("/");
                 smasher.setOp(opList);
                 shaman.setOp(opList);
                 smasherTwo.setOp(opList);
@@ -641,6 +653,8 @@ public class FightActivity extends AppCompatActivity {
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
+                opList.add("*");
+                opList.add("/");
                 spearman.setOp(opList);
                 shaman.setOp(opList);
                 grabber.setOp(opList);
@@ -670,6 +684,8 @@ public class FightActivity extends AppCompatActivity {
         TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         int ansMax = 0;
+        int ansMult = 0;
+        int ansDiv = 0;
         switch (level) {
             case "1_1":
                 ansMax = 9;
@@ -684,49 +700,123 @@ public class FightActivity extends AppCompatActivity {
                 ansMax = 9;
                 break;
             case "1_5":
-                ansMax = 12;
+                ansMax = 9;
                 break;
             case "2_1":
-                ansMax = 12;
+                ansMax = 13;
                 break;
             case "2_2":
-                ansMax = 12;
+                ansMax = 13;
+                ansMult = 20;
                 break;
             case "2_3":
-                ansMax = 12;
+                ansMax = 13;
+                ansMult = 20;
                 break;
             case "2_4":
-                ansMax = 12;
+                ansMax = 13;
+                ansMult = 32;
                 break;
             case "2_5":
-                ansMax = 12;
+                ansMax = 13;
+                ansMult = 32;
                 break;
             case "3_1":
-                ansMax = 12;
+                ansMax = 16;
+                ansMult = 64;
                 break;
             case "3_2":
-                ansMax = 12;
+                ansMax = 16;
+                ansMult = 64;
+                ansDiv = 4;
                 break;
             case "3_3":
-                ansMax = 12;
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
                 break;
             case "3_4":
-                ansMax = 12;
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
                 break;
             case "3_5":
-                ansMax = 12;
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
                 break;
 
         }
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
-            int opIndex = r.nextInt(ansMax - 1);
-            if (opIndex < 3){
-                opIndex = 3;
-            }
+            int opIndex;
             if (i == 0) {
+                switch(firstRowOp){
+                    case "+":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "-":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "*":
+                        opIndex = r.nextInt(ansMult - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "/":
+                        opIndex = r.nextInt(ansDiv - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    default:
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                }
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
+                switch(secondRowOp){
+                    case "+":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "-":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "*":
+                        opIndex = r.nextInt(ansMult - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "/":
+                        opIndex = r.nextInt(ansDiv - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    default:
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                }
                 secondRowAns.setText(Integer.toString(opIndex));
         }
     }
@@ -739,9 +829,11 @@ public class FightActivity extends AppCompatActivity {
             Random r = new Random();
             int opIndex = r.nextInt((opList.size() - 1) + 1);
             if (i == 0) {
+                firstRowOp = opList.get(opIndex);
                 firstRowFirstOp.setText(opList.get(opIndex));
 
             } else
+                secondRowOp = opList.get(opIndex);
                 secondRowFirstOp.setText(opList.get(opIndex));
         }
 
