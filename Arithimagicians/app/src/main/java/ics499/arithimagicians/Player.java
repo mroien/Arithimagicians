@@ -166,7 +166,10 @@ public class Player extends Character implements Serializable {
     public int getXp() {
         return xp;
     }
+
     public double getLootRate() {
         return lootRate;
     }
+
+    public double getDamageRate() { return damageRate; }
 }

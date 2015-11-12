@@ -192,7 +192,7 @@ public class FightActivity extends AppCompatActivity {
         if (firstRowTotal >= Integer.parseInt(firstRowAns.getText().toString())) {
             // do attack,
             firstRowAttack = firstRowTotal - Integer.parseInt(firstRowAns.getText().toString());
-            currOpponet.takeDamage(firstRowAttack);
+            currOpponet.takeDamage((int) (firstRowAttack * player.getDamageRate()));
             firstRowUser = "Enemy";
             // recalc health,
             int gj2 = currOpponet.getCurrentHealth();
@@ -222,7 +222,7 @@ public class FightActivity extends AppCompatActivity {
         } else {
             // do enemy attack,
             firstRowAttack = Integer.parseInt(firstRowAns.getText().toString()) - firstRowTotal;
-            player.takeDamage(firstRowAttack);
+            player.takeDamage(firstRowAttack + currOpponet.getAttack());
             firstRowUser = "Player";
             // recalc health,
             playerHealth.setText("Player Health: " + player.getCurrentHealth());
@@ -237,7 +237,7 @@ public class FightActivity extends AppCompatActivity {
             if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
                 // do attack,
                 secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
-                currOpponet.takeDamage(secondRowAttack);
+                currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
                 secondRowUser = "Enemy";
                 // recalc health,
                 int o1 = currOpponet.getCurrentHealth();
@@ -268,7 +268,7 @@ public class FightActivity extends AppCompatActivity {
             } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
                 // do enemy attack,
                 secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
-                player.takeDamage(secondRowAttack);
+                player.takeDamage(secondRowAttack + currOpponet.getAttack());
                 secondRowUser = "Player";
                 // recalc health,
                 playerHealth.setText("Player Health: " + player.getCurrentHealth());

@@ -32,7 +32,9 @@ public class Die implements Serializable{
 
     public int rollDice() {
         Random random = new Random();
-        int roll = random.nextInt(this.diceValue -1) + 2;
+        int roll = random.nextInt(this.diceValue) + 1;
+        if (roll == 0) { roll = 1; }
+        roll += bonusDamage;
         return roll;
     }
 
