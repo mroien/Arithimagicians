@@ -196,7 +196,7 @@ public class FightActivity extends AppCompatActivity {
             firstRowUser = "Enemy";
             // recalc health,
             int gj2 = currOpponet.getCurrentHealth();
-            opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
             // Check op health if dead rewards screen,
@@ -241,7 +241,7 @@ public class FightActivity extends AppCompatActivity {
                 secondRowUser = "Enemy";
                 // recalc health,
                 int o1 = currOpponet.getCurrentHealth();
-                opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
+                opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
                 opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
                 // Check op health if dead rewards screen,
@@ -346,6 +346,7 @@ public class FightActivity extends AppCompatActivity {
         results.putExtra("isDead", isDead);
         startActivityForResult(results, 100);
     }
+
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
@@ -392,39 +393,24 @@ public class FightActivity extends AppCompatActivity {
     public void setContent() {
         String lastMap = player.getLastMap();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
-        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
-        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
-        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-        opHealth = (TextView) findViewById(R.id.oppTextView);
-        Opponent spearman;
-        Opponent shaman;
-        Opponent grabber;
-        Opponent smasher;
-        Opponent wizard;
         switch (level) {
             case "1_1":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
-                playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                opHealth = (TextView) findViewById(R.id.oppTextView);
-                opHealth.setText("Opponent HP: 3");
+                Opponent spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
+                currOpponet = spearman;
+                setProgressBars(currOpponet);
+                spearman.setOp(opList);
+                opponents.add(spearman);
                 opList.clear();
                 opList.add("+");
-                Opponent slasher = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
-                currOpponet = slasher;
-                slasher.setOp(opList);
-                opponents.add(slasher);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_2":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                Opponent slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
                 currOpponet = slasher;
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                opHealth.setText("Opponent HP: 4");
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 slasher.setOp(opList);
@@ -434,12 +420,10 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case "1_3":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
                 currOpponet = slasher;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
@@ -452,33 +436,29 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case "1_4":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                Opponent slasherTwo = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                 spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                Opponent slasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
                 currOpponet = slasher;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
                 spearman.setOp(opList);
                 slasher.setOp(opList);
                 opponents.add(slasher);
-                opponents.add(slasherTwo);
                 opponents.add(spearman);
+                opponents.add(slasherTwo);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_5":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
-                shaman = new Opponent(5, 2, "Gobloid Shaman", "zone1gobloidshama");
-                grabber = new Opponent(4, 1, "Skeletonian Grabber", "zone1skeletoniangrabber");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
+                Opponent shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone1gobloidshaman");
+                Opponent grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone1skeletoniangrabber");
                 currOpponet = spearman;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
@@ -491,9 +471,199 @@ public class FightActivity extends AppCompatActivity {
                 generateOperations(opList);
                 generateAns(level);
                 break;
-
-
+            case "2_1":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2gobloidslasher));
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone2gobloidslasher");
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                currOpponet = slasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                slasher.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(grabber);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_2":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                Opponent smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                Opponent grabberTwo = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                grabber.setOp(opList);
+                smasher.setOp(opList);
+                grabberTwo.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(smasher);
+                opponents.add(grabberTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_3":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniansmasher));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                Opponent smasherTwo = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                currOpponet = smasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                grabber.setOp(opList);
+                smasher.setOp(opList);
+                smasherTwo.setOp(opList);
+                opponents.add(smasher);
+                opponents.add(grabber);
+                opponents.add(smasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_4":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletonianwizard));
+                Opponent wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone2skeletonianwizard");
+                currOpponet = wizard;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                wizard.setOp(opList);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_5":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone2skeletonianwizard");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                wizard.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_1":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone3gobloidspearman");
+                shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone3gobloidshaman");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                spearman.setOp(opList);
+                shaman.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(spearman);
+                opponents.add(shaman);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_2":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                smasher.setOp(opList);
+                slasher.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(smasher);
+                opponents.add(slasher);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_3":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3gobloidslasher));
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                slasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                currOpponet = slasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                smasher.setOp(opList);
+                slasher.setOp(opList);
+                slasherTwo.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(smasher);
+                opponents.add(slasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_4":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniansmasher));
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                shaman = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                smasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone3skeletoniansmasher");
+                currOpponet = smasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                smasher.setOp(opList);
+                shaman.setOp(opList);
+                smasherTwo.setOp(opList);
+                opponents.add(smasher);
+                opponents.add(shaman);
+                opponents.add(smasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_5":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3gobloidspearman));
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone3gobloidspearman");
+                shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone3gobloidshaman");
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone3skeletonianwizard");
+                currOpponet = spearman;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                spearman.setOp(opList);
+                shaman.setOp(opList);
+                grabber.setOp(opList);
+                wizard.setOp(opList);
+                opponents.add(spearman);
+                opponents.add(grabber);
+                opponents.add(shaman);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
         }
+    }
+
+    private void setProgressBars(Opponent opponent){
+        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        playerHealth.setText("Player HP : " + player.getCurrentHealth());
+        playerProgressBar.setProgress(player.getPercentHealthLeft());
+        opHealth = (TextView) findViewById(R.id.oppTextView);
+        String oppBar = opponent.getName() + " HP: " + opponent.getTotalHealth();
+        opHealth.setText(oppBar);
     }
 
     private void generateAns(String level) {
@@ -516,11 +686,44 @@ public class FightActivity extends AppCompatActivity {
             case "1_5":
                 ansMax = 12;
                 break;
+            case "2_1":
+                ansMax = 12;
+                break;
+            case "2_2":
+                ansMax = 12;
+                break;
+            case "2_3":
+                ansMax = 12;
+                break;
+            case "2_4":
+                ansMax = 12;
+                break;
+            case "2_5":
+                ansMax = 12;
+                break;
+            case "3_1":
+                ansMax = 12;
+                break;
+            case "3_2":
+                ansMax = 12;
+                break;
+            case "3_3":
+                ansMax = 12;
+                break;
+            case "3_4":
+                ansMax = 12;
+                break;
+            case "3_5":
+                ansMax = 12;
+                break;
 
         }
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
-            int opIndex = r.nextInt(ansMax - 1) + 3;
+            int opIndex = r.nextInt(ansMax - 1);
+            if (opIndex < 3){
+                opIndex = 3;
+            }
             if (i == 0) {
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
@@ -566,7 +769,7 @@ public class FightActivity extends AppCompatActivity {
             generateAns(level);
             generateOperations(currOpponet.getOp());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-            opHealth.setText("Opponent Health : " + currOpponet.getCurrentHealth());
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
         }
     }
 
