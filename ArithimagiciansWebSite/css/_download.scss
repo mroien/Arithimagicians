@@ -11,3 +11,12 @@
   margin: auto;
 }
 
+.progress {
+  width: 300px;
+  align-self: center;
+}
+
+.align-col {
+  flex-flow: column;
+  align-self: center;
+}

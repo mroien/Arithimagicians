@@ -101,6 +101,8 @@ require('leftNav.php');
                 <input type="email" name="email" id="email" placeholder="Email Address" pattern="[\w\D]{5,50}" required/><br>
                 <label for="username">Username:*</label>
                 <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,10}" required/><br>
+                <label for="phone">Phone Number:*</label>
+                <input type="text" name="phone" id="phone" placeholder="Phone Number" pattern="[\d]{10}" required/><br>
                 <label for="password1">Password:*</label>
                 <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>

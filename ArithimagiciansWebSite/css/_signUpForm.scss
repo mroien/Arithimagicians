@@ -1,6 +1,15 @@
 #signUpForm {
     display: flex;
     justify-content: space-around;
-    top: 11%;
+    top: 7%;
     z-index: 999;
+}
+
+input label {
+    padding: 5px;
+}
+
+.red {
+    color: red;
+    text-align: right;
 }
