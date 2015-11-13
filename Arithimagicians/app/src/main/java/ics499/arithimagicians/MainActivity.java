@@ -2,12 +2,23 @@ package ics499.arithimagicians;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog.*;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            // Get the mobile phone number, call the db and see if it matches an account from the website, if it does, tie them together with a rest call
+                          //  TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+                           // String number = tm.getLine1Number();
+
+
+
                             // Create user account without any information besides random accountId, and set level to the start
                             player = new Player();
                             // Send to start screen:
@@ -74,7 +91,26 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     public void loadGameClicked(View view) {
         read();
     }
+    public void checkNumberRest(String number){
+        String url = "";
+       RequestQueue queue = Volley.newRequestQueue(this);
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.i("phone", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
     /**
      * Find the saved game object and read in the player object. Create a displaymap intent and put the player object into it
      * Start the activity
