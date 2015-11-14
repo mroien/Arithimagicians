@@ -55,8 +55,7 @@ require('leftNav.php');
         $.ajax({
             url: 'http://52.32.43.132:8080/login?',
             type: 'GET',
-            dataType: 'jsonp',
-            data: "userName=" + username + "&password" + password,
+            data: "userName=" + username + "&password=" + password,
             crossDomain: true,
             success: function(response) {
                 alert(response);
