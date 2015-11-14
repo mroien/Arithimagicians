@@ -115,9 +115,10 @@ public class Player extends Character implements Serializable {
         xp += amt;
     }
 
-    private void spendXP(int amt) {
-
+    public void spendXP(int amt) {
+        xp -= amt;
     }
+
     public String getLastMap(){
         return this.lastStage;
     }
@@ -180,5 +181,13 @@ public class Player extends Character implements Serializable {
     }
     public int getUserId(){
         return this.userId;
+    }
+
+    public boolean checkXP(int value){
+        return this.getXp() >= value;
+    }
+
+    public void addDie (Die die) {
+        this.dice.add(die);
     }
 }

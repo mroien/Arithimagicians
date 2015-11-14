@@ -58,44 +58,37 @@ public class LevelChoiceDialog extends DialogFragment {
         bonusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String die = getArguments().getString("die");
                 Player player = (Player) getArguments().getSerializable("player");
-                System.out.println("Buy Bonus " + die + " for " + getBonusCost(player, die) + " XP?");
-                AlertDialog.Builder bonusBuilder = new AlertDialog.Builder(getActivity());
-                bonusBuilder.setTitle("Buy Bonus " + die + " for " + getBonusCost(player, die) + " XP?")
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        })
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String die = getArguments().getString("die");
-                                switch (die){
-                                    case "d4":
-                                        D4.incrementBonus();
-                                        break;
-                                    case "d6":
-                                        D6.incrementBonus();
-                                        break;
-                                    case "d8":
-                                        D8.incrementBonus();
-                                        break;
-                                    case "d10":
-                                        D10.incrementBonus();
-                                        break;
-                                    case "d12":
-                                        D12.incrementBonus();
-                                        break;
-                                    case "d20":
-                                        D20.incrementBonus();
-                                        break;
-                                }
-                            }
-                        });
-                bonusBuilder.create();
+                String die = getArguments().getString("die");
+                int passBonusCost = getBonusCost(player, die);
+                int currBonus = getBonus(die);
+                if (player.checkXP(passBonusCost)) {
+                    // Create and show the dialog.
+                    BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(player, die, passBonusCost, currBonus);
+                    bonusFragment.show(getFragmentManager().beginTransaction(), "test");
+                } else {
+                    BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passBonusCost);
+                    bonusFragment.show(getFragmentManager().beginTransaction(), "test");
+                }
             }
         });
+        Button diceBtn = (Button) view.findViewById(R.id.buyDice);
+        diceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Player player = (Player) getArguments().getSerializable("player");
+                String die = getArguments().getString("die");
+                int passDieCost = getDiceCost(player, die);
+                if (player.checkXP(passDieCost)) {
+                    // Create and show the dialog.
+                    BuyDiceDialog diceFragment = BuyDiceDialog.newInstance(player, die, passDieCost);
+                    diceFragment.show(getFragmentManager().beginTransaction(), "test");
+                } else {
+                    BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passDieCost);
+                    bonusFragment.show(getFragmentManager().beginTransaction(), "test");
+                }
+            }
+            });
         builder.setView(view);
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -139,9 +132,11 @@ public class LevelChoiceDialog extends DialogFragment {
                 return cost;
             }
         }
+        if (cost == 0){
+            cost = Integer.parseInt(type.substring(1));
+        }
         return cost;
     }
-
     private int getBonusCost(Player player, String type){
         int cost = 0;
         switch (type){
@@ -193,6 +188,9 @@ public class LevelChoiceDialog extends DialogFragment {
                     }
                 }
                 break;
+        }
+        if (cost == 0){
+            cost = Integer.parseInt(type.substring(1));
         }
         return cost;
     }
