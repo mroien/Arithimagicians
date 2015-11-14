@@ -72,6 +72,14 @@
         android:layout_marginTop="75dp"
         android:layout_marginLeft="225dp"
         android:id="@+id/buyCost"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:id="@+id/buyDice"
+        android:background="@null"
+        android:src="@null"
+        android:onClick="buyDiceClicked"
+        android:layout_marginTop="75dp"/>
 
     <TextView
         android:layout_width="150dp"
@@ -97,6 +105,13 @@
         android:layout_marginTop="110dp"
         android:layout_marginLeft="225dp"
         android:id="@+id/bonusCost"/>
-
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:id="@+id/buyBonus"
+        android:background="@null"
+        android:src="@null"
+        android:onClick="buyBonusClicked"
+        android:layout_marginTop="110dp"/>
 
 </RelativeLayout>

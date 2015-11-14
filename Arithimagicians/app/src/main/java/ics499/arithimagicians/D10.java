@@ -25,4 +25,8 @@ public class D10 extends Die {
         roll += bonus;
         return roll;
     }
+
+    public int getBonusCost(){
+        return this.getBonus() * this.getBonus() + this.getDiceValue();
+    }
 }
