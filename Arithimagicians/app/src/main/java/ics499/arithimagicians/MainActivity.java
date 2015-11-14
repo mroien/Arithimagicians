@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private boolean splash = false;
     private String account;
     private Player player;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,21 +54,20 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             Builder builder = new Builder(this);
             builder
                     .setTitle("No Account Found")
-                    .setMessage("Would you like to make an account?")
+                    .setMessage("Would you like to connect your account??")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            //Yes button clicked, do something
+                            player = new Player();
+                            Intent connectIntent = new Intent(MainActivity.this, ConnectAccount.class);
+                            connectIntent.putExtra("player", player);
+                            startActivity(connectIntent);
 
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Get the mobile phone number, call the db and see if it matches an account from the website, if it does, tie them together with a rest call
-                          //  TelephonyManager tm = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-                           // String number = tm.getLine1Number();
-
-
 
                             // Create user account without any information besides random accountId, and set level to the start
                             player = new Player();
@@ -91,26 +89,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     public void loadGameClicked(View view) {
         read();
     }
-    public void checkNumberRest(String number){
-        String url = "";
-       RequestQueue queue = Volley.newRequestQueue(this);
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i("phone", response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-            }
-        });
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
     /**
      * Find the saved game object and read in the player object. Create a displaymap intent and put the player object into it
      * Start the activity

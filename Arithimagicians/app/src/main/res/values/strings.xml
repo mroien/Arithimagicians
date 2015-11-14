@@ -22,6 +22,7 @@
     <string name="Level3_5">The Dean stands at the top of the gate, commanding the other students. Defeat these last foes and you\'re home free!</string>
     <string name="title_activity_dice">DiceActivity</string>
     <string name="title_activity_reward">RewardActivity</string>
+    <string name="title_activity_connect_account">ConnectAccountActivity</string>
 
 
 

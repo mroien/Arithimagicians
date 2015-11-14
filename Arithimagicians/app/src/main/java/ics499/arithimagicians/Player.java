@@ -22,6 +22,7 @@ public class Player extends Character implements Serializable {
     private Double damageRate;
     private Double regenRate;
     private String lastStage;
+    private int userId;
 
     public Player() {
         // Change to actual values
@@ -44,6 +45,7 @@ public class Player extends Character implements Serializable {
         this.damageRate = 1.0;
         this.regenRate = 1.0;
         this.lastStage = "1_3";
+        this.userId = 0;
         prepareInventory();
     }
 
@@ -172,4 +174,11 @@ public class Player extends Character implements Serializable {
     }
 
     public double getDamageRate() { return damageRate; }
+
+    public void setUserId(int id){
+        this.userId = id;
+    }
+    public int getUserId(){
+        return this.userId;
+    }
 }

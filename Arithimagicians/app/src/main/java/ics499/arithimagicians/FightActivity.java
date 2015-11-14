@@ -922,6 +922,12 @@ public class FightActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 100){
+            playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+            playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+            playerHealth.setText("Player HP : " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
+        }
         if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String dice = data.getStringExtra("diceSelected");

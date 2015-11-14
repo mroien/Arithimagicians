@@ -149,33 +149,7 @@ public class DiceActivity extends Activity {
         }
     }
 
-    public void selectEle(View view)
-    {
-        CheckBox checkIce  = (CheckBox) findViewById(R.id.iceCheck);
-        CheckBox checkLight  = (CheckBox) findViewById(R.id.lightCheck);
-        CheckBox checkFire  = (CheckBox) findViewById(R.id.fireCheck);
 
-        switch(view.getId()){
-            case R.id.ice:
-                currentElement = "Ice";
-                checkIce.setChecked(true);
-                checkLight.setChecked(false);
-                checkFire.setChecked(false);
-                break;
-            case R.id.lightning:
-                currentElement = "Light";
-                checkIce.setChecked(false);
-                checkLight.setChecked(true);
-                checkFire.setChecked(false);
-                break;
-            case R.id.fire:
-                currentElement = "Fire";
-                checkIce.setChecked(false);
-                checkLight.setChecked(false);
-                checkFire.setChecked(true);
-                break;
-        }
-    }
 
     /**
      * Generate dice method to populate dice array with the players available dice
