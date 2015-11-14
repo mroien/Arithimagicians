@@ -35,6 +35,12 @@ public class Die implements Serializable {
     public String getDiceType() {
         return this.diceType;
     }
+
+    public int getDieCost(){
+        return diceValue;
+    }
+
+    public int getDiceValue(){ return diceValue; }
 }
 
 
