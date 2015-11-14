@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main activity class of the application
@@ -101,12 +104,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         try {
             input = new ObjectInputStream(new FileInputStream(new File(new File(getFilesDir(), "") + File.separator + filename)));
-            Player player = (Player) input.readObject();
+            this.player = (Player) input.readObject();
             input.close();
             getItems(player.getUserId());
-            Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
-            mapIntent.putExtra("player", player);
-            startActivity(mapIntent);
+
         } catch (StreamCorruptedException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     public void getItems(int userId) {
-        String url = "http://192.168.29.115/checkPowerUp?accountId=" + userId;
+        String url = "http://192.168.29.115:8080/checkPowerUp?accountId=" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.
@@ -138,12 +139,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     @Override
                     public void onResponse(String response) {
                         if(!response.equals("No Powerups")){
+                            List<String> powerUps = Arrays.asList(response.split(","));
+                            for(String s : powerUps){
 
+                               Item.Type itemType = Item.findType(s);
+                                PowerUpItem item = new PowerUpItem(itemType, itemType.getBonus(), 1);
+                                if(player != null)
+                                player.addItem(item);
+                                updateDateInDB(s);
+
+                            }
+                            Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
+                            mapIntent.putExtra("player", player);
+                            startActivity(mapIntent);
                         }
                         else
                         {
-                            TextView text = (TextView) findViewById(R.id.textView2);
-                            text.setText("Number already used");
+                            Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
+                            mapIntent.putExtra("player", player);
+                            startActivity(mapIntent);
                         }
 
                     }
@@ -156,5 +170,32 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
+    }
+
+    public void updateDateInDB(String powerup){
+        String url = "http://192.168.29.115:8080/powerUpAddedToInv?accountId=" + player.getUserId() + "&powerUpName=" + powerup;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.start();
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equals("User Updated")){
+
+                        }
+                        else
+                        {
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }

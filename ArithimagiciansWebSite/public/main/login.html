@@ -4,7 +4,8 @@ require('leftNav.php');
 
 ?>
 <html>
-
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <head>
     <title>LogIn</title>
     <meta charset="utf-8">
@@ -39,13 +40,24 @@ require('leftNav.php');
                     Password:
                 </label>
                 <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{5,15}"><br>
-                <input type="submit" class="bottomButton" name="submit">
+                <input type="submit" id="submitClick" class="bottomButton" name="submit">
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
         </div>
     </div>
 </div>
+<script>
+$( "#submitClick" ).click(function() {
+  $.ajax({
+   url: 'http://52.32.43.132:8080/checkPowerUp?accountId=testDumby',
+   type: 'GET',
+   success: function(response) {
+     alert( "Handler for .click() called." );
+   }
+});
+});
 
+</script>
 </body>
 </html>
