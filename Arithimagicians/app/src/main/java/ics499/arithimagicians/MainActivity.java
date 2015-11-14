@@ -164,7 +164,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
+                mapIntent.putExtra("player", player);
+                startActivity(mapIntent);
             }
         });
 // Add the request to the RequestQueue.
