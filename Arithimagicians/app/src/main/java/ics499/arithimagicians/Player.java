@@ -22,17 +22,18 @@ public class Player extends Character implements Serializable {
     private Double damageRate;
     private Double regenRate;
     private String lastStage;
+    private int userId;
 
     public Player() {
         // Change to actual values
-        super(100, 1);
+        super(10, 1);
         this.xp = 0;
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();
-        Die dice = new Die();
-        Die dice6 = new Die(6, "d6", 0);
-        Die dice6Two = new Die(6, "d6", 0);
-        Die dice8 = new Die(8, "d8", 0);
+        Die dice = new D4();
+        Die dice6 = new D6();
+        Die dice6Two = new D6();
+        Die dice8 = new D8();
         this.dice.add(dice);
         this.dice.add(dice6);
         this.dice.add(dice6Two);
@@ -44,6 +45,7 @@ public class Player extends Character implements Serializable {
         this.damageRate = 1.0;
         this.regenRate = 1.0;
         this.lastStage = "1_3";
+        this.userId = 0;
         prepareInventory();
     }
 
@@ -58,11 +60,11 @@ public class Player extends Character implements Serializable {
         inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "1.5", 1));
     }
 
-    private void addItem(Item item) {
+    public void addItem(Item item) {
         int index = -1;
         for (Item.Type type : Item.Type.values()) {
             if (type.getName().equals(item.getName())){
-                index = type.ordinal();
+                inventory.get(type.ordinal()).incrementValue();
             }
         }
         if (index > -1){
@@ -165,5 +167,18 @@ public class Player extends Character implements Serializable {
 
     public int getXp() {
         return xp;
+    }
+
+    public double getLootRate() {
+        return lootRate;
+    }
+
+    public double getDamageRate() { return damageRate; }
+
+    public void setUserId(int id){
+        this.userId = id;
+    }
+    public int getUserId(){
+        return this.userId;
     }
 }

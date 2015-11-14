@@ -51,4 +51,6 @@ public class Character implements Serializable {
     }
 
     public int getTotalHealth() { return totalHealth; }
+
+    public int getAttack() { return attack; }
 }

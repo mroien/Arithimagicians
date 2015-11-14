@@ -19,7 +19,7 @@
     </style>
 
     <style name="DiceDialog" parent="@android:style/Theme.Holo.Dialog">
-        <item name="android:windowBackground">@drawable/dicetrayun</item>
+        <item name="android:windowBackground">@drawable/dicetray</item>
         <item name="android:windowNoTitle">true</item>
     </style>
     <style name="DiceRollResults" parent="@android:style/Theme.Holo.Dialog">

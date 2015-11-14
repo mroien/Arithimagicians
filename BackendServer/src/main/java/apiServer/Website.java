@@ -1,11 +1,17 @@
 package apiServer;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.jcraft.jsch.JSch;
@@ -26,6 +32,7 @@ public class Website {
 	private String dbHost;
 	private int localPort;
 	private Connection conn;
+	private PasswordHash pwdHash;
 
 	public Website(String userName, String password) {
 		this.userName = userName;
@@ -44,7 +51,7 @@ public class Website {
 		dbHost = "localhost";
 		int dbPort = 3306;
 		localPort = 3366;
-
+		pwdHash = new PasswordHash();
 		try {
 			sshTunnel(sshUser, sshPwd, sshHost, sshPort, dbHost, localPort, dbPort);
 		} catch (JSchException e) {
@@ -54,20 +61,25 @@ public class Website {
 	}
 
 	public String loginUser(String userName, String password)
-			throws SQLException, InstantiationException, IllegalAccessException {
+			throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
 		PreparedStatement prepState = null;
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
-
-		String hash = "tempHash";
-		String queryUser = "SELECT * FROM users WHERE (userName = ?) " + "and (hash = ?);";
+		String queryUser = "SELECT hash FROM users WHERE (userName = ?);";
 		try {
 			prepState = conn.prepareStatement(queryUser);
 			prepState.setString(1, userName);
-			prepState.setString(2, hash);
 			ResultSet rs = prepState.executeQuery();
 			if (rs.absolute(1)) {
+				String hash = rs.getString(1);
+				boolean results = pwdHash.validatePassword(password, hash);
+				if(results == true){
+					conn.close();
+					return "Success";
+				}
+				else{
 				conn.close();
-				return "Success";
+				return "Invalid Login";
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,9 +93,9 @@ public class Website {
 	}
 
 	public String createUser(String firstName, String lastName, String userName, String street, String city,
-			String state, String zipCode, String email, String password) throws SQLException {
+			String state, String zipCode, String email, String phoneNumber, String password) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeySpecException {
 		String insertTableSQL = "INSERT INTO users"
-				+ "(firstName, lastName, userName, street, city, state, zipCode, email, hash, salt) VALUES"
+				+ "(firstName, lastName, userName, street, city, state, zipCode, email, phoneNumber, hash) VALUES"
 				+ "(?,?,?,?,?,?,?,?,?,?)";
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		String queryUser = "SELECT * from users WHERE username = ?";
@@ -95,8 +107,8 @@ public class Website {
 				conn.close();
 				return "User already found";
 			} else {
-				// String enc = encrypt(password);
-				String enc = "sksjsjsj";
+				 String hash = pwdHash.createHash(password);
+				System.out.println(hash);
 				PreparedStatement prepState = conn.prepareStatement(insertTableSQL);
 				prepState.setString(1, firstName);
 				prepState.setString(2, lastName);
@@ -106,8 +118,10 @@ public class Website {
 				prepState.setString(6, state);
 				prepState.setString(7, zipCode);
 				prepState.setString(8, email);
-				prepState.setString(9, "tempHash");
-				prepState.setString(10, "tempSalt");
+				prepState.setString(9, phoneNumber);
+				
+				prepState.setString(10, hash);
+				
 
 				prepState.executeUpdate();
 				conn.close();
@@ -189,9 +203,17 @@ public class Website {
 		return "No Transactions";
 	}
 
-	public String encrypt(String enc) {
-		return enc;
-
+	public ArrayList<byte[]> encrypt(String enc) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		ArrayList<byte[]> ret = new ArrayList<byte[]>();
+		SecureRandom sr = new SecureRandom();
+		byte salt[] = new byte[20];
+		sr.nextBytes(salt);
+		String pwd = enc + new String(salt);
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = digest.digest(pwd.getBytes("UTF-8"));
+		ret.add(salt);
+		ret.add(hash);
+		return ret;
 	}
 
 	public String decrypt(String dec) {

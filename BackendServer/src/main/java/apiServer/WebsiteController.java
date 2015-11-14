@@ -1,5 +1,8 @@
 package apiServer;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebsiteController {
 	Website web = new Website();
 
-	// Local URL : http://localhost:8080/login?userName=testDumby&password=test5
+	// Local URL : http://52.32.43.132:8080/login?userName=testDumby&password=test5
 	@RequestMapping("/login")
 	public String login(@RequestParam(value = "userName", defaultValue = "0000") String userName,
 			@RequestParam(value = "password", defaultValue = "0000") String password)
-					throws SQLException, InstantiationException, IllegalAccessException {
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
 		return web.loginUser(userName, password);
 	}
 
 	// Local URL :
-	// http://localhost:8080/create?firstName=test&lastName=test&userName=test&street=test&city=test&state=test&zipCode=12345&email=testEmail&password=test5
+	// http://52.32.43.132:8080/create?firstName=test&lastName=test&userName=test&street=test&city=test&state=test&zipCode=12345&email=testEmail&phoneNumber=1234&password=test5
 	@RequestMapping("/create")
 	public String CreateUser(@RequestParam(value = "firstName", defaultValue = "0000") String firstName,
 			@RequestParam(value = "lastName", defaultValue = "0000") String lastName,
@@ -29,9 +32,10 @@ public class WebsiteController {
 			@RequestParam(value = "state", defaultValue = "0000") String state,
 			@RequestParam(value = "zipCode", defaultValue = "0000") String zipCode,
 			@RequestParam(value = "email", defaultValue = "0000") String email,
-			@RequestParam(value = "password", defaultValue = "0000") String password) throws SQLException {
+			@RequestParam(value = "phoneNumber", defaultValue = "0000") String phoneNumber,
+			@RequestParam(value = "password", defaultValue = "0000") String password) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeySpecException {
 
-		return web.createUser(firstName, lastName, userName, street, city, state, zipCode, email, password);
+		return web.createUser(firstName, lastName, userName, street, city, state, zipCode, email, phoneNumber,  password);
 	}
 
 	/*
@@ -54,7 +58,7 @@ public class WebsiteController {
 	 * password){ Website web = new Website(); return web.saveNewUser(email,
 	 * userName, password); }
 	 */
-	// Local URL : http://localhost:8080/delete?accountId=1028929
+	// Local URL : http://52.32.43.132:8080/delete?accountId=1028929
 	@RequestMapping("/delete")
 	public String deleteAccount(@RequestParam(value = "accountId", defaultValue = "0000") String accountId)
 			throws SQLException {
@@ -62,7 +66,7 @@ public class WebsiteController {
 		return web.deleteAccount(accountId);
 	}
 
-	// Local URL : http://localhost:8080/transactions?accountId=1028929
+	// Local URL : http://52.32.43.132:8080/transactions?accountId=1028929
 	@RequestMapping("/transactions")
 	public String getTransactions(@RequestParam(value = "accountId", defaultValue = "0000") String accountId)
 			throws SQLException {
@@ -70,7 +74,7 @@ public class WebsiteController {
 		return web.getTransactions(accountId);
 	}
 
-	// Local URL : http://localhost:8080/getLeader
+	// Local URL : http://52.32.43.132:8080/getLeader
 	@RequestMapping("/getLeader")
 	public String getLeaderBoards() throws SQLException {
 

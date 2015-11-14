@@ -96,7 +96,7 @@ public class FightActivity extends AppCompatActivity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView firstRowSecondOp = (TextView) findViewById(R.id.firstRowSecondOp);
         TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
-        boolean isDead;
+        boolean isDead = false;
         diceUsed = player.getDiceUsed();
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
@@ -192,11 +192,11 @@ public class FightActivity extends AppCompatActivity {
         if (firstRowTotal >= Integer.parseInt(firstRowAns.getText().toString())) {
             // do attack,
             firstRowAttack = firstRowTotal - Integer.parseInt(firstRowAns.getText().toString());
-            currOpponet.takeDamage(firstRowAttack);
+            currOpponet.takeDamage((int) (firstRowAttack * player.getDamageRate()));
             firstRowUser = "Enemy";
             // recalc health,
             int gj2 = currOpponet.getCurrentHealth();
-            opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
             // Check op health if dead rewards screen,
@@ -207,21 +207,13 @@ public class FightActivity extends AppCompatActivity {
                 isDeadOnFirstRoll = true;
                 isDead = true;
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
-                while (!displayedResults) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
                 generateNextOpponent();
-                displayedResults = false;
             }
             // Else if it is less than the answer
         } else {
             // do enemy attack,
             firstRowAttack = Integer.parseInt(firstRowAns.getText().toString()) - firstRowTotal;
-            player.takeDamage(firstRowAttack);
+            player.takeDamage(firstRowAttack + currOpponet.getAttack());
             firstRowUser = "Player";
             // recalc health,
             playerHealth.setText("Player Health: " + player.getCurrentHealth());
@@ -233,61 +225,45 @@ public class FightActivity extends AppCompatActivity {
 
 
         // IF the second row total from the dice is greater or equal to the answer
-            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0)) {
-                // do attack,
-                secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
-                currOpponet.takeDamage(secondRowAttack);
-                secondRowUser = "Enemy";
-                // recalc health,
-                int o1 = currOpponet.getCurrentHealth();
-                opHealth.setText("Opponent Health: " + currOpponet.getCurrentHealth());
-                opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+            // do attack,
+            secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
+            currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
+            secondRowUser = "Enemy";
+            // recalc health,
+            int o1 = currOpponet.getCurrentHealth();
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
+            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
-                // Check op health if dead rewards screen,
-                if (currOpponet.getCurrentHealth() <= 0) {
-                    player.swapDiceBackToInv();
-                    if (opponents.size() > 0)
-                        opponents.remove(0);
-                    generateOps = true;
-                    isDead = true;
-                    player.swapDiceBackToInv();
-                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-                    while (!displayedResults) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    generateNextOpponent();
-                    displayedResults = false;
-                }
-                // Else if it is less than the answer
-            } else if (!(currOpponet.getCurrentHealth() < 0)) {
-                // do enemy attack,
-                secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
-                player.takeDamage(secondRowAttack);
-                secondRowUser = "Player";
-                // recalc health,
-                playerHealth.setText("Player Health: " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-
+            // Check op health if dead rewards screen,
+            if (currOpponet.getCurrentHealth() <= 0) {
+                player.swapDiceBackToInv();
+                if (opponents.size() > 0)
+                    opponents.remove(0);
+                generateOps = true;
+                isDead = true;
+                player.swapDiceBackToInv();
+                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
+              generateNextOpponent();
             }
+            // Else if it is less than the answer
+        } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+            // do enemy attack,
+            secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
+            player.takeDamage(secondRowAttack + currOpponet.getAttack());
+            secondRowUser = "Player";
+            // recalc health,
+            playerHealth.setText("Player Health: " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
+
+        }
 
 
         // If at this point we have not gotten pushed to the rewards screen, lets see if the player is dead
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-            while(!displayedResults){
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
             generateDeathScreen();
-            displayedResults = false;
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
         // Generate new answers
@@ -315,7 +291,11 @@ public class FightActivity extends AppCompatActivity {
 
     }
 
-    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice, int secondRowSecondDice, String firstRowOp, String secondRowOp, String firstRowSecondOp, String secondRowSecondOp, String firstRowAns, String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack, String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
+    private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
+                                 int secondRowSecondDice, String firstRowOp, String secondRowOp,
+                                 String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
+                                 String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -340,6 +320,7 @@ public class FightActivity extends AppCompatActivity {
         results.putExtra("isDead", isDead);
         startActivityForResult(results, 100);
     }
+
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
@@ -367,59 +348,35 @@ public class FightActivity extends AppCompatActivity {
         startActivity(rewardsIntent);
     }
 
-    private boolean checkFrozen(){
-        Random r = new Random();
-        int value = r.nextInt(100);
-        if(value > 35){
-            return true;
-        }
-        return false;
-    }
 
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
-
     }
 
 
     public void setContent() {
         String lastMap = player.getLastMap();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
-        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
-        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
-        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-        opHealth = (TextView) findViewById(R.id.oppTextView);
-        Opponent spearman;
-        Opponent shaman;
-        Opponent grabber;
-        Opponent smasher;
-        Opponent wizard;
         switch (level) {
             case "1_1":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
-                playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                opHealth = (TextView) findViewById(R.id.oppTextView);
-                opHealth.setText("Opponent HP: 3");
+                Opponent spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
+                currOpponet = spearman;
+                setProgressBars(currOpponet);
+                spearman.setOp(opList);
+                opponents.add(spearman);
                 opList.clear();
                 opList.add("+");
-                Opponent slasher = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
-                currOpponet = slasher;
-                slasher.setOp(opList);
-                opponents.add(slasher);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_2":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
+                Opponent slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
                 currOpponet = slasher;
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                opHealth.setText("Opponent HP: 4");
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 slasher.setOp(opList);
@@ -429,12 +386,10 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case "1_3":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
                 currOpponet = slasher;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
@@ -447,33 +402,30 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case "1_4":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                slasher = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                Opponent slasherTwo = new Opponent(4, 1, "Gobloid slasher", "zone1gobloidslasher");
-                 spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                Opponent slasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
                 currOpponet = slasher;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
                 spearman.setOp(opList);
                 slasher.setOp(opList);
+                slasherTwo.setOp(opList);
                 opponents.add(slasher);
-                opponents.add(slasherTwo);
                 opponents.add(spearman);
+                opponents.add(slasherTwo);
                 generateOperations(opList);
                 generateAns(level);
                 break;
             case "1_5":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
-                playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-                spearman = new Opponent(3, 0, "Gobloid Spearman", "zone1gobloidspearman");
-                shaman = new Opponent(5, 2, "Gobloid Shaman", "zone1gobloidshama");
-                grabber = new Opponent(4, 1, "Skeletonian Grabber", "zone1skeletoniangrabber");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
+                Opponent shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone1gobloidshaman");
+                Opponent grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone1skeletoniangrabber");
                 currOpponet = spearman;
-                opHealth.setText("Opponent HP: " + currOpponet.getCurrentHealth());
+                setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
@@ -486,15 +438,220 @@ public class FightActivity extends AppCompatActivity {
                 generateOperations(opList);
                 generateAns(level);
                 break;
-
-
+            case "2_1":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2gobloidslasher));
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone2gobloidslasher");
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                currOpponet = slasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                slasher.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(grabber);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_2":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                Opponent smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                Opponent grabberTwo = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                grabber.setOp(opList);
+                smasher.setOp(opList);
+                grabberTwo.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(smasher);
+                opponents.add(grabberTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_3":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniansmasher));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                Opponent smasherTwo = new Opponent(Opponent.Stats.SK_SMASHER, "zone2skeletoniansmasher");
+                currOpponet = smasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                grabber.setOp(opList);
+                smasher.setOp(opList);
+                smasherTwo.setOp(opList);
+                opponents.add(smasher);
+                opponents.add(grabber);
+                opponents.add(smasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_4":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletonianwizard));
+                Opponent wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone2skeletonianwizard");
+                currOpponet = wizard;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                wizard.setOp(opList);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "2_5":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone2skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone2skeletoniangrabber");
+                wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone2skeletonianwizard");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                wizard.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_1":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone3gobloidspearman");
+                shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone3gobloidshaman");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                spearman.setOp(opList);
+                shaman.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(spearman);
+                opponents.add(shaman);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_2":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniangrabber));
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                currOpponet = grabber;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                opList.add("/");
+                smasher.setOp(opList);
+                slasher.setOp(opList);
+                grabber.setOp(opList);
+                opponents.add(grabber);
+                opponents.add(smasher);
+                opponents.add(slasher);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_3":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3gobloidslasher));
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                slasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                currOpponet = slasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                opList.add("/");
+                smasher.setOp(opList);
+                slasher.setOp(opList);
+                slasherTwo.setOp(opList);
+                opponents.add(slasher);
+                opponents.add(smasher);
+                opponents.add(slasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_4":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3skeletoniansmasher));
+                smasher = new Opponent(Opponent.Stats.SK_SMASHER, "zone3skeletoniansmasher");
+                shaman = new Opponent(Opponent.Stats.GB_SLASHER, "zone3gobloidslasher");
+                smasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone3skeletoniansmasher");
+                currOpponet = smasher;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                opList.add("/");
+                smasher.setOp(opList);
+                shaman.setOp(opList);
+                smasherTwo.setOp(opList);
+                opponents.add(smasher);
+                opponents.add(shaman);
+                opponents.add(smasherTwo);
+                generateOperations(opList);
+                generateAns(level);
+                break;
+            case "3_5":
+                rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone3gobloidspearman));
+                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone3gobloidspearman");
+                shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone3gobloidshaman");
+                grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone3skeletoniangrabber");
+                wizard = new Opponent(Opponent.Stats.SK_WIZARD, "zone3skeletonianwizard");
+                currOpponet = spearman;
+                setProgressBars(currOpponet);
+                opList.clear();
+                opList.add("+");
+                opList.add("-");
+                opList.add("*");
+                opList.add("/");
+                spearman.setOp(opList);
+                shaman.setOp(opList);
+                grabber.setOp(opList);
+                wizard.setOp(opList);
+                opponents.add(spearman);
+                opponents.add(grabber);
+                opponents.add(shaman);
+                opponents.add(wizard);
+                generateOperations(opList);
+                generateAns(level);
+                break;
         }
+    }
+
+    private void setProgressBars(Opponent opponent){
+        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        playerHealth.setText("Player HP : " + player.getCurrentHealth());
+        playerProgressBar.setProgress(player.getPercentHealthLeft());
+        opHealth = (TextView) findViewById(R.id.oppTextView);
+        String oppBar = opponent.getName() + " HP: " + opponent.getTotalHealth();
+        opHealth.setText(oppBar);
     }
 
     private void generateAns(String level) {
         TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         int ansMax = 0;
+        int ansMult = 0;
+        int ansDiv = 0;
         switch (level) {
             case "1_1":
                 ansMax = 9;
@@ -509,17 +666,124 @@ public class FightActivity extends AppCompatActivity {
                 ansMax = 9;
                 break;
             case "1_5":
-                ansMax = 12;
+                ansMax = 9;
                 break;
-
+            case "2_1":
+                ansMax = 13;
+                break;
+            case "2_2":
+                ansMax = 13;
+                ansMult = 20;
+                break;
+            case "2_3":
+                ansMax = 13;
+                ansMult = 20;
+                break;
+            case "2_4":
+                ansMax = 13;
+                ansMult = 32;
+                break;
+            case "2_5":
+                ansMax = 13;
+                ansMult = 32;
+                break;
+            case "3_1":
+                ansMax = 16;
+                ansMult = 64;
+                break;
+            case "3_2":
+                ansMax = 16;
+                ansMult = 64;
+                ansDiv = 4;
+                break;
+            case "3_3":
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
+                break;
+            case "3_4":
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
+                break;
+            case "3_5":
+                ansMax = 16;
+                ansMult = 80;
+                ansDiv = 4;
+                break;
         }
+
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
-            int opIndex = r.nextInt(ansMax - 1) + 1;
+            int opIndex;
             if (i == 0) {
+                switch(firstRowOp){
+                    case "+":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "-":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "*":
+                        opIndex = r.nextInt(ansMult - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "/":
+                        opIndex = r.nextInt(ansDiv - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    default:
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                }
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
-                secondRowAns.setText(Integer.toString(opIndex));
+                switch(secondRowOp){
+                    case "+":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "-":
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "*":
+                        opIndex = r.nextInt(ansMult - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    case "/":
+                        opIndex = r.nextInt(ansDiv - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                    default:
+                        opIndex = r.nextInt(ansMax - 1);
+                        if (opIndex < 3){
+                            opIndex = 3;
+                        }
+                        break;
+                }
+            secondRowAns.setText(Integer.toString(opIndex));
         }
     }
 
@@ -531,12 +795,13 @@ public class FightActivity extends AppCompatActivity {
             Random r = new Random();
             int opIndex = r.nextInt((opList.size() - 1) + 1);
             if (i == 0) {
+                firstRowOp = opList.get(opIndex);
                 firstRowFirstOp.setText(opList.get(opIndex));
 
             } else
-                secondRowFirstOp.setText(opList.get(opIndex));
+                secondRowOp = opList.get(opIndex);
+            secondRowFirstOp.setText(opList.get(opIndex));
         }
-
     }
 
     public void generateNextOpponent() {
@@ -561,7 +826,7 @@ public class FightActivity extends AppCompatActivity {
             generateAns(level);
             generateOperations(currOpponet.getOp());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-            opHealth.setText("Opponent Health : " + currOpponet.getCurrentHealth());
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
         }
     }
 
@@ -612,19 +877,22 @@ public class FightActivity extends AppCompatActivity {
                 diceIntent.putExtra("diceLoc", "secondRowSecondDice");
                 startActivityForResult(diceIntent, 110);
                 break;
-
         }
-
-
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 100){
+            playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+            playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                       playerProgressBar.setProgress(player.getPercentHealthLeft());
+        }
+        else
         if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -633,7 +901,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -642,7 +909,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -651,7 +917,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -660,7 +925,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -669,7 +933,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));

@@ -103,6 +103,21 @@ public class Android {
 		}
 		
 	}
+	public String checkPhoneNumber(String number) throws SQLException {
+		String queryUser = "SELECT * from users WHERE phoneNumber = ?";
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
+		try {
+			PreparedStatement prepState = conn.prepareStatement(queryUser);
+			prepState.setString(1, number);
+			  prepState.executeQuery();
+			return "Valid and Unused";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "DB Error";
+		}
+	}
 
 	public static void sshTunnel(String sshUser, String sshPwd, String sshHost, int sshPort, String remoteHost,
 			int localPort, int remotePort) throws JSchException {
@@ -116,4 +131,6 @@ public class Android {
 		session.connect();
 		session.setPortForwardingL(localPort, remoteHost, remotePort);
 	}
+
+	
 }

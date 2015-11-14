@@ -30,13 +30,6 @@ public class Item implements Serializable{
         public int getIndex() { return index; }
     }
 
-    public static final int HEALTHPOTION = Type.HEALTHPOTION.getIndex();
-    public static final int XPBONUS = Type.XPBONUS.getIndex();
-    public static final int DMGBONUS = Type.DMGBONUS.getIndex();
-    public static final int LOOTBONUS = Type.LOOTBONUS.getIndex();
-    public static final int HPFULLREFRESH = Type.HPFULLREFRESH.getIndex();
-    public static final int HPREGEN = Type.HPREGEN.getIndex();
-
     private String name;
     private String bonus;
     private int quantity;
@@ -69,4 +62,6 @@ public class Item implements Serializable{
     public void decrementValue(){
         this.quantity--;
     }
+
+    public void incrementValue() { this.quantity++; }
 }
