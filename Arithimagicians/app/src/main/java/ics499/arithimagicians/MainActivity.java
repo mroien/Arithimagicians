@@ -12,6 +12,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog.*;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             Builder builder = new Builder(this);
             builder
                     .setTitle("No Account Found")
-                    .setMessage("Would you like to connect your account??")
+                    .setMessage("Would you like to connect your account?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             input = new ObjectInputStream(new FileInputStream(new File(new File(getFilesDir(), "") + File.separator + filename)));
             Player player = (Player) input.readObject();
             input.close();
+            getItems(player.getUserId());
             Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
             mapIntent.putExtra("player", player);
             startActivity(mapIntent);
@@ -123,6 +125,36 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void getItems(int userId) {
+        String url = "http://192.168.29.115/checkPowerUp?accountId=" + userId;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.start();
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(!response.equals("Already Used")){
+
+                        }
+                        else
+                        {
+                            TextView text = (TextView) findViewById(R.id.textView2);
+                            text.setText("Number already used");
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
     }
 }

@@ -24,4 +24,5 @@
     <string name="title_activity_reward">RewardActivity</string>
     <string name="buy_dice">Buy Die</string>
     <string name="buy_damage">Buy Bonus Dmg</string>
+    <string name="title_activity_connect_account">ConnectAccountActivity</string>
 </resources>

@@ -198,7 +198,7 @@ public class DisplayMap extends AppCompatActivity {
         File saved = new File(getFilesDir(), fileName);
 
         try {
-            out = new ObjectOutputStream(new FileOutputStream(saved));
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
             out.writeObject(player);
             out.close();
         } catch (FileNotFoundException e) {
