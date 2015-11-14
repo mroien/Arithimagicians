@@ -8,9 +8,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.LevelListDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,45 +77,45 @@ public class DiceLevelUpActivity extends Activity {
         previous.putExtra("diceLoc", diceLoc);
         previous.putExtra("opList", opList);
         previous.putExtra("opponents", opponents);
+        FragmentTransaction ft;
+        LevelChoiceDialog newFragment;
         switch (view.getId()) {
             case R.id.d4:
-                if(player.checkDice("d4")) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
-                    LevelChoiceDialog newFragment = new LevelChoiceDialog();
-                    newFragment.setArguments("d4");
+                    newFragment = LevelChoiceDialog.newInstance(player, "d4");
                     newFragment.show(ft, "test");
-                }
                 break;
             case R.id.d6:
-                if(player.checkDice("d6")) {
-                    setResult(106, previous);
-                    this.finish();
-                }
+                    ft = getFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    newFragment = LevelChoiceDialog.newInstance(player, "d6");
+                    newFragment.show(ft, "test");
                 break;
             case R.id.d8:
-                if(player.checkDice("d8")) {
-                    setResult(108, previous);
-                    this.finish();
-                }
+                    ft = getFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    newFragment = LevelChoiceDialog.newInstance(player, "d8");
+                    newFragment.show(ft, "test");
                 break;
             case R.id.d10:
-                if(player.checkDice("d10")) {
-                    setResult(110, previous);
-                    this.finish();
-                }
+                    ft = getFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    newFragment = LevelChoiceDialog.newInstance(player, "d10");
+                    newFragment.show(ft, "test");
                 break;
             case R.id.d12:
-                if(player.checkDice("d10")) {
-                    setResult(112, previous);
-                    this.finish();
-                }
+                    ft = getFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    newFragment = LevelChoiceDialog.newInstance(player, "d12");
+                    newFragment.show(ft, "test");
                 break;
             case R.id.d20:
-                if(player.checkDice("d20")) {
-                    setResult(120, previous);
-                    this.finish();
-                }
+                    ft = getFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    newFragment = LevelChoiceDialog.newInstance(player, "d20");
+                    newFragment.show(ft, "test");
+
                 break;
         }
 
@@ -177,21 +179,42 @@ public class DiceLevelUpActivity extends Activity {
     }
 
     public static class LevelChoiceDialog extends DialogFragment {
-        Die upgrade;
+
+        public static LevelChoiceDialog newInstance(Player player, String die) {
+            Bundle args = new Bundle();
+            LevelChoiceDialog dia = new LevelChoiceDialog();
+            args.putSerializable("player", player);
+            args.putString("die", die);
+            dia.setArguments(args);
+            return dia;
+        }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            builder.setView(inflater.inflate(R.layout.activity_dice_level_up, null));
-
-            builder.setPositiveButton("Success", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            View view = inflater.inflate(R.layout.activity_dice_level_up, null);
+            TextView titleView = (TextView) view.findViewById(R.id.lvlTile);
+            String die = getArguments().getString("die");
+            Player player = (Player) getArguments().getSerializable("player");
+            String title = "Level up " + die + ".\nYou have " + player.getXp() + "XP.";
+            titleView.setText(title);
+            int count = 0;
+            int bonus = 0;
+            for (Die d : player.getDice()){
+                if (die.equals(d.getDiceType())){
+                    count++;
+                }
+            }
+            String countText = "" + count;
+            TextView countView = (TextView) view.findViewById(R.id.buyCount);
+            bonus = getBonus(die);
+            countView.setText(countText);
+            TextView bonusView = (TextView) view.findViewById(R.id.bonusCount);
+            bonusView.setText("" + bonus);
+            builder.setView(view);
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }
@@ -200,11 +223,31 @@ public class DiceLevelUpActivity extends Activity {
             return builder.create();
         }
 
-        public void setArguments(String d4) {
-
+        public int getBonus(String type){
+            int bonus = 0;
+            switch (type){
+                case "d4":
+                    bonus = D4.getBonus();
+                    break;
+                case "d6":
+                    bonus = D6.getBonus();
+                    break;
+                case "d8":
+                    bonus = D8.getBonus();
+                    break;
+                case "d10":
+                    bonus = D10.getBonus();
+                    break;
+                case "d12":
+                    bonus = D12.getBonus();
+                    break;
+                case "d20":
+                    bonus = D20.getBonus();
+                    break;
+            }
+            return bonus;
         }
     }
-
 }
 
 

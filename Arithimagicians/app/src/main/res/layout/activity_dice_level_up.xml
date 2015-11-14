@@ -8,38 +8,95 @@
     android:contentDescription="DiceLevelUp"
     tools:context="ics499.arithimagicians.DiceLevelUpActivity"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/lvlLayout">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@drawable/d4"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:scaleType="center"
-            android:background="#FFFFBB33"
-            android:contentDescription="@string/app_name" />
-        <EditText
-            android:id="@+id/username"
-            android:inputType="textEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp" />
-        <EditText
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif" />
-    </LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvlTile"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="SHOW SOMETHING"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="Action"
+        android:layout_marginTop="50dp"
+
+        android:id="@+id/textView4" />
+
+    <TextView
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textAlignment="center"
+    android:text="Current"
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="110dp"/>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="Cost"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="210dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/buy_dice"
+        android:layout_marginTop="75dp" />
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="150dp"
+        android:id="@+id/buyCount"/>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="225dp"
+        android:id="@+id/buyCost"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/buy_damage"
+        android:layout_marginTop="110dp" />
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="150dp"
+        android:id="@+id/bonusCount"/>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAlignment="center"
+        android:text="0"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="225dp"
+        android:id="@+id/bonusCost"/>
+
 
 </RelativeLayout>
