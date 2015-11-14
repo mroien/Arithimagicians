@@ -4,7 +4,8 @@ require('leftNav.php');
 
 ?>
 <html>
-
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <head>
     <title>LogIn</title>
     <meta charset="utf-8">
@@ -13,26 +14,6 @@ require('leftNav.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
-    <script>
-        $('#submit').on('click', function(){
-            var username = $('#username'),
-                    password = $('#password');
-            $.ajax({
-                url: "http://52.32.43.132:8080/login",
-                type: 'get',
-                data: {
-                    username: username.val(),
-                    password: password.val()
-                },
-                success: function(data){
-                    console.log(data)
-                },
-                error: function(){
-                    console.log("Error")
-                }
-            })
-        })
-    </script>
 </head>
 <body>
 <div class="container">
