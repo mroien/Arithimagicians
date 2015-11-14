@@ -30,10 +30,10 @@ public class Player extends Character implements Serializable {
         this.xp = 0;
         this.dice = new ArrayList<Die>();
         this.diceUsed = new ArrayList<Die>();
-        Die dice = new Die();
-        Die dice6 = new Die(6, "d6", 0);
-        Die dice6Two = new Die(6, "d6", 0);
-        Die dice8 = new Die(8, "d8", 0);
+        Die dice = new D4();
+        Die dice6 = new D6();
+        Die dice6Two = new D6();
+        Die dice8 = new D8();
         this.dice.add(dice);
         this.dice.add(dice6);
         this.dice.add(dice6Two);

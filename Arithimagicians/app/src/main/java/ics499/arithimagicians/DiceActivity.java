@@ -17,7 +17,6 @@ public class DiceActivity extends Activity {
     private ArrayList<Die> dice;
     private String diceLoc;
     private ArrayList<Die> diceUsed;
-    private String currentElement;
     private boolean filled;
     private String diceFilled;
     private ArrayList<String> opList;
@@ -56,7 +55,6 @@ public class DiceActivity extends Activity {
     }
 
 
-
     /**
      * Select dice method that is used when a dice in the dice dialog is clicked
      * Create a new intent to go back to the fight activity, put in the player object, which dice is selected, and the location that was selected from the fight activity
@@ -70,7 +68,6 @@ public class DiceActivity extends Activity {
         previous.putExtra("player", this.player);
         previous.putExtra("diceSelected", view.getId());
         previous.putExtra("diceLoc", diceLoc);
-        previous.putExtra("element", currentElement );
         previous.putExtra("opList", opList);
         previous.putExtra("opponents", opponents);
         switch (view.getId()) {
@@ -126,29 +123,27 @@ public class DiceActivity extends Activity {
      * @param diceClicked String value of what dice was clicked
      */
     public void swapDice(String diceClicked) {
-       if(filled == true){
-           Die temp;
-           for(Die d : diceUsed){
-               if(d.getDiceType().equals(diceFilled)){
-                   temp = d;
-                   diceUsed.remove(d);
-                   dice.add(d);
-                   break;
-               }
-           }
+        if(filled == true){
+            Die temp;
+            for(Die d : diceUsed){
+                if(d.getDiceType().equals(diceFilled)){
+                    temp = d;
+                    diceUsed.remove(d);
+                    dice.add(d);
+                    break;
+                }
+            }
 
-       }
+        }
 
         for (Die d : dice) {
             if (d.getDiceType().equals(diceClicked)) {
-                d.setElement(currentElement);
                 dice.remove(d);
                 diceUsed.add(d);
                 break;
             }
         }
     }
-
 
 
     /**
@@ -198,10 +193,13 @@ public class DiceActivity extends Activity {
         t.setText(Integer.toString(d6));
         t = (TextView) findViewById(R.id.d8TextView);
         t.setText(Integer.toString(d8));
+        t = (TextView) findViewById(R.id.d10TextView);
+        t.setText(Integer.toString(d10));
+        t = (TextView) findViewById(R.id.d12TextView);
+        t.setText(Integer.toString(d12));
+        t = (TextView) findViewById(R.id.d20TextView);
+        t.setText(Integer.toString(d20));
 
     }
 
 }
-
-
-

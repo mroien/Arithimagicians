@@ -2,7 +2,7 @@
     <string name="app_name">Arithimagicians</string>
     <string name="title_activity_splash_screen">Arithimagicians</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="MapDescriptionActivity">MapDescriptionActivity</string>
     <string name="Level1_1">To get to the University, you need to sneak through the Nolfwood. Dispatch this gobloid scout before he warns the nearby village!</string>
@@ -22,8 +22,6 @@
     <string name="Level3_5">The Dean stands at the top of the gate, commanding the other students. Defeat these last foes and you\'re home free!</string>
     <string name="title_activity_dice">DiceActivity</string>
     <string name="title_activity_reward">RewardActivity</string>
-    <string name="title_activity_connect_account">ConnectAccountActivity</string>
-
-
-
+    <string name="buy_dice">Buy Die</string>
+    <string name="buy_damage">Buy Bonus Dmg</string>
 </resources>

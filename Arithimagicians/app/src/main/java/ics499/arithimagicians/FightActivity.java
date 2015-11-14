@@ -207,15 +207,6 @@ public class FightActivity extends AppCompatActivity {
                 isDeadOnFirstRoll = true;
                 isDead = true;
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
-
-            /*    while (!displayedResults) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } */
-
                 generateNextOpponent();
             }
             // Else if it is less than the answer
@@ -234,61 +225,44 @@ public class FightActivity extends AppCompatActivity {
 
 
         // IF the second row total from the dice is greater or equal to the answer
-            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
-                // do attack,
-                secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
-                currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
-                secondRowUser = "Enemy";
-                // recalc health,
-                int o1 = currOpponet.getCurrentHealth();
-                opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
-                opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+            // do attack,
+            secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
+            currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
+            secondRowUser = "Enemy";
+            // recalc health,
+            int o1 = currOpponet.getCurrentHealth();
+            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
+            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
 
-                // Check op health if dead rewards screen,
-                if (currOpponet.getCurrentHealth() <= 0) {
-                    player.swapDiceBackToInv();
-                    if (opponents.size() > 0)
-                        opponents.remove(0);
-                    generateOps = true;
-                    isDead = true;
-                    player.swapDiceBackToInv();
-                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-
-                /*    while (!displayedResults) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    } */
-
-                    generateNextOpponent();
-                }
-                // Else if it is less than the answer
-            } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
-                // do enemy attack,
-                secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
-                player.takeDamage(secondRowAttack + currOpponet.getAttack());
-                secondRowUser = "Player";
-                // recalc health,
-                playerHealth.setText("Player Health: " + player.getCurrentHealth());
-                playerProgressBar.setProgress(player.getPercentHealthLeft());
-
+            // Check op health if dead rewards screen,
+            if (currOpponet.getCurrentHealth() <= 0) {
+                player.swapDiceBackToInv();
+                if (opponents.size() > 0)
+                    opponents.remove(0);
+                generateOps = true;
+                isDead = true;
+                player.swapDiceBackToInv();
+                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
+              generateNextOpponent();
             }
+            // Else if it is less than the answer
+        } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+            // do enemy attack,
+            secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
+            player.takeDamage(secondRowAttack + currOpponet.getAttack());
+            secondRowUser = "Player";
+            // recalc health,
+            playerHealth.setText("Player Health: " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
+
+        }
 
 
         // If at this point we have not gotten pushed to the rewards screen, lets see if the player is dead
         if (player.getCurrentHealth() <= 0) {
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-
-        /*    while(!displayedResults){
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }*/
             generateDeathScreen();
         }
         // Else the player is alive and so is the monster, so reset the dice locations to null
@@ -374,14 +348,6 @@ public class FightActivity extends AppCompatActivity {
         startActivity(rewardsIntent);
     }
 
-    private boolean checkFrozen(){
-        Random r = new Random();
-        int value = r.nextInt(100);
-        if(value > 35){
-            return true;
-        }
-        return false;
-    }
 
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
@@ -745,8 +711,8 @@ public class FightActivity extends AppCompatActivity {
                 ansMult = 80;
                 ansDiv = 4;
                 break;
-
         }
+
         for (int i = 0; i < 2; i++) {
             Random r = new Random();
             int opIndex;
@@ -817,7 +783,7 @@ public class FightActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                secondRowAns.setText(Integer.toString(opIndex));
+            secondRowAns.setText(Integer.toString(opIndex));
         }
     }
 
@@ -834,9 +800,8 @@ public class FightActivity extends AppCompatActivity {
 
             } else
                 secondRowOp = opList.get(opIndex);
-                secondRowFirstOp.setText(opList.get(opIndex));
+            secondRowFirstOp.setText(opList.get(opIndex));
         }
-
     }
 
     public void generateNextOpponent() {
@@ -912,22 +877,13 @@ public class FightActivity extends AppCompatActivity {
                 diceIntent.putExtra("diceLoc", "secondRowSecondDice");
                 startActivityForResult(diceIntent, 110);
                 break;
-
         }
-
-
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 100){
-            playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
-            playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-            playerHealth.setText("Player HP : " + player.getCurrentHealth());
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
-        }
         if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String dice = data.getStringExtra("diceSelected");
