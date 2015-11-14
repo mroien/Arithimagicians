@@ -31,8 +31,6 @@ public class MapDescriptionActivity extends Activity {
 
         setContentView(R.layout.activity_map_descripition);
         setDesc(level);
-
-
     }
 
     public void closeClick(View view){

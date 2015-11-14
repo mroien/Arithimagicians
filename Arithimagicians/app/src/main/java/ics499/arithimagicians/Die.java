@@ -7,39 +7,34 @@ import java.util.Random;
 /**
  * Created by Jacob Kinzer on 10/15/2015.
  */
-public class Die implements Serializable{
+public class Die implements Serializable {
     private int diceValue;
     private String diceType;
-    private int bonusDamage;
-    private String element;
+
+
 
     public Die() {
         this.diceValue = 4;
         this.diceType = "d4";
-        this.bonusDamage = 0;
-        this.element = "";
     }
 
-    public Die(int diceValue, String diceType, int bonusDamage) {
+    public Die(int diceValue, String diceType) {
         this.diceValue = diceValue;
         this.diceType = diceType;
-        this.bonusDamage = bonusDamage;
-    }
-
-    public void setBonusDamage(int bonusDamage) {
-        this.bonusDamage = bonusDamage;
     }
 
     public int rollDice() {
         Random random = new Random();
         int roll = random.nextInt(this.diceValue) + 1;
-        if (roll == 0) { roll = 1; }
-        roll += bonusDamage;
+        if (roll == 0) {
+            roll = 1;
+        }
         return roll;
     }
 
-    public String getDiceType(){ return this.diceType; }
+    public String getDiceType() {
+        return this.diceType;
+    }
+}
 
-    public void setElement(String ele){
-        this.element = ele;
-    }}
+

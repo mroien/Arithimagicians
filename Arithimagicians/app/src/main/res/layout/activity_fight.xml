@@ -7,7 +7,6 @@
     android:paddingBottom="8dp"
     android:id="@+id/fightLayout"
     android:background="@drawable/zone1gobloidspearman"
-
     tools:context="ics499.arithimagicians.FightActivity"
     >
 

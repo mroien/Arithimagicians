@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Level Up"
             android:id="@+id/levelButton"
-            android:onClick="closeClick" />
+            android:onClick="levelUpClick" />
 
         <Button
             android:layout_width="wrap_content"
@@ -61,78 +61,4 @@
             android:layout_marginLeft="10dp" />
     </LinearLayout>
 
-    <!--   <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/healthPotionButton"
-           android:src="@null"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="Health\nPotion"
-           android:onClick="useHealthPotion"
-           android:layout_marginTop="80dp"
-           android:layout_marginLeft="40dp"
-           />
-
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/manaPotionButton"
-           android:src="@null"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="XP\nBonus"
-           android:layout_marginTop="80dp"
-           android:layout_marginLeft="137dp"
-           />
-
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/randomShitbutton"
-           android:src="@null"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="Dmg\nBonus"
-           android:layout_marginLeft="235dp"
-           android:layout_marginTop="80dp"
-
-           />
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="0"
-           android:id="@+id/healthPotionTextView"
-           android:layout_marginLeft="65dp"
-           android:layout_marginTop="130dp"
-           android:textColor="#000000" />
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="1"
-           android:id="@+id/textView2"
-           android:layout_marginLeft="161dp"
-           android:layout_marginTop="130dp"
-           android:textColor="#000000" />
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textAppearance="?android:attr/textAppearanceSmall"
-           android:text="0"
-           android:id="@+id/textView3"
-           android:layout_marginLeft="258dp"
-           android:layout_marginTop="130dp"
-           android:textColor="#000000" />
-
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Close"
-           android:id="@+id/closeButton"
-           android:onClick="closeClick"
-           android:layout_marginTop="230dp"
-           android:layout_marginLeft="130dp"/>
-           -->
 </RelativeLayout>

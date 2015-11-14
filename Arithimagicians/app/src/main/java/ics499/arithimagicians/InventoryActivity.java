@@ -22,7 +22,6 @@ import java.util.ArrayList;
  * Inventory activity to display the inventory of the user
  */
 public class InventoryActivity extends Activity {
-    private int healthPotionCount;
     private Player player;
     private ArrayList<Item> inventory;
     private ArrayList<TextView> invCounts = new ArrayList<TextView>();
@@ -66,19 +65,7 @@ public class InventoryActivity extends Activity {
                 }
             }
         }
-
-        //setInventoryCount();
     }
-
-    /**
-     * Use item 1 in the inventory click handler. Decerement the amt of item in the inventory and the set the player inventory
-     *
-     * @param view View of the dialog
-
-    public void useHealthPotion(View view) {
-        inventory.get(0).decrementValue();
-        setInventoryCount();
-    } */
 
     /**
      * Close button clicked. Create a previous intent to go back to the map class, put the player object in there, then start it
@@ -94,13 +81,15 @@ public class InventoryActivity extends Activity {
     }
 
     /**
-     * Method to set the count of the inventory of the player
+     * Level Up button clicked. Call the DiceLevelUpActivity
+     *
+     * @param view View of the dialog
      */
-/*    public void setInventoryCount() {
-        int healthPotion = inventory.get(0).getQuantity();
-        //TextView t = (TextView) findViewById(R.id.healthPotionTextView);
-        //t.setText(Integer.toString(healthPotion));
-    } */
+    public void levelUpClick(View view){
+        Intent levelUp = new Intent(getApplicationContext(), DiceLevelUpActivity.class);
+        levelUp.putExtra("player", this.player);
+        startActivity(levelUp);
+    }
 
     public class MyOnClickListener implements View.OnClickListener {
 
