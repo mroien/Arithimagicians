@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!response.equals("Already Used")){
+                        if(!response.equals("No Powerups")){
 
                         }
                         else

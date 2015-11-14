@@ -893,7 +893,6 @@ public class FightActivity extends AppCompatActivity {
         else
         if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -902,7 +901,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -911,7 +909,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -920,7 +917,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -929,7 +925,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
@@ -938,7 +933,6 @@ public class FightActivity extends AppCompatActivity {
         }
         else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
-            String dice = data.getStringExtra("diceSelected");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
