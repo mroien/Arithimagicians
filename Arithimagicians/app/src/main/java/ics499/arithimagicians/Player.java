@@ -64,6 +64,9 @@ public class Player extends Character implements Serializable {
         int index = -1;
         for (Item.Type type : Item.Type.values()) {
             if (type.getName().equals(item.getName())){
+                if(inventory.get(type.ordinal()) == null){
+                    inventory.add(type.ordinal(), new PowerUpItem(type.getName(), type.getBonus(), 0));
+                }
                 inventory.get(type.ordinal()).incrementValue();
             }
         }

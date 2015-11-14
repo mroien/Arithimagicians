@@ -28,7 +28,7 @@ require('leftNav.php');
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
         <div class="scrollWrapper">
-        <form action="../confirmation.html" method="post" id="signUpForm" class="col-xs-8 col-xl-10 ">
+        <form action="javascript:complete();" method="post" id="signUpForm" class="col-xs-8 col-xl-10 ">
 
             <fieldset>
                 <div class="red">Required Fields * </div><br>
@@ -112,6 +112,25 @@ require('leftNav.php');
         </div>
     </div>
 </div>
+<script>
+function complete() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("firstName").value;
+  // grab the other variables from the forms and attach them to the url
+  var urlString = "'http://52.32.43.132:8080/create?firstName=" + firstName + "&lastName=" + lastName;
+  $.ajax({
+   url: 'http://52.32.43.132:8080/create?',
+   type: 'PUT',
+   dateType: 'jsonp',
+   // Add in the other parameters
+   data: "firstName=" + firstName + "&lastName=" + lastName,
+   crossDomain: true,
+   success: function(response) {
+     alert( response );
+   }
+});
+};
 
+</script>
 </body>
 </html>
