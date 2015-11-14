@@ -14,8 +14,23 @@ require('leftNav.php');
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
     <script>
-        $.ajax({
-            url: ""
+        $('#submit').on('click', function(){
+            var username = $('#username'),
+                    password = $('#password');
+            $.ajax({
+                url: "http://52.32.43.132:8080/login",
+                type: 'get',
+                data: {
+                    username: username.val(),
+                    password: password.val()
+                },
+                success: function(data){
+                    console.log(data)
+                },
+                error: function(){
+                    console.log("Error")
+                }
+            })
         })
     </script>
 </head>
@@ -34,23 +49,39 @@ require('leftNav.php');
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
         <div class="scrollWrapper">
-        <form method="post" action="../confirmation.html" id="login">
+        <form method="post" action="javascript:complete();" id="login" autocomplete="off">
             <fieldset>
                 <label for="username">
                     Username:
                 </label>
-                <input type="text" id="username" name="username" placeholder="Username" autofocus required pattern="[\w\D]{5,15}"><br>
+                <input type="text" id="username" name="username" placeholder="Username" autofocus required pattern="[\w\D]{4,15}"><br>
                 <label for="password">
                     Password:
                 </label>
                 <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{5,15}"><br>
-                <input type="submit" class="bottomButton" name="submit">
+                <input type="submit" class="bottomButton" name="submit" id="submit">
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
         </div>
     </div>
 </div>
+<script>
+    function complete() {
+        var username = document.getElementById("username").value,
+                password = document.getElementById('password').value;
 
+        $.ajax({
+            url: 'http://52.32.43.132:8080/login?',
+            type: 'GET',
+            dataType: 'jsonp',
+            data: "userName=" + username + "&password" + password,
+            crossDomain: true,
+            success: function(response) {
+                alert(response);
+            }
+        })
+    }
+</script>
 </body>
 </html>

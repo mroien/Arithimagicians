@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-require('leftNav.php');
-?>
 <html>
 
 <head>
@@ -28,7 +25,7 @@ require('leftNav.php');
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
         <div class="scrollWrapper">
-        <form action="../confirmation.html" method="post" id="signUpForm" class="col-xs-8 col-xl-10 ">
+        <form action="javascript:complete()" method="post" id="signUpForm" class="col-xs-8 col-xl-10 ">
 
             <fieldset>
                 <div class="red">Required Fields * </div><br>
@@ -114,6 +111,25 @@ require('leftNav.php');
         </div>
     </div>
 </div>
+<script>
+    function complete(){
+        var firstName = document.getElementById('firstName').value,
+                lastName = document.getElementById('lastName').value,
 
+
+        $.ajax({
+            url: 'http://52.32.42.132:8080/create?',
+            tyep: 'PUT',
+            dataType: 'jsonp',
+            data: "firstName=" + firstName + "&lastName=" + lastName,
+            crossDomain: true,
+            success: function(response){
+                alert(response);
+            }
+        })
+
+
+    }
+</script>
 </body>
 </html>
