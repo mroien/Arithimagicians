@@ -69,6 +69,7 @@ public class LevelChoiceDialog extends DialogFragment {
                 if (player.checkXP(passBonusCost)) {
                     // Create and show the dialog.
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(player, die, passBonusCost, currBonus);
+                    bonusFragment.setTargetFragment(df, 1);
                     bonusFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passBonusCost);
@@ -95,7 +96,7 @@ public class LevelChoiceDialog extends DialogFragment {
             }
             });
         builder.setView(view);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
             }
