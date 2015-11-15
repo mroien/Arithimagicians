@@ -109,7 +109,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             getItems(player.getUserId());
 
         } catch (StreamCorruptedException e) {
-            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setTitle("No Game Found")
+                    .setMessage("No saved game was found")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
         } catch (FileNotFoundException e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder
@@ -122,15 +131,33 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         }
                     }).show();
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setTitle("No Game Found")
+                    .setMessage("No saved game was found")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setTitle("No Game Found")
+                    .setMessage("No saved game was found")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
         }
 
     }
 
     public void getItems(int userId) {
-        String url = "http://192.168.29.115:8080/checkPowerUp?accountId=" + userId;
+        String url = "http://195.168.29.115:8080/checkPowerUp?accountId=" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.

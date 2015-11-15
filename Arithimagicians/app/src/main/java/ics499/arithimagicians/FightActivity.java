@@ -8,11 +8,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,6 +50,7 @@ public class FightActivity extends AppCompatActivity {
     private boolean generateOps;
     private boolean displayedResults;
     private int totalEnemyHP;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,10 +195,15 @@ public class FightActivity extends AppCompatActivity {
         }
         Log.i("firstrowdm", "first row damage : " + firstRowTotal);
         Log.i("firstrowdmg", "second rwo damage : " + secondRowTotal);
+        this.player.updateMaxSingleDamage(firstRowTotal);
+        this.player.updateMaxSingleDamage(secondRowTotal);
+        this.player.updateMaxTotalDamage(firstRowTotal + secondRowTotal);
         int firstRowAttack = 0;
         int secondRowAttack = 0;
         String firstRowUser = "";
         String secondRowUser = "";
+        double totalRolls = 0;
+        double totalHits = 0;
         boolean isDeadOnFirstRoll = false;
         // Now check damage calulations
         // If the first row total from the dice is greater or equal to the answer
@@ -198,7 +216,10 @@ public class FightActivity extends AppCompatActivity {
             int gj2 = currOpponet.getCurrentHealth();
             opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-
+            this.player.updateTotalHits();
+            this.player.updateTotalRolls();
+            totalRolls++;
+            totalHits++;
             // Check op health if dead rewards screen,
             if (currOpponet.getCurrentHealth() <= 0) {
                 player.swapDiceBackToInv();
@@ -206,6 +227,7 @@ public class FightActivity extends AppCompatActivity {
                 generateOps = true;
                 isDeadOnFirstRoll = true;
                 isDead = true;
+                this.player.updateHighestAcc(totalHits / totalRolls * 100);
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
                 generateNextOpponent();
             }
@@ -219,7 +241,8 @@ public class FightActivity extends AppCompatActivity {
             playerHealth.setText("Player Health: " + player.getCurrentHealth());
             int d = player.getPercentHealthLeft();
             playerProgressBar.setProgress(player.getPercentHealthLeft());
-
+            this.player.updateTotalRolls();
+            totalRolls++;
         }
 
 
@@ -234,7 +257,10 @@ public class FightActivity extends AppCompatActivity {
             int o1 = currOpponet.getCurrentHealth();
             opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-
+            this.player.updateTotalHits();
+            this.player.updateTotalRolls();
+            totalRolls++;
+            totalHits++;
             // Check op health if dead rewards screen,
             if (currOpponet.getCurrentHealth() <= 0) {
                 player.swapDiceBackToInv();
@@ -255,7 +281,8 @@ public class FightActivity extends AppCompatActivity {
             // recalc health,
             playerHealth.setText("Player Health: " + player.getCurrentHealth());
             playerProgressBar.setProgress(player.getPercentHealthLeft());
-
+            this.player.updateTotalRolls();
+            totalRolls++;
         }
 
 
@@ -815,8 +842,10 @@ public class FightActivity extends AppCompatActivity {
         ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
         srsd.setTag(null);
         if (opponents.size() == 0) {
+            updateLeaderboard();
             rewardsScreen();
         } else {
+            updateLeaderboard();
             Opponent next = opponents.get(0);
             currOpponet = next;
             int resId = getResources().getIdentifier(next.getLayout(), "drawable", getPackageName());
@@ -949,4 +978,66 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    public void updateLeaderboard() {
+        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level="+ this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
++                "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.start();
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(!response.equals("No Powerups")){
+
+                            }
+
+                        }
+
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

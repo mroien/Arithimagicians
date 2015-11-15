@@ -98,7 +98,41 @@ public class MapDescriptionActivity extends Activity {
 
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
 
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

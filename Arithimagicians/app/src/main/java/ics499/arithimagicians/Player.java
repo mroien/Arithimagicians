@@ -1,6 +1,5 @@
 package ics499.arithimagicians;
 
-import android.content.ClipData;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -23,6 +22,14 @@ public class Player extends Character implements Serializable {
     private Double regenRate;
     private String lastStage;
     private int userId;
+    private double totalRolls;
+    private double totalHits;
+    private double highestAcc;
+    private int maxTotalDamage;
+    private double totalAcc;
+
+
+    private int maxSingleDamage;
 
     public Player() {
         // Change to actual values
@@ -46,6 +53,7 @@ public class Player extends Character implements Serializable {
         this.regenRate = 1.0;
         this.lastStage = "1_3";
         this.userId = 0;
+        this.highestAcc = 100;
         prepareInventory();
     }
 
@@ -193,4 +201,44 @@ public class Player extends Character implements Serializable {
     public void addDie (Die die) {
         this.dice.add(die);
     }
-}
+
+    public void updateHighestAcc(double acc){
+        if(acc < this.highestAcc){
+            this.highestAcc = acc;
+        }
+    }
+
+    public void updateTotalHits() {
+        this.totalHits++;
+    }
+    public void updateTotalRolls() {
+        this.totalRolls++;
+    }
+
+        public void updateMaxTotalDamage(int damage){
+        if(damage > this.maxTotalDamage){
+            this.maxTotalDamage = damage;
+        }
+    }
+
+    public void updateMaxSingleDamage(int dmg){
+        if(dmg > this.maxSingleDamage){
+            this.maxSingleDamage = dmg;
+        }
+    }
+    public double getHighestAcc() {
+        return highestAcc;
+    }
+
+    public int getMaxTotalDamage() {
+        return maxTotalDamage;
+    }
+
+    public int getMaxSingleDamage() {
+        return maxSingleDamage;
+    }
+    public double getTotalAcc() {
+        return totalHits/totalRolls * 100;
+    }
+    }
+
