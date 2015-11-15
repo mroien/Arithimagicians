@@ -84,11 +84,12 @@ public class BuyDiceDialog extends DialogFragment {
                             passBack.putString("die", die);
                             Fragment newFragment = LevelChoiceDialog.newInstance(player, die);
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.), newFragment);
-                            transaction.addToBackStack(null);
+
+                           transaction.replace(R.id.), newFragment);
+                           transaction.addToBackStack(null);
 
                             // Commit the transaction
-                            transaction.commit();
+                           transaction.commit();
 
                         }
                     });

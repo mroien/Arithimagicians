@@ -46,7 +46,7 @@ public class DiceLevelUpActivity extends Activity {
         setDiceCount();
     }
 
-    }
+
 
     /**
      * Performed when the close button is clicked on the dialog

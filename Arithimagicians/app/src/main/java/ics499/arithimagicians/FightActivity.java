@@ -75,7 +75,7 @@ public class FightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fight);
         setContent();
         totalEnemyHP = 0;
-        for (Opponent enemy : opponents) {
+        for(Opponent enemy : opponents) {
             totalEnemyHP += enemy.getTotalHealth();
         }
     }
@@ -89,239 +89,244 @@ public class FightActivity extends AppCompatActivity {
         ArrayList<Die> secondRow = new ArrayList<Die>();
         // Find which dice was used in the first row first position
         ImageButton firstRowFirstDice = (ImageButton) findViewById(R.id.firstRowFirstDice);
-        // Get the value of the dice as a string
-        String frfd = firstRowFirstDice.getTag().toString();
         // Find which dice was used in the first row second position
         ImageButton firstRowSecondDice = (ImageButton) findViewById(R.id.firstRowSecondDice);
-        // Get the value of the dice as a string
-        String frsd = firstRowSecondDice.getTag().toString();
         // Find which dice was used in the second row first slot
         ImageButton secondRowFirstDice = (ImageButton) findViewById(R.id.secondRowFirstDice);
-        // Get the value of the dice as as tring
-        String srfd = secondRowFirstDice.getTag().toString();
         // Find which dice was used in the second row second slot
         ImageButton secondRowSecondDice = (ImageButton) findViewById(R.id.secondRowSecondDice);
-        // Get the value of the dice as a string
-        String srsd = secondRowSecondDice.getTag().toString();
-        // Find the text view for the first answer
-        TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
-        // Find the text view for the second answer
-        TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
-        TextView firstRowSecondOp = (TextView) findViewById(R.id.firstRowSecondOp);
-        TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
-        boolean isDead = false;
-        diceUsed = player.getDiceUsed();
-        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
-        opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
-        generateOps = false;
-        TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
-        TextView secondRowFirstOp = (TextView) findViewById(R.id.secondRowFirstOp);
-        int firstRowFirstDiceRoll = 0;
-        int firstRowSecondDiceRoll = 0;
-        int secondRowFirstDiceRoll = 0;
-        int secondRowSecondDiceRoll = 0;
-
-
-        // Loop through the dice used array list to figure out which dice was used in which row
-        for (int i = 0; i < diceUsed.size(); i++) {
-            // If the dice selected equals the string value of the first row first position dice and the first row array list is less than 2, add it to the first row list
-            if (diceUsed.get(i).getDiceType().equals(frfd) && firstRow.size() < 2) {
-                firstRow.add(diceUsed.get(i));
-                // Else if the dice value is equal to the first row second position and the first row array list is less than 2, add it to the first row list
-            } else if (diceUsed.get(i).getDiceType().equals(frsd) && firstRow.size() < 2) {
-                firstRow.add(diceUsed.get(i));
-                // Else if the dice value is equal to the second row first dice and that list is less than two, add it to the second row list
-            } else if (diceUsed.get(i).getDiceType().equals(srfd) && secondRow.size() < 2) {
-                secondRow.add(diceUsed.get(i));
-                // Else if the dice value is equal to the second row second dice and that list is less than two, add it to the second row list
-            } else if (diceUsed.get(i).getDiceType().equals(srsd) && secondRow.size() < 2) {
-                secondRow.add(diceUsed.get(i));
-            }
-
-        }
-        int firstRowTotal = 0;
-        int secondRowTotal = 0;
-
-        // For every dice in the first row list, have them roll dice and add it to the total
-        for (Die d : firstRow) {
-            if (firstRow.indexOf(d) == 0) {
-                firstRowFirstDiceRoll = d.rollDice();
-                firstRowTotal += firstRowFirstDiceRoll;
-            } else {
-                if (firstRowFirstOp.getText().equals("+")) {
-                    firstRowSecondDiceRoll = d.rollDice();
-                    firstRowTotal += firstRowSecondDiceRoll;
-                } else if (firstRowFirstOp.getText().equals("-")) {
-                    firstRowSecondDiceRoll = d.rollDice();
-                    firstRowTotal = firstRowTotal - firstRowSecondDiceRoll;
-
-                } else if (firstRowFirstOp.getText().equals("*")) {
-                    firstRowSecondDiceRoll = d.rollDice();
-                    firstRowTotal = firstRowTotal * firstRowSecondDiceRoll;
-                } else {
-                    firstRowSecondDiceRoll = d.rollDice();
-                    firstRowTotal = firstRowTotal / firstRowSecondDiceRoll;
-
-                }
-            }
-        }
-        // For every dice in the second row list, have them roll dice and add it to the total
-        for (Die d : secondRow) {
-            if (secondRow.indexOf(d) == 0) {
-                secondRowFirstDiceRoll = d.rollDice();
-                secondRowTotal += secondRowFirstDiceRoll;
-            } else {
-                if (secondRowFirstOp.getText().equals("+")) {
-                    secondRowSecondDiceRoll = d.rollDice();
-                    secondRowTotal += secondRowSecondDiceRoll;
-                } else if (secondRowFirstOp.getText().equals("-")) {
-                    secondRowSecondDiceRoll = d.rollDice();
-                    secondRowTotal = secondRowTotal - secondRowSecondDiceRoll;
-
-                } else if (secondRowFirstOp.getText().equals("*")) {
-                    secondRowSecondDiceRoll = d.rollDice();
-                    secondRowTotal = secondRowTotal * secondRowSecondDiceRoll;
-                } else {
-                    secondRowSecondDiceRoll = d.rollDice();
-                    secondRowTotal = secondRowTotal / secondRowSecondDiceRoll;
-
-                }
-            }
-        }
-        // If the selected element is fire, add + 1 to each row
-        if (currentElement.equals("Fire")) {
-            firstRowTotal++;
-            secondRowTotal++;
-        }
-        Log.i("firstrowdm", "first row damage : " + firstRowTotal);
-        Log.i("firstrowdmg", "second rwo damage : " + secondRowTotal);
-        this.player.updateMaxSingleDamage(firstRowTotal);
-        this.player.updateMaxSingleDamage(secondRowTotal);
-        this.player.updateMaxTotalDamage(firstRowTotal + secondRowTotal);
-        int firstRowAttack = 0;
-        int secondRowAttack = 0;
-        String firstRowUser = "";
-        String secondRowUser = "";
-        double totalRolls = 0;
-        double totalHits = 0;
-        boolean isDeadOnFirstRoll = false;
-        // Now check damage calulations
-        // If the first row total from the dice is greater or equal to the answer
-        if (firstRowTotal >= Integer.parseInt(firstRowAns.getText().toString())) {
-            // do attack,
-            firstRowAttack = firstRowTotal - Integer.parseInt(firstRowAns.getText().toString());
-            currOpponet.takeDamage((int) (firstRowAttack * player.getDamageRate()));
-            firstRowUser = "Enemy";
-            // recalc health,
-            int gj2 = currOpponet.getCurrentHealth();
-            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
-            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-            this.player.updateTotalHits();
-            this.player.updateTotalRolls();
-            totalRolls++;
-            totalHits++;
-            // Check op health if dead rewards screen,
-            if (currOpponet.getCurrentHealth() <= 0) {
-                player.swapDiceBackToInv();
-                opponents.remove(0);
-                generateOps = true;
-                isDeadOnFirstRoll = true;
-                isDead = true;
-                this.player.updateHighestAcc(totalHits / totalRolls * 100);
-                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
-                generateNextOpponent();
-            }
-            // Else if it is less than the answer
+        if ((firstRowFirstDice.getTag() == null) || (firstRowSecondDice.getTag() == null) || (secondRowFirstDice.getTag() == null) || (secondRowSecondDice.getTag() == null)) {
+            Intent healthLow = new Intent(this, HealthTooLowActivity.class);
+            healthLow.putExtra("player", player);
+            healthLow.putExtra("dice", true);
+            startActivityForResult(healthLow, 200);
         } else {
-            // do enemy attack,
-            firstRowAttack = Integer.parseInt(firstRowAns.getText().toString()) - firstRowTotal;
-            player.takeDamage(firstRowAttack + currOpponet.getAttack());
-            firstRowUser = "Player";
-            // recalc health,
-            playerHealth.setText("Player Health: " + player.getCurrentHealth());
-            int d = player.getPercentHealthLeft();
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
-            this.player.updateTotalRolls();
-            totalRolls++;
-        }
+
+            // Get the value of the dice as a string
+            String frfd = firstRowFirstDice.getTag().toString();
+            String frsd = firstRowSecondDice.getTag().toString();
+            String srfd = secondRowFirstDice.getTag().toString();
+            String srsd = secondRowSecondDice.getTag().toString();
+            // Find the text view for the first answer
+            TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
+            // Find the text view for the second answer
+            TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
+            TextView firstRowSecondOp = (TextView) findViewById(R.id.firstRowSecondOp);
+            TextView secondRowSecondOp = (TextView) findViewById(R.id.secondRowSecondOp);
+            boolean isDead = false;
+            diceUsed = player.getDiceUsed();
+            playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+            opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
+            generateOps = false;
+            TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
+            TextView secondRowFirstOp = (TextView) findViewById(R.id.secondRowFirstOp);
+            int firstRowFirstDiceRoll = 0;
+            int firstRowSecondDiceRoll = 0;
+            int secondRowFirstDiceRoll = 0;
+            int secondRowSecondDiceRoll = 0;
 
 
-        // IF the second row total from the dice is greater or equal to the answer
-        if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
-            // do attack,
-            secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
-            currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
-            secondRowUser = "Enemy";
-            // recalc health,
-            int o1 = currOpponet.getCurrentHealth();
-            opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
-            opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
-            this.player.updateTotalHits();
-            this.player.updateTotalRolls();
-            totalRolls++;
-            totalHits++;
-            // Check op health if dead rewards screen,
-            if (currOpponet.getCurrentHealth() <= 0) {
-                player.swapDiceBackToInv();
-                if (opponents.size() > 0)
-                    opponents.remove(0);
-                generateOps = true;
-                isDead = true;
-                player.swapDiceBackToInv();
-                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-                generateNextOpponent();
+            // Loop through the dice used array list to figure out which dice was used in which row
+            for (int i = 0; i < diceUsed.size(); i++) {
+                // If the dice selected equals the string value of the first row first position dice and the first row array list is less than 2, add it to the first row list
+                if (diceUsed.get(i).getDiceType().equals(frfd) && firstRow.size() < 2) {
+                    firstRow.add(diceUsed.get(i));
+                    // Else if the dice value is equal to the first row second position and the first row array list is less than 2, add it to the first row list
+                } else if (diceUsed.get(i).getDiceType().equals(frsd) && firstRow.size() < 2) {
+                    firstRow.add(diceUsed.get(i));
+                    // Else if the dice value is equal to the second row first dice and that list is less than two, add it to the second row list
+                } else if (diceUsed.get(i).getDiceType().equals(srfd) && secondRow.size() < 2) {
+                    secondRow.add(diceUsed.get(i));
+                    // Else if the dice value is equal to the second row second dice and that list is less than two, add it to the second row list
+                } else if (diceUsed.get(i).getDiceType().equals(srsd) && secondRow.size() < 2) {
+                    secondRow.add(diceUsed.get(i));
+                }
+
             }
-            // Else if it is less than the answer
-        } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
-            // do enemy attack,
-            secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
-            player.takeDamage(secondRowAttack + currOpponet.getAttack());
-            secondRowUser = "Player";
-            // recalc health,
-            playerHealth.setText("Player Health: " + player.getCurrentHealth());
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
-            this.player.updateTotalRolls();
-            totalRolls++;
+            int firstRowTotal = 0;
+            int secondRowTotal = 0;
+
+            // For every dice in the first row list, have them roll dice and add it to the total
+            for (Die d : firstRow) {
+                if (firstRow.indexOf(d) == 0) {
+                    firstRowFirstDiceRoll = d.rollDice();
+                    firstRowTotal += firstRowFirstDiceRoll;
+                } else {
+                    if (firstRowFirstOp.getText().equals("+")) {
+                        firstRowSecondDiceRoll = d.rollDice();
+                        firstRowTotal += firstRowSecondDiceRoll;
+                    } else if (firstRowFirstOp.getText().equals("-")) {
+                        firstRowSecondDiceRoll = d.rollDice();
+                        firstRowTotal = firstRowTotal - firstRowSecondDiceRoll;
+
+                    } else if (firstRowFirstOp.getText().equals("*")) {
+                        firstRowSecondDiceRoll = d.rollDice();
+                        firstRowTotal = firstRowTotal * firstRowSecondDiceRoll;
+                    } else {
+                        firstRowSecondDiceRoll = d.rollDice();
+                        firstRowTotal = firstRowTotal / firstRowSecondDiceRoll;
+
+                    }
+                }
+            }
+            // For every dice in the second row list, have them roll dice and add it to the total
+            for (Die d : secondRow) {
+                if (secondRow.indexOf(d) == 0) {
+                    secondRowFirstDiceRoll = d.rollDice();
+                    secondRowTotal += secondRowFirstDiceRoll;
+                } else {
+                    if (secondRowFirstOp.getText().equals("+")) {
+                        secondRowSecondDiceRoll = d.rollDice();
+                        secondRowTotal += secondRowSecondDiceRoll;
+                    } else if (secondRowFirstOp.getText().equals("-")) {
+                        secondRowSecondDiceRoll = d.rollDice();
+                        secondRowTotal = secondRowTotal - secondRowSecondDiceRoll;
+
+                    } else if (secondRowFirstOp.getText().equals("*")) {
+                        secondRowSecondDiceRoll = d.rollDice();
+                        secondRowTotal = secondRowTotal * secondRowSecondDiceRoll;
+                    } else {
+                        secondRowSecondDiceRoll = d.rollDice();
+                        secondRowTotal = secondRowTotal / secondRowSecondDiceRoll;
+
+                    }
+                }
+            }
+            // If the selected element is fire, add + 1 to each row
+            if (currentElement.equals("Fire")) {
+                firstRowTotal++;
+                secondRowTotal++;
+            }
+            Log.i("firstrowdm", "first row damage : " + firstRowTotal);
+            Log.i("firstrowdmg", "second rwo damage : " + secondRowTotal);
+            this.player.updateMaxSingleDamage(firstRowTotal);
+            this.player.updateMaxSingleDamage(secondRowTotal);
+            this.player.updateMaxTotalDamage(firstRowTotal + secondRowTotal);
+            int firstRowAttack = 0;
+            int secondRowAttack = 0;
+            String firstRowUser = "";
+            String secondRowUser = "";
+            double totalRolls = 0;
+            double totalHits = 0;
+            boolean isDeadOnFirstRoll = false;
+            // Now check damage calulations
+            // If the first row total from the dice is greater or equal to the answer
+            if (firstRowTotal >= Integer.parseInt(firstRowAns.getText().toString())) {
+                // do attack,
+                firstRowAttack = firstRowTotal - Integer.parseInt(firstRowAns.getText().toString());
+                currOpponet.takeDamage((int) (firstRowAttack * player.getDamageRate()));
+                firstRowUser = "Enemy";
+                // recalc health,
+                int gj2 = currOpponet.getCurrentHealth();
+                opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
+                opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+                this.player.updateTotalHits();
+                this.player.updateTotalRolls();
+                totalRolls++;
+                totalHits++;
+                // Check op health if dead rewards screen,
+                if (currOpponet.getCurrentHealth() <= 0) {
+                    player.swapDiceBackToInv();
+                    opponents.remove(0);
+                    generateOps = true;
+                    isDeadOnFirstRoll = true;
+                    isDead = true;
+                    this.player.updateHighestAcc(totalHits / totalRolls * 100);
+                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead);
+                    generateNextOpponent();
+                }
+                // Else if it is less than the answer
+            } else {
+                // do enemy attack,
+                firstRowAttack = Integer.parseInt(firstRowAns.getText().toString()) - firstRowTotal;
+                player.takeDamage(firstRowAttack + currOpponet.getAttack());
+                firstRowUser = "Player";
+                // recalc health,
+                playerHealth.setText("Player Health: " + player.getCurrentHealth());
+                int d = player.getPercentHealthLeft();
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+                this.player.updateTotalRolls();
+                totalRolls++;
+            }
+
+
+            // IF the second row total from the dice is greater or equal to the answer
+            if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+                // do attack,
+                secondRowAttack = secondRowTotal - Integer.parseInt(secondRowAns.getText().toString());
+                currOpponet.takeDamage((int) (secondRowAttack * player.getDamageRate()));
+                secondRowUser = "Enemy";
+                // recalc health,
+                int o1 = currOpponet.getCurrentHealth();
+                opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
+                opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
+                this.player.updateTotalHits();
+                this.player.updateTotalRolls();
+                totalRolls++;
+                totalHits++;
+                // Check op health if dead rewards screen,
+                if (currOpponet.getCurrentHealth() <= 0) {
+                    player.swapDiceBackToInv();
+                    if (opponents.size() > 0)
+                        opponents.remove(0);
+                    generateOps = true;
+                    isDead = true;
+                    player.swapDiceBackToInv();
+                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
+                    generateNextOpponent();
+                }
+                // Else if it is less than the answer
+            } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
+                // do enemy attack,
+                secondRowAttack = Integer.parseInt(secondRowAns.getText().toString()) - secondRowTotal;
+                player.takeDamage(secondRowAttack + currOpponet.getAttack());
+                secondRowUser = "Player";
+                // recalc health,
+                playerHealth.setText("Player Health: " + player.getCurrentHealth());
+                playerProgressBar.setProgress(player.getPercentHealthLeft());
+                this.player.updateTotalRolls();
+                totalRolls++;
+            }
+
+
+            // If at this point we have not gotten pushed to the rewards screen, lets see if the player is dead
+            if (player.getCurrentHealth() <= 0) {
+                player.swapDiceBackToInv();
+                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
+                generateDeathScreen();
+            }
+            // Else the player is alive and so is the monster, so reset the dice locations to null
+            // Generate new answers
+            // Generate new operations
+            // Swap the dice from the players usedDice array to the inventory and keep fighting
+            else if (generateOps == false) {
+                // reset operations and dice
+                player.swapDiceBackToInv();
+                generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
+                resetDicePics();
+                generateAns(level);
+                generateOperations(currOpponet.getOp());
+
+                ImageButton frfdTag = (ImageButton) findViewById(R.id.firstRowFirstDice);
+                frfdTag.setTag(null);
+                ImageButton frsdTag = (ImageButton) findViewById(R.id.firstRowSecondDice);
+                frsdTag.setTag(null);
+                ImageButton srfdTag = (ImageButton) findViewById(R.id.secondRowFirstDice);
+                srfdTag.setTag(null);
+                ImageButton srsdTag = (ImageButton) findViewById(R.id.secondRowSecondDice);
+                srsdTag.setTag(null);
+
+            }
+
+
         }
-
-
-        // If at this point we have not gotten pushed to the rewards screen, lets see if the player is dead
-        if (player.getCurrentHealth() <= 0) {
-            player.swapDiceBackToInv();
-            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-            generateDeathScreen();
-        }
-        // Else the player is alive and so is the monster, so reset the dice locations to null
-        // Generate new answers
-        // Generate new operations
-        // Swap the dice from the players usedDice array to the inventory and keep fighting
-        else if (generateOps == false) {
-            // reset operations and dice
-            player.swapDiceBackToInv();
-            generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
-            resetDicePics();
-            generateAns(level);
-            generateOperations(currOpponet.getOp());
-
-            ImageButton frfdTag = (ImageButton) findViewById(R.id.firstRowFirstDice);
-            frfdTag.setTag(null);
-            ImageButton frsdTag = (ImageButton) findViewById(R.id.firstRowSecondDice);
-            frsdTag.setTag(null);
-            ImageButton srfdTag = (ImageButton) findViewById(R.id.secondRowFirstDice);
-            srfdTag.setTag(null);
-            ImageButton srsdTag = (ImageButton) findViewById(R.id.secondRowSecondDice);
-            srsdTag.setTag(null);
-
-        }
-
-
     }
 
     private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
                                  int secondRowSecondDice, String firstRowOp, String secondRowOp,
                                  String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
                                  String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
-                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead) {
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -661,7 +666,7 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
-    private void setProgressBars(Opponent opponent) {
+    private void setProgressBars(Opponent opponent){
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -743,68 +748,68 @@ public class FightActivity extends AppCompatActivity {
             Random r = new Random();
             int opIndex;
             if (i == 0) {
-                switch (firstRowOp) {
+                switch(firstRowOp){
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                 }
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
-                switch (secondRowOp) {
+                switch(secondRowOp){
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3) {
+                        if (opIndex < 3){
                             opIndex = 3;
                         }
                         break;
@@ -867,7 +872,8 @@ public class FightActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.firstRowFirstDice:
                 ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
-                if (frfd.getTag() != null) {
+                if(frfd.getTag() != null)
+                {
                     diceIntent.putExtra("diceFilled", frfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -876,7 +882,8 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.firstRowSecondDice:
                 ImageButton frsd = (ImageButton) findViewById(R.id.firstRowSecondDice);
-                if (frsd.getTag() != null) {
+                if(frsd.getTag() != null)
+                {
                     diceIntent.putExtra("diceFilled", frsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -885,7 +892,8 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowFirstDice:
                 ImageButton srfd = (ImageButton) findViewById(R.id.secondRowFirstDice);
-                if (srfd.getTag() != null) {
+                if(srfd.getTag() != null)
+                {
                     diceIntent.putExtra("diceFilled", srfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -894,7 +902,8 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowSecondDice:
                 ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
-                if (srsd.getTag() != null) {
+                if(srsd.getTag() != null)
+                {
                     diceIntent.putExtra("diceFilled", srsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -908,54 +917,62 @@ public class FightActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 100) {
+        if(resultCode == 100){
             playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
             playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-            playerHealth.setText("Player HP : " + player.getCurrentHealth());
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
-        } else if (resultCode == 104) {
+                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                       playerProgressBar.setProgress(player.getPercentHealthLeft());
+        }
+        else
+        if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
-        } else if (resultCode == 106) {
+        }
+        else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
-        } else if (resultCode == 108) {
+        }
+        else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
-        } else if (resultCode == 110) {
+        }
+        else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
-        } else if (resultCode == 112) {
+        }
+        else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
-        } else if (resultCode == 120) {
+        }
+        else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d20);
             img.setTag("d20");
-        } else if (resultCode == 130) {
+        }
+        else if(resultCode == 130){
             this.player = (Player) data.getSerializableExtra("player");
             this.opList = data.getStringArrayListExtra("opList");
             this.opponents = (ArrayList<Opponent>) data.getSerializableExtra("opponents");
@@ -963,11 +980,14 @@ public class FightActivity extends AppCompatActivity {
             displayedResults = true;
 
         }
+        else if(resultCode == 200){
+            this.player = (Player) data.getSerializableExtra("player");
+        }
     }
 
     public void updateLeaderboard() {
-        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
-                + "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
+        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level="+ this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
++                "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.
@@ -975,11 +995,11 @@ public class FightActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (!response.equals("No Powerups")) {
+                        if(!response.equals("No Powerups")){
+
+                            }
 
                         }
-
-                    }
 
 
                 }, new Response.ErrorListener() {
@@ -992,7 +1012,6 @@ public class FightActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
-
     @Override
     public void onPause() {
         super.onPause();
