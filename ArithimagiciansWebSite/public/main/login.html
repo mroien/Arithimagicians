@@ -33,12 +33,12 @@
                 <label for="username">
                     Username:
                 </label>
-                <input type="text" id="username" name="username" placeholder="Username" autofocus required pattern="[\w\D]{4,15}"><br>
+                <input type="text" id="username" name="username" placeholder="Username" autofocus required pattern="[\w\D]{1,10}"><br>
                 <label for="password">
                     Password:
                 </label>
                 <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{5,15}"><br>
-                <input type="submit" class="bottomButton" name="submit" id="submit">
+                <input type="submit" class="bottomButton" name="submit" id="submit" value="Login">
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
         </form>
@@ -61,7 +61,6 @@
                     localStorage.setItem('username', username);
                     localStorage.setItem('userID', userID);
                     alert("You have been logged in as " + localStorage.getItem('username'));
-//                    location.reload(true);
                     window.setTimeout(function(){
                         window.location.href = '../loggedIn/accountInfo.html';
                     }, 500)

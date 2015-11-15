@@ -10,10 +10,10 @@ $(document).ready(function(){
     //On page load
     //Check if user is logged in
 
-    if(storage !== null || storage.length !== 0) {
+    if(storage !== null) {
         $('.signedIn')
             .text("Welcome, " + localStorage.getItem('username'))
-            .append(logout)
+            .append(logout);
     }
 
     //Clear localStorage and sign the user out
@@ -62,7 +62,7 @@ $(document).ready(function(){
             $phone = $(this);
 
             if ($phone.val().length === 0) {
-                $phone.val('(');
+                $phone.val('( ');
             }
             else {
                 var val = $phone.val();
@@ -77,6 +77,17 @@ $(document).ready(function(){
                 $phone.val('');
             }
         });
+
+    //Prompts for Delete page
+
+    $('.yes').on('click', function(){
+        var _delete = prompt("Are you sure you want to Delete your account? YES or NO");
+        _delete.toUpperCase();
+        if(_delete === 'YES'){
+            alert("You just deleted your account")
+        }
+    })
+
 
 });
 

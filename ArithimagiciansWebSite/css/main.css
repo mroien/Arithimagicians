@@ -32,21 +32,19 @@ label {
   margin: auto; }
 
 .download_wrapper, .downloadText {
-  font-family: "Peas & Carrots";
-  color: cadetblue;
   font-size: 25px;
   width: 342px;
   margin: auto; }
 
-.download {
+.btn_wrapper {
+  display: flex;
+  flex-direction: row; }
+
+.download, .cancel {
   margin: auto; }
 
 .progress {
   width: 300px;
-  align-self: center; }
-
-.align-col {
-  flex-flow: column;
   align-self: center; }
 
 #leaderboard {
@@ -75,19 +73,20 @@ label {
 
 #deleteWrapper {
   font-family: "Peas & Carrots";
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 300px;
   height: 200px;
-  /*border: 5px solid red;*/
   text-align: center;
   color: cadetblue;
   font-size: 28px;
-  top: 32%;
-  right: 39%;
+  margin: auto;
   z-index: 999; }
 
 .yes, .no {
-  position: relative; }
+  max-width: 50px;
+  margin: auto; }
 
 #viewTransactions {
   position: absolute;
@@ -96,6 +95,13 @@ label {
   width: 700px;
   top: 40%;
   right: 30%; }
+
+.text_wrapper {
+  overflow: auto;
+  display: flex;
+  height: 306px;
+  width: 390px;
+  margin: auto; }
 
 body {
   background: url("../images/forest.jpg") no-repeat center center fixed;
