@@ -30,7 +30,7 @@ public class DisplayMap extends AppCompatActivity {
         player = (Player) getIntent.getSerializableExtra("player");
         setContent();
         this.player.checkHealthRegen(System.nanoTime());
-     //   setHealthBar();
+        setHealthBar();
     }
 
     /**
@@ -41,21 +41,21 @@ public class DisplayMap extends AppCompatActivity {
      * @param view
      */
     public void inventoryClicked(View view) {
-       // setHealthBar();
+        setHealthBar();
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
         this.player.checkHealthRegen(System.nanoTime());
         this.player.checkPowerupTimer(System.nanoTime());
     }
-/*
+
     public void setHealthBar(){
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
         playerHealth.setText("Player HP : " + player.getCurrentHealth());
         playerProgressBar.setProgress(player.getPercentHealthLeft());
     }
-*/
+
     /**
      * Used when a fight location is clicked. Create the level descripition event then switch off which location was clicked
      * Put in the player object and put which level was clicked into the intent
@@ -152,7 +152,7 @@ public class DisplayMap extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //setHealthBar();
+        setHealthBar();
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
     }
@@ -161,7 +161,6 @@ public class DisplayMap extends AppCompatActivity {
      * Set content method to display which map to show based of what location a player has last beat
      */
     public void setContent() {
-        //setHealthBar();
         String lastMap = player.getLastMap();
         switch (lastMap) {
             case "1_1":
@@ -209,8 +208,8 @@ public class DisplayMap extends AppCompatActivity {
             case "3_5":
                 setContentView(R.layout.activity_map3_5);
                 break;
-
         }
+        setHealthBar();
     }
 
     @Override
