@@ -3,7 +3,10 @@ package ics499.arithimagicians;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ public class LevelChoiceDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final DialogFragment df = this;
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -65,6 +69,7 @@ public class LevelChoiceDialog extends DialogFragment {
                 if (player.checkXP(passBonusCost)) {
                     // Create and show the dialog.
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(player, die, passBonusCost, currBonus);
+                    bonusFragment.setTargetFragment(df, 1);
                     bonusFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passBonusCost);
@@ -82,6 +87,7 @@ public class LevelChoiceDialog extends DialogFragment {
                 if (player.checkXP(passDieCost)) {
                     // Create and show the dialog.
                     BuyDiceDialog diceFragment = BuyDiceDialog.newInstance(player, die, passDieCost);
+                    diceFragment.setTargetFragment(df, 1);
                     diceFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passDieCost);
@@ -90,9 +96,15 @@ public class LevelChoiceDialog extends DialogFragment {
             }
             });
         builder.setView(view);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                Player player = (Player) getArguments().getSerializable("player");
+                Intent updated = new Intent();
+                updated.putExtra("player", player);
+                DiceLevelUpActivity act = (DiceLevelUpActivity) getActivity();
+                act.setResult(1, updated);
+                act.generateDice();
+                act.setDiceCount();
             }
         });
         // Create the AlertDialog object and return it
@@ -194,4 +206,6 @@ public class LevelChoiceDialog extends DialogFragment {
         }
         return cost;
     }
+
+
 }

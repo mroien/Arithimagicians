@@ -44,19 +44,20 @@ public class DiceLevelUpActivity extends Activity {
         opponents = (ArrayList<Opponent>) getIntent.getSerializableExtra("opponents");
         generateDice();
         setDiceCount();
-
     }
+
+
 
     /**
      * Performed when the close button is clicked on the dialog
-     * Create the new intent that is going back to the fight activity
+     * Create the new intent that is going back to the inventory activity
      * Put the player object into the intent so that we can keep variables between intents
      * Send a result of 100, meaning close click and finish this intent
      *
      * @param view View of the dialog
      */
     public void closeClick(View view) {
-        Intent previous = new Intent(getApplicationContext(), FightActivity.class);
+        Intent previous = new Intent(getApplicationContext(), InventoryActivity.class);
         previous.putExtra("player", this.player);
         setResult(100, previous);
         this.finish();
@@ -84,37 +85,37 @@ public class DiceLevelUpActivity extends Activity {
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d4");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
                 break;
             case R.id.d6:
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d6");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
                 break;
             case R.id.d8:
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d8");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
                 break;
             case R.id.d10:
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d10");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
                 break;
             case R.id.d12:
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d12");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
                 break;
             case R.id.d20:
                     ft = getFragmentManager().beginTransaction();
                     // Create and show the dialog.
                     newFragment = LevelChoiceDialog.newInstance(player, "d20");
-                    newFragment.show(ft, "test");
+                    newFragment.show(ft, "buy");
 
                 break;
         }
@@ -176,6 +177,13 @@ public class DiceLevelUpActivity extends Activity {
         t = (TextView) findViewById(R.id.d20TextView);
         t.setText(Integer.toString(d20));
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.player = (Player) data.getSerializableExtra("player");
+        generateDice();
+        setDiceCount();
     }
 }
 

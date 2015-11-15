@@ -6,7 +6,7 @@ package ics499.arithimagicians;
 public class D4 extends Die {
     private static int bonus = 0;
 
-    public D4(){
+    public D4() {
         super(4, "d4");
     }
 
@@ -15,7 +15,7 @@ public class D4 extends Die {
         return bonus;
     }
 
-    public static void incrementBonus(){
+    public static void incrementBonus() {
         bonus++;
     }
 
@@ -26,7 +26,7 @@ public class D4 extends Die {
         return roll;
     }
 
-    public int getBonusCost(){
+    public int getBonusCost() {
         return this.getBonus() * this.getBonus() + this.getDiceValue();
     }
 }

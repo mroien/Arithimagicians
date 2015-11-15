@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class DiceRollResults extends Activity {
@@ -30,6 +36,8 @@ public class DiceRollResults extends Activity {
     private int secondRowAttack;
     private boolean isDeadOnFirstRoll;
     private boolean isDead;
+    private double opAttack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +64,11 @@ public class DiceRollResults extends Activity {
         secondRowAttack = getIntent.getIntExtra("secondRowAttack", 0);
         isDeadOnFirstRoll = getIntent.getBooleanExtra("isDeadOnFirstRoll", false);
         isDead = getIntent.getBooleanExtra("isDead", false);
+        opAttack = getIntent.getDoubleExtra("opAttack", 1);
         generateResults();
     }
-    public void generateResults(){
+
+    public void generateResults() {
         TextView firstRowFirstValue = (TextView) findViewById(R.id.firstRowFirstValue);
         TextView firstRowSecondValue = (TextView) findViewById(R.id.firstRowSecondValue);
         TextView secondRowFirstValue = (TextView) findViewById(R.id.secondRowFirstValue);
@@ -72,11 +82,10 @@ public class DiceRollResults extends Activity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView secondRowResults = (TextView) findViewById(R.id.secondRowResults);
         TextView isDefeated = (TextView) findViewById(R.id.defeatedTextView);
-        if(isDead == true)
-        {
+        if (isDead == true) {
             isDefeated.setText("Opponent Defeated");
         }
-        if(isDeadOnFirstRoll == false) {
+        if (isDeadOnFirstRoll == false) {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
             secondRowFirstValue.setText(Integer.toString(secondRowFirstDice));
@@ -84,20 +93,33 @@ public class DiceRollResults extends Activity {
             firstRowOp.setText(firstRowOpString);
             firstRowSecondOp.setText(firstRowSecondOpString);
             firstRowAns.setText(firstRowAnsString);
-            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+            if(firstRowUserString.equals("Player")){
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int)(firstRowAttack * opAttack)) + " Damage");
+            }
+            else {
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int) (firstRowAttack * player.getDamageRate())) + " Damage");
+            }
             secondRowOp.setText(secondRowOpString);
             secondRowSecondOp.setText(secondRowSecondOpString);
             secondRowAns.setText(secondRowAnsString);
-            secondRowResults.setText(secondRowUserString + " takes " + Integer.toString(secondRowAttack) + " Damage");
-        }
-        else
-        {
+            if(secondRowUserString.equals("Player")){
+                secondRowResults.setText(secondRowUserString + " takes " + Integer.toString((int)(secondRowAttack * opAttack)) + " Damage");
+            }
+            else
+            {
+                secondRowResults.setText(secondRowUserString + " takes " + Integer.toString((int)(secondRowAttack * player.getDamageRate())) + " Damage");
+            }
+
+        } else {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
             firstRowOp.setText(firstRowOpString);
             firstRowSecondOp.setText(firstRowSecondOpString);
             firstRowAns.setText(firstRowAnsString);
-            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+            if(firstRowUserString.equals("Player"))
+            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int)(firstRowAttack * opAttack)) + " Damage");
+            else
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int) (firstRowAttack * player.getDamageRate())) + " Damage");
         }
     }
 
@@ -118,5 +140,41 @@ public class DiceRollResults extends Activity {
 
         setResult(130, previous);
         this.finish();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

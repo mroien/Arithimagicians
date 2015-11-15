@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +20,8 @@ import java.io.ObjectOutputStream;
  */
 public class DisplayMap extends AppCompatActivity {
     private Player player;
-
+    private ProgressBar playerProgressBar;
+    private TextView playerHealth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,8 @@ public class DisplayMap extends AppCompatActivity {
         Intent getIntent = getIntent();
         player = (Player) getIntent.getSerializableExtra("player");
         setContent();
+        this.player.checkHealthRegen(System.nanoTime());
+        setHealthBar();
     }
 
     /**
@@ -36,10 +41,19 @@ public class DisplayMap extends AppCompatActivity {
      * @param view
      */
     public void inventoryClicked(View view) {
+        setHealthBar();
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
+        this.player.checkHealthRegen(System.nanoTime());
+        this.player.checkPowerupTimer(System.nanoTime());
+    }
 
+    public void setHealthBar(){
+        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        playerHealth.setText("Player HP : " + player.getCurrentHealth());
+        playerProgressBar.setProgress(player.getPercentHealthLeft());
     }
 
     /**
@@ -48,89 +62,97 @@ public class DisplayMap extends AppCompatActivity {
      */
     public void button1_1Clicked(View view) {
         Intent levelDescripitionEvent = new Intent(this, MapDescriptionActivity.class);
-        switch (view.getId()) {
-            case R.id.button1_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_5");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_5");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_5");
-                startActivity(levelDescripitionEvent);
-                break;
+        this.player.checkHealthRegen(System.nanoTime());
+        this.player.checkPowerupTimer(System.nanoTime());
+        if (this.player.getCurrentHealth() <= 0) {
+            Intent healthLow = new Intent(this, HealthTooLowActivity.class);
+            healthLow.putExtra("player", player);
+            startActivityForResult(healthLow, 100);
+        } else
+            switch (view.getId()) {
+                case R.id.button1_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
 
-        }
+            }
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        setHealthBar();
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
     }
@@ -186,13 +208,31 @@ public class DisplayMap extends AppCompatActivity {
             case "3_5":
                 setContentView(R.layout.activity_map3_5);
                 break;
-
         }
+        setHealthBar();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        ObjectOutput out = null;
+        String fileName = "savedGame";
+        File saved = new File(getFilesDir(), fileName);
+
+        try {
+            out = new ObjectOutputStream(new FileOutputStream(saved, false));
+            out.writeObject(player);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         ObjectOutput out = null;
         String fileName = "savedGame";
         File saved = new File(getFilesDir(), fileName);

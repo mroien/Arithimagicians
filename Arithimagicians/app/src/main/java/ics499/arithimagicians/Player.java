@@ -1,6 +1,5 @@
 package ics499.arithimagicians;
 
-import android.content.ClipData;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -23,6 +22,20 @@ public class Player extends Character implements Serializable {
     private Double regenRate;
     private String lastStage;
     private int userId;
+    private double totalRolls;
+    private double totalHits;
+    private double highestAcc;
+    private int maxTotalDamage;
+    private long xpTimeStamp;
+    private long dmgBonusTimeStamp;
+    private long lootTimeStamp;
+    private long hpRefreshTimeStamp;
+    private long hpRegenTimeStamp;
+
+
+    private long timeStamp;
+
+    private int maxSingleDamage;
 
     public Player() {
         // Change to actual values
@@ -38,20 +51,22 @@ public class Player extends Character implements Serializable {
         this.dice.add(dice6);
         this.dice.add(dice6Two);
         this.dice.add(dice8);
-        this.xp = 0;
+        this.xp = 32; //reset this
         this.inventory = new ArrayList<Item>(6);
         this.lootRate = 1.0;
         this.xPRate = 1.0;
         this.damageRate = 1.0;
         this.regenRate = 1.0;
-        this.lastStage = "1_3";
+        this.lastStage = "1_5";
         this.userId = 0;
+        this.highestAcc = 100;
+        this.timeStamp = System.nanoTime();
         prepareInventory();
     }
 
     private void prepareInventory() {
         //set up inventory as an empty list
-        for(int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             inventory.add(i, null);
         }
         ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "5", 2);
@@ -63,27 +78,29 @@ public class Player extends Character implements Serializable {
     public void addItem(Item item) {
         int index = -1;
         for (Item.Type type : Item.Type.values()) {
-            if (type.getName().equals(item.getName())){
-                if(inventory.get(type.ordinal()) == null){
+            if (type.getName().equals(item.getName())) {
+                if (inventory.get(type.ordinal()) == null) {
                     inventory.add(type.ordinal(), new PowerUpItem(type.getName(), type.getBonus(), 0));
                 }
                 inventory.get(type.ordinal()).incrementValue();
             }
         }
-        if (index > -1){
+        if (index > -1) {
             inventory.add(index, item);
         }
     }
 
     public void useItem(Item item) {
-        if(item.getQuantity() > 0) {
+        if (item.getQuantity() > 0) {
             String name = item.getName();
             switch (name) {
                 case ("HP\nPotion"):
                     int missingHealth = getTotalHealth() - getCurrentHealth();
                     if (missingHealth > Integer.parseInt(item.getBonus())) {
                         gainHealth(Integer.parseInt(item.getBonus()));
-                    } else { gainHealth(missingHealth); }
+                    } else {
+                        gainHealth(missingHealth);
+                    }
 
                     item.decrementValue();
                     Log.i("potion", "Player life is now " + getCurrentHealth());
@@ -91,23 +108,28 @@ public class Player extends Character implements Serializable {
                 case ("XP\nBonus"):
                     //set clock. need a timer to reset to bonus to 1 on all bonus items
                     xPRate = xPRate * Double.parseDouble(item.getBonus());
+                    xpTimeStamp = System.nanoTime();
                     item.decrementValue();
                     break;
                 case ("Dmg\nBonus"):
                     damageRate = damageRate * Double.parseDouble(item.getBonus());
+                    dmgBonusTimeStamp = System.nanoTime();
                     item.decrementValue();
                     break;
                 case ("Loot\nBonus"):
                     lootRate = lootRate * Double.parseDouble(item.getBonus());
+                    lootTimeStamp = System.nanoTime();
                     item.decrementValue();
                     break;
                 case ("HP\nRefresh"):
                     int hpDiff = getTotalHealth() - getCurrentHealth();
+                    hpRefreshTimeStamp = System.nanoTime();
                     item.decrementValue();
                     gainHealth(hpDiff);
                     break;
                 case ("Regen\nPotion"):
                     regenRate = regenRate * Double.parseDouble(item.getBonus());
+                    hpRegenTimeStamp = System.nanoTime();
                     item.decrementValue();
                     break;
             }
@@ -122,47 +144,49 @@ public class Player extends Character implements Serializable {
         xp -= amt;
     }
 
-    public String getLastMap(){
+    public String getLastMap() {
         return this.lastStage;
     }
 
-    public ArrayList<Item> getInventory(){
+    public ArrayList<Item> getInventory() {
         return this.inventory;
     }
 
-    public void setInventory(ArrayList<Item> inv){
+    public void setInventory(ArrayList<Item> inv) {
         this.inventory = inv;
     }
 
-    public ArrayList<Die> getDice(){ return this.dice;}
+    public ArrayList<Die> getDice() {
+        return this.dice;
+    }
 
-    public void setDiceUsed(Die dice){
+    public void setDiceUsed(Die dice) {
         diceUsed.add(dice);
     }
 
-    public ArrayList<Die> getDiceUsed(){
+    public ArrayList<Die> getDiceUsed() {
         return diceUsed;
     }
 
-    public void resetDiceUsed(){
+    public void resetDiceUsed() {
         diceUsed = new ArrayList<Die>();
     }
 
-    public void swapDiceBackToInv(){
-        for(Die d : diceUsed){
+    public void swapDiceBackToInv() {
+        for (Die d : diceUsed) {
             Die temp = d;
             dice.add(d);
         }
         diceUsed.clear();
     }
 
-    public void setLevel(String level){
+    public void setLevel(String level) {
         this.lastStage = level;
     }
 
-    public boolean checkDice(String dice){
-        for(Die d : this.dice){
-            if(d.getDiceType().equals(dice)){
+    public boolean checkDice(String dice) {
+        for (Die d : this.dice) {
+            if (d.getDiceType().equals(dice)) {
                 return true;
             }
         }
@@ -177,20 +201,93 @@ public class Player extends Character implements Serializable {
         return lootRate;
     }
 
-    public double getDamageRate() { return damageRate; }
+    public double getDamageRate() {
+        return damageRate;
+    }
 
-    public void setUserId(int id){
+    public void setUserId(int id) {
         this.userId = id;
     }
-    public int getUserId(){
+
+    public int getUserId() {
         return this.userId;
     }
 
-    public boolean checkXP(int value){
+    public boolean checkXP(int value) {
         return this.getXp() >= value;
     }
 
-    public void addDie (Die die) {
+    public void addDie(Die die) {
         this.dice.add(die);
     }
+
+    public void updateHighestAcc(double acc) {
+        if (acc < this.highestAcc) {
+            this.highestAcc = acc;
+        }
+    }
+
+    public void updateTotalHits() {
+        this.totalHits++;
+    }
+
+    public void updateTotalRolls() {
+        this.totalRolls++;
+    }
+
+    public void updateMaxTotalDamage(int damage) {
+        if (damage > this.maxTotalDamage) {
+            this.maxTotalDamage = damage;
+        }
+    }
+
+    public void updateMaxSingleDamage(int dmg) {
+        if (dmg > this.maxSingleDamage) {
+            this.maxSingleDamage = dmg;
+        }
+    }
+
+    public double getHighestAcc() {
+        return highestAcc;
+    }
+
+    public int getMaxTotalDamage() {
+        return maxTotalDamage;
+    }
+
+    public int getMaxSingleDamage() {
+        return maxSingleDamage;
+    }
+
+    public double getTotalAcc() {
+        return totalHits / totalRolls * 100;
+    }
+
+    public void checkHealthRegen(long time) {
+        Log.i("health", "" + this.getCurrentHealth());
+        if (((time - this.timeStamp) / 1E9) > 300) {
+            int amt = 1 * regenRate.intValue();
+            this.gainHealth(amt);
+        }
+    }
+
+    public void checkPowerupTimer(long time) {
+        if (((time - this.xpTimeStamp) / 1E9) > 86400) {
+            xPRate = 1.0;
+        }
+        if (((time - this.dmgBonusTimeStamp) / 1E9) > 86400) {
+            dmgBonusTimeStamp = 1;
+        }
+        if (((time - this.lootTimeStamp) / 1E9) > 86400) {
+            lootTimeStamp = 1;
+        }
+        if (((time - this.hpRefreshTimeStamp) / 1E9) > 86400) {
+            hpRefreshTimeStamp = 1;
+        }
+        if (((time - this.hpRegenTimeStamp) / 1E9) > 86400) {
+            hpRegenTimeStamp = 1;
+        }
+    }
+
 }
+

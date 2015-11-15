@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ics499.arithimagicians" >
-    <uses-permission android:name="android.permission.INTERNET"/>
-       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,10 +47,10 @@
             android:theme="@style/DiceDialog" >
         </activity>
         <activity
-                 android:name=".ConnectAccount"
-                  android:label="@string/title_activity_connect_account"
+            android:name=".ConnectAccount"
+            android:label="@string/title_activity_connect_account"
             android:theme="@style/AppTheme" >
-               </activity>
+        </activity>
         <activity
             android:name=".RewardActivity"
             android:label="@string/title_activity_reward"
@@ -56,10 +58,15 @@
         </activity>
         <activity android:name=".DeathActivity" >
         </activity>
-        <activity android:name=".DiceRollResults"
+        <activity
+            android:name=".DiceRollResults"
             android:label="diceRoll"
-            android:theme="@style/DiceRollResults"
-            >
+            android:theme="@style/DiceRollResults" >
+        </activity>
+        <activity
+            android:name=".HealthTooLowActivity"
+            android:label="@string/title_activity_health_too_low"
+            android:theme="@style/HealthTooLowActivity" >
         </activity>
     </application>
 
