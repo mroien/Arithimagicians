@@ -35,7 +35,7 @@ public class ConnectAccount extends AppCompatActivity {
 
     }
 
-    public void closeClick(View view){
+    public void closeClick(View view) {
         Intent mapIntent = new Intent(ConnectAccount.this, DisplayMap.class);
         mapIntent.putExtra("player", player);
         startActivity(mapIntent);
@@ -51,14 +51,12 @@ public class ConnectAccount extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!response.equals("Already Used")){
+                        if (!response.equals("Already Used")) {
                             player.setUserId(Integer.parseInt(response));
                             Intent mapIntent = new Intent(ConnectAccount.this, DisplayMap.class);
                             mapIntent.putExtra("player", player);
                             startActivity(mapIntent);
-                        }
-                        else
-                        {
+                        } else {
                             TextView text = (TextView) findViewById(R.id.textView2);
                             text.setText("Number already used");
                         }

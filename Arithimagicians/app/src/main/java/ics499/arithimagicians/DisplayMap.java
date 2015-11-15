@@ -26,6 +26,7 @@ public class DisplayMap extends AppCompatActivity {
         Intent getIntent = getIntent();
         player = (Player) getIntent.getSerializableExtra("player");
         setContent();
+        this.player.checkHealthRegen(System.nanoTime());
     }
 
     /**
@@ -39,7 +40,8 @@ public class DisplayMap extends AppCompatActivity {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
-
+        this.player.checkHealthRegen(System.nanoTime());
+        this.player.checkPowerupTimer(System.nanoTime());
     }
 
     /**
@@ -48,84 +50,91 @@ public class DisplayMap extends AppCompatActivity {
      */
     public void button1_1Clicked(View view) {
         Intent levelDescripitionEvent = new Intent(this, MapDescriptionActivity.class);
-        switch (view.getId()) {
-            case R.id.button1_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button1_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "1_5");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button2_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "2_5");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_1:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_1");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_2:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_2");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_3:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_3");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_4:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_4");
-                startActivity(levelDescripitionEvent);
-                break;
-            case R.id.button3_5:
-                levelDescripitionEvent.putExtra("player", player);
-                levelDescripitionEvent.putExtra("level", "3_5");
-                startActivity(levelDescripitionEvent);
-                break;
+        this.player.checkHealthRegen(System.nanoTime());
+        this.player.checkPowerupTimer(System.nanoTime());
+        if (this.player.getCurrentHealth() <= 0) {
+            Intent healthLow = new Intent(this, HealthTooLowActivity.class);
+            healthLow.putExtra("player", player);
+            startActivityForResult(healthLow, 100);
+        } else
+            switch (view.getId()) {
+                case R.id.button1_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button1_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "1_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button2_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "2_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_1:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_1");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_2:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_2");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_3:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_3");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_4:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_4");
+                    startActivity(levelDescripitionEvent);
+                    break;
+                case R.id.button3_5:
+                    levelDescripitionEvent.putExtra("player", player);
+                    levelDescripitionEvent.putExtra("level", "3_5");
+                    startActivity(levelDescripitionEvent);
+                    break;
 
-        }
+            }
 
     }
 

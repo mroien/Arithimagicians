@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private boolean splash = false;
     private String account;
     private Player player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     /**
      * Handler for loading a game
+     *
      * @param view
      */
     public void loadGameClicked(View view) {
@@ -165,23 +167,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!response.equals("No Powerups")){
+                        if (!response.equals("No Powerups")) {
                             List<String> powerUps = Arrays.asList(response.split(","));
-                            for(String s : powerUps){
+                            for (String s : powerUps) {
 
-                               Item.Type itemType = Item.findType(s);
+                                Item.Type itemType = Item.findType(s);
                                 PowerUpItem item = new PowerUpItem(itemType, itemType.getBonus(), 1);
-                                if(player != null)
-                                player.addItem(item);
+                                if (player != null)
+                                    player.addItem(item);
                                 updateDateInDB(s);
 
                             }
                             Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
                             mapIntent.putExtra("player", player);
                             startActivity(mapIntent);
-                        }
-                        else
-                        {
+                        } else {
                             Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
                             mapIntent.putExtra("player", player);
                             startActivity(mapIntent);
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     }
 
-    public void updateDateInDB(String powerup){
+    public void updateDateInDB(String powerup) {
         String url = "http://192.168.29.115:8080/powerUpAddedToInv?accountId=" + player.getUserId() + "&powerUpName=" + powerup;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
@@ -210,11 +210,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equals("User Updated")){
+                        if (response.equals("User Updated")) {
 
-                        }
-                        else
-                        {
+                        } else {
                         }
 
                     }

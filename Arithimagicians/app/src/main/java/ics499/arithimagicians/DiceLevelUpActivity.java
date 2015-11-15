@@ -81,40 +81,40 @@ public class DiceLevelUpActivity extends Activity {
         LevelChoiceDialog newFragment;
         switch (view.getId()) {
             case R.id.d4:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d4");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d4");
+                newFragment.show(ft, "test");
                 break;
             case R.id.d6:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d6");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d6");
+                newFragment.show(ft, "test");
                 break;
             case R.id.d8:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d8");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d8");
+                newFragment.show(ft, "test");
                 break;
             case R.id.d10:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d10");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d10");
+                newFragment.show(ft, "test");
                 break;
             case R.id.d12:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d12");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d12");
+                newFragment.show(ft, "test");
                 break;
             case R.id.d20:
-                    ft = getFragmentManager().beginTransaction();
-                    // Create and show the dialog.
-                    newFragment = LevelChoiceDialog.newInstance(player, "d20");
-                    newFragment.show(ft, "test");
+                ft = getFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                newFragment = LevelChoiceDialog.newInstance(player, "d20");
+                newFragment.show(ft, "test");
 
                 break;
         }

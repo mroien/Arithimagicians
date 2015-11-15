@@ -75,7 +75,7 @@ public class FightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fight);
         setContent();
         totalEnemyHP = 0;
-        for(Opponent enemy : opponents) {
+        for (Opponent enemy : opponents) {
             totalEnemyHP += enemy.getTotalHealth();
         }
     }
@@ -246,7 +246,6 @@ public class FightActivity extends AppCompatActivity {
         }
 
 
-
         // IF the second row total from the dice is greater or equal to the answer
         if ((secondRowTotal >= Integer.parseInt(secondRowAns.getText().toString())) && !(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
             // do attack,
@@ -270,7 +269,7 @@ public class FightActivity extends AppCompatActivity {
                 isDead = true;
                 player.swapDiceBackToInv();
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, isDead);
-              generateNextOpponent();
+                generateNextOpponent();
             }
             // Else if it is less than the answer
         } else if (!(currOpponet.getCurrentHealth() < 0) && !(isDead)) {
@@ -296,7 +295,7 @@ public class FightActivity extends AppCompatActivity {
         // Generate new answers
         // Generate new operations
         // Swap the dice from the players usedDice array to the inventory and keep fighting
-        else if(generateOps == false) {
+        else if (generateOps == false) {
             // reset operations and dice
             player.swapDiceBackToInv();
             generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false);
@@ -322,7 +321,7 @@ public class FightActivity extends AppCompatActivity {
                                  int secondRowSecondDice, String firstRowOp, String secondRowOp,
                                  String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
                                  String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
-                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead){
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead) {
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -662,7 +661,7 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
-    private void setProgressBars(Opponent opponent){
+    private void setProgressBars(Opponent opponent) {
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -744,68 +743,68 @@ public class FightActivity extends AppCompatActivity {
             Random r = new Random();
             int opIndex;
             if (i == 0) {
-                switch(firstRowOp){
+                switch (firstRowOp) {
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                 }
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
-                switch(secondRowOp){
+                switch (secondRowOp) {
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
@@ -868,8 +867,7 @@ public class FightActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.firstRowFirstDice:
                 ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
-                if(frfd.getTag() != null)
-                {
+                if (frfd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", frfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -878,8 +876,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.firstRowSecondDice:
                 ImageButton frsd = (ImageButton) findViewById(R.id.firstRowSecondDice);
-                if(frsd.getTag() != null)
-                {
+                if (frsd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", frsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -888,8 +885,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowFirstDice:
                 ImageButton srfd = (ImageButton) findViewById(R.id.secondRowFirstDice);
-                if(srfd.getTag() != null)
-                {
+                if (srfd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", srfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -898,8 +894,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowSecondDice:
                 ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
-                if(srsd.getTag() != null)
-                {
+                if (srsd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", srsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -913,62 +908,54 @@ public class FightActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 100){
+        if (resultCode == 100) {
             playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
             playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                       playerProgressBar.setProgress(player.getPercentHealthLeft());
-        }
-        else
-        if (resultCode == 104) {
+            playerHealth.setText("Player HP : " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
+        } else if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
-        }
-        else if (resultCode == 106) {
+        } else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
-        }
-        else if (resultCode == 108) {
+        } else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
-        }
-        else if (resultCode == 110) {
+        } else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
-        }
-        else if (resultCode == 112) {
+        } else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
-        }
-        else if (resultCode == 120) {
+        } else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d20);
             img.setTag("d20");
-        }
-        else if(resultCode == 130){
+        } else if (resultCode == 130) {
             this.player = (Player) data.getSerializableExtra("player");
             this.opList = data.getStringArrayListExtra("opList");
             this.opponents = (ArrayList<Opponent>) data.getSerializableExtra("opponents");
@@ -979,8 +966,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     public void updateLeaderboard() {
-        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level="+ this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
-+                "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
+        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
+                + "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.
@@ -988,11 +975,11 @@ public class FightActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!response.equals("No Powerups")){
-
-                            }
+                        if (!response.equals("No Powerups")) {
 
                         }
+
+                    }
 
 
                 }, new Response.ErrorListener() {
@@ -1005,6 +992,7 @@ public class FightActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
