@@ -60,4 +60,8 @@ public class Character implements Serializable {
     public int getAttack() {
         return attack;
     }
+
+    public void setTotalHealth(int health){
+        this.totalHealth = health;
+    }
 }

@@ -45,7 +45,6 @@ public class RewardActivity extends AppCompatActivity {
         Item loot = checkLootReward();
         if (loot != null) {
             TextView lootReward = (TextView) findViewById(R.id.lootReward);
-            lootReward.setText("You gained a " + loot.getName() + " as well.");
         }
     }
 
@@ -68,6 +67,7 @@ public class RewardActivity extends AppCompatActivity {
     }
 
     public void setNewLevel() {
+        TextView healthReward = (TextView) findViewById(R.id.healthReward);
         switch (level) {
             case "1_1":
                 if (player.getLastMap().equalsIgnoreCase("1_1")) {
@@ -91,6 +91,8 @@ public class RewardActivity extends AppCompatActivity {
                 break;
             case "1_5":
                 if (player.getLastMap().equalsIgnoreCase("1_5")) {
+                    healthReward.setText("You have also increased your total HP to 15!");
+                    player.setTotalHealth(15);
                     player.setLevel("2_1");
                 }
                 break;
@@ -116,6 +118,8 @@ public class RewardActivity extends AppCompatActivity {
                 break;
             case "2_5":
                 if (player.getLastMap().equalsIgnoreCase("2_5")) {
+                    healthReward.append("You have also increased your total HP to 20!");
+                    this.player.setTotalHealth(20);
                     player.setLevel("3_1");
                 }
                 break;
