@@ -98,7 +98,11 @@ public class LevelChoiceDialog extends DialogFragment {
         builder.setView(view);
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                Player player = (Player) getArguments().getSerializable("player");
+                Intent updated = new Intent();
+                updated.putExtra("player", player);
+                DiceLevelUpActivity act = (DiceLevelUpActivity) getActivity();
+                getActivity().setResult(1, updated);
             }
         });
         // Create the AlertDialog object and return it
@@ -201,25 +205,5 @@ public class LevelChoiceDialog extends DialogFragment {
         return cost;
     }
 
-    @Override
-    public void onActivityResult(int request, int result, Intent intent){
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_dice_level_up, null);
-        int count = 0;
-        int bonus = 0;
-        Player player = (Player) intent.getSerializableExtra("player");
-        String die = intent.getStringExtra("die");
-        for (Die d : player.getDice()){
-            if (die.equals(d.getDiceType())){
-                count++;
-            }
-        }
-        String countText = "" + count;
-        TextView countView = (TextView) view.findViewById(R.id.buyCount);
-        bonus = getBonus(die);
-        countView.setText(countText);
-        TextView bonusView = (TextView) view.findViewById(R.id.bonusCount);
-        bonusView.setText("" + bonus);
 
-    }
 }

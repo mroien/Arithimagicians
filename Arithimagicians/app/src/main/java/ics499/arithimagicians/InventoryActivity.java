@@ -94,7 +94,12 @@ public class InventoryActivity extends Activity {
     public void levelUpClick(View view) {
         Intent levelUp = new Intent(getApplicationContext(), DiceLevelUpActivity.class);
         levelUp.putExtra("player", this.player);
-        startActivity(levelUp);
+        startActivityForResult(levelUp, 5);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.player = (Player) data.getSerializableExtra("player");
     }
 
     public class MyOnClickListener implements View.OnClickListener {
