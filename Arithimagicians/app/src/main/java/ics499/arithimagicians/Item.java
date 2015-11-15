@@ -100,11 +100,4 @@ public class Item implements Serializable {
         return null;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
 }

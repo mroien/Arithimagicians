@@ -36,6 +36,7 @@ public class DiceRollResults extends Activity {
     private int secondRowAttack;
     private boolean isDeadOnFirstRoll;
     private boolean isDead;
+    private double opAttack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class DiceRollResults extends Activity {
         secondRowAttack = getIntent.getIntExtra("secondRowAttack", 0);
         isDeadOnFirstRoll = getIntent.getBooleanExtra("isDeadOnFirstRoll", false);
         isDead = getIntent.getBooleanExtra("isDead", false);
+        opAttack = getIntent.getDoubleExtra("opAttack", 1);
         generateResults();
     }
 
@@ -91,18 +93,33 @@ public class DiceRollResults extends Activity {
             firstRowOp.setText(firstRowOpString);
             firstRowSecondOp.setText(firstRowSecondOpString);
             firstRowAns.setText(firstRowAnsString);
-            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+            if(firstRowUserString.equals("Player")){
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int)(firstRowAttack * opAttack)) + " Damage");
+            }
+            else {
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int) (firstRowAttack * player.getDamageRate())) + " Damage");
+            }
             secondRowOp.setText(secondRowOpString);
             secondRowSecondOp.setText(secondRowSecondOpString);
             secondRowAns.setText(secondRowAnsString);
-            secondRowResults.setText(secondRowUserString + " takes " + Integer.toString(secondRowAttack) + " Damage");
+            if(secondRowUserString.equals("Player")){
+                secondRowResults.setText(secondRowUserString + " takes " + Integer.toString((int)(secondRowAttack * opAttack)) + " Damage");
+            }
+            else
+            {
+                secondRowResults.setText(secondRowUserString + " takes " + Integer.toString((int)(secondRowAttack * player.getDamageRate())) + " Damage");
+            }
+
         } else {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
             firstRowOp.setText(firstRowOpString);
             firstRowSecondOp.setText(firstRowSecondOpString);
             firstRowAns.setText(firstRowAnsString);
-            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString(firstRowAttack) + " Damage");
+            if(firstRowUserString.equals("Player"))
+            firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int)(firstRowAttack * opAttack)) + " Damage");
+            else
+                firstRowResults.setText(firstRowUserString + " takes " + Integer.toString((int) (firstRowAttack * player.getDamageRate())) + " Damage");
         }
     }
 

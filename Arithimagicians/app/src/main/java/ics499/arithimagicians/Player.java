@@ -55,7 +55,7 @@ public class Player extends Character implements Serializable {
         this.inventory = new ArrayList<Item>(6);
         this.lootRate = 1.0;
         this.xPRate = 1.0;
-        this.damageRate = 1.0;
+        this.damageRate = 1.5;
         this.regenRate = 1.0;
         this.lastStage = "1_3";
         this.userId = 0;
