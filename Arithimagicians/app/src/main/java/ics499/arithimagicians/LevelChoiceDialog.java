@@ -102,7 +102,9 @@ public class LevelChoiceDialog extends DialogFragment {
                 Intent updated = new Intent();
                 updated.putExtra("player", player);
                 DiceLevelUpActivity act = (DiceLevelUpActivity) getActivity();
-                getActivity().setResult(1, updated);
+                act.setResult(1, updated);
+                act.generateDice();
+                act.setDiceCount();
             }
         });
         // Create the AlertDialog object and return it

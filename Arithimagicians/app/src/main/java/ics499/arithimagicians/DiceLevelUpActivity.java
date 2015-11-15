@@ -182,6 +182,8 @@ public class DiceLevelUpActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
+        generateDice();
+        setDiceCount();
     }
 }
 
