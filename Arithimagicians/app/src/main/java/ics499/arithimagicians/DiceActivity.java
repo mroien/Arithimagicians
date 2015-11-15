@@ -106,7 +106,7 @@ public class DiceActivity extends Activity {
                 }
                 break;
             case R.id.d12:
-                if (player.checkDice("d10")) {
+                if (player.checkDice("d12")) {
                     swapDice("d12");
                     setResult(112, previous);
                     this.finish();
