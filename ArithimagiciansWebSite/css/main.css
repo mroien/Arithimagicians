@@ -125,7 +125,6 @@ h1 {
   height: 500px;
   /*width: 900px;*/
   justify-content: center;
-  border: 5px solid blue;
   /*background-position: 10%,50%;*/
   margin: 10px; }
 
@@ -139,5 +138,13 @@ h1 {
 .infoBtnWrapper {
   display: block;
   text-align: right; }
+
+.signedIn {
+  position: inherit;
+  color: white;
+  text-align: right; }
+
+.logout {
+  color: red; }
 
 /*# sourceMappingURL=main.css.map */

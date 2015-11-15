@@ -8,17 +8,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
-    <script>
-        $(document).ready(function() {
-            $('.download').click(function () {
-                $('.progress, .cancel').removeClass('hide');
-            });
-            $('.cancel').click(function(){
-                $('.progress, .cancel').addClass('hide');
-            })
-        });
-    </script>
+
 </head>
 <body>
 <div class="container">
@@ -34,7 +26,11 @@
             <a href="about.html" class="btn-default btn">About</a>
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
+
+        <div class="signedIn"></div>        <!-- Check if you are logged in -->
+
         <div class="scrollWrapper">
+
             <span class="download_wrapper">
             <div class="progress align-col hide">
                 <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
