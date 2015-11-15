@@ -118,28 +118,30 @@
 <script>
 
     function signUp(){
-        var firstName = $('#firstName').value,
-                lastName = $('#lastName').value,
-        userName = $('#username').value,
-                street = $('#street').value,
-                city = $('#city').value,
-                state = $('#state').value,
-                zip = $('#zip').value,
-                email = $('#email').value,
-                phone = $('#phone').value,
-                password = $('#password1').value;
+        var firstName = document.getElementById('firstName').value,
+                lastName = document.getElementById('lastName').value,
+        userName = document.getElementById('username').value,
+                street = document.getElementById('street').value,
+                city = document.getElementById('city').value,
+                state = document.getElementById('state').value,
+                zip = document.getElementById('zip').value,
+                email = document.getElementById('email').value,
+                phone = document.getElementById('phone').value,
+                password = document.getElementById('password1').value;
 
-        $.ajax({
-            url: 'http://52.32.43.132:8080/create?',
-            type: 'PUT',
-            data: "firstName=" + firstName + "&lastName=" + lastName + "&userName=" + userName + "&street=" + street +
-            "&city=" + city + "&state=" + state + "&zipCode=" + zip + "&email=" + email + "&phoneNumber=" + phone +
-            "&password=" + password,
-            crossDomain: true,
-            success: function(response){
-                alert(response);
-            }
-        })
+        if(userName !== 'undefined' || email !== 'undefined') {
+            $.ajax({
+                url: 'http://52.32.43.132:8080/create?',
+                type: 'GET',
+                data: "firstName=" + firstName + "&lastName=" + lastName + "&userName=" + userName + "&street=" + street +
+                "&city=" + city + "&state=" + state + "&zipCode=" + zip + "&email=" + email + "&phoneNumber=" + phone +
+                "&password=" + password,
+                crossDomain: true,
+                success: function (response) {
+                    alert(response);
+                }
+            })
+        }
     }
 
 </script>

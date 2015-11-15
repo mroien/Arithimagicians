@@ -1,13 +1,17 @@
 .download_wrapper, .downloadText{
   //border: 3px solid red;
-  font-family: $font-family;
-  color: $font-color;
   font-size: 25px;
   width: 342px;
   margin: auto;
 }
 
-.download {
+.btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  //border: 5px solid red;
+}
+
+.download, .cancel {
   margin: auto;
 }
 
@@ -16,7 +20,3 @@
   align-self: center;
 }
 
-.align-col {
-  flex-flow: column;
-  align-self: center;
-}
