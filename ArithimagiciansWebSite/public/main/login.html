@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<?php
-require('leftNav.php');
-
-?>
 <html>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <head>
     <title>LogIn</title>
     <meta charset="utf-8">
@@ -13,6 +7,7 @@ require('leftNav.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
@@ -29,8 +24,11 @@ require('leftNav.php');
             <a href="about.html" class="btn-default btn">About</a>
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
+
+        <div class="signedIn"></div>        <!-- Check if user is logged in -->
+
         <div class="scrollWrapper">
-        <form method="post" action="javascript:complete();" id="login" autocomplete="off">
+        <form method="post" action="javascript:login();" id="login" autocomplete="off">
             <fieldset>
                 <label for="username">
                     Username:
@@ -48,7 +46,7 @@ require('leftNav.php');
     </div>
 </div>
 <script>
-    function complete() {
+    function login() {
         var username = document.getElementById("username").value,
                 password = document.getElementById('password').value;
 
@@ -57,11 +55,23 @@ require('leftNav.php');
             type: 'GET',
             data: "userName=" + username + "&password=" + password,
             crossDomain: true,
-            success: function(response) {
-                alert(response);
+            success: function(userID) {
+                if (userID != "Invalid Login"){
+                    // HTML5 Local Storage
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('userID', userID);
+                    alert("You have been logged in as " + localStorage.getItem('username'));
+//                    location.reload(true);
+                    window.setTimeout(function(){
+                        window.location.href = '../loggedIn/accountInfo.html';
+                    }, 500)
+                } else {
+                    alert("Sorry your username and password did not match");
+                }
             }
         })
     }
 </script>
+
 </body>
 </html>

@@ -12,10 +12,11 @@ require('leftNav.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 
     <script>
-        $(document).load({})
+
     </script>
 </head>
 <body>
@@ -32,6 +33,8 @@ require('leftNav.php');
             <a href="about.html" class="btn-default btn">About</a>
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
+
+        <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <table id="leaderboard" class="bgBlue">
             <tbody>
@@ -59,17 +62,29 @@ require('leftNav.php');
                         Date
                     </th>
                 </tr>
-                <tr id="leaderboardBody">
-                    <td>
 
-                    </td>
-
-                </tr>
+                <!--Dynamic from Database-->
+                <tr id="leaderboardBody"></tr>
                 </thead>
+
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+   $(document).ready(function(){
+       $.ajax({
+           url: 'http://52.32.43.132:8080/getLeader?',
+           type: 'GET',
+           crossDomain: true,
+           success: function(response){
+               alert(response)
+           }
+       })
+   })
+
+</script>
 
 </body>
 </html>

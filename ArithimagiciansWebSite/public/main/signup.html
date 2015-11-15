@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
@@ -24,8 +25,11 @@
             <a href="about.html" class="btn-default btn">About</a>
             <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
         </div>
+
+        <div class="signedIn"></div>        <!-- Check if you are logged in -->
+
         <div class="scrollWrapper">
-        <form action="javascript:complete()" method="post" id="signUpForm" class="col-xs-8 col-xl-10 ">
+        <form action="javascript:signUp()" method="post" id="signUpForm" class="col-xs-8 col-xl-10" autocomplete="off">
 
             <fieldset>
                 <div class="red">Required Fields * </div><br>
@@ -99,7 +103,7 @@
                 <label for="username">Username:*</label>
                 <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,10}" required/><br>
                 <label for="phone">Phone Number:*</label>
-                <input type="text" name="phone" id="phone" placeholder="Phone Number" pattern="[\d]{10}" required/><br>
+                <input type="text" name="phone" id="phone" placeholder="(xxx) xxx-xxxx" maxlength="14" required/><br>
                 <label for="password1">Password:*</label>
                 <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>
@@ -113,23 +117,29 @@
 </div>
 <script>
 
-    function complete(){
-        var firstName = document.getElementById('firstName').value,
-                lastName = document.getElementById('lastName').value;
-
+    function signUp(){
+        var firstName = $('#firstName').value,
+                lastName = $('#lastName').value,
+        userName = $('#username').value,
+                street = $('#street').value,
+                city = $('#city').value,
+                state = $('#state').value,
+                zip = $('#zip').value,
+                email = $('#email').value,
+                phone = $('#phone').value,
+                password = $('#password1').value;
 
         $.ajax({
-            url: 'http://52.32.42.132:8080/create?',
-            tyep: 'PUT',
-            dataType: 'jsonp',
-            data: "firstName=" + firstName + "&lastName=" + lastName,
+            url: 'http://52.32.43.132:8080/create?',
+            type: 'PUT',
+            data: "firstName=" + firstName + "&lastName=" + lastName + "&userName=" + userName + "&street=" + street +
+            "&city=" + city + "&state=" + state + "&zipCode=" + zip + "&email=" + email + "&phoneNumber=" + phone +
+            "&password=" + password,
             crossDomain: true,
             success: function(response){
                 alert(response);
             }
         })
-
-
     }
 
 </script>

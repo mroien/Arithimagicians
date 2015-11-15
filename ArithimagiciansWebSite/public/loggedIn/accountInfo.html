@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
@@ -26,11 +27,30 @@
             <a href="stats.html" class="btn btn-default">Stats</a>
             <a href="delete.html" class="btn-danger btn">Delete Account</a>
         </div>
+
+        <div class="signedIn"></div>        <!-- Check if user is logged in -->
+
         <div class="scrollWrapper">
 
         </div>
     </div>
 </div>
 
+<script>
+
+    var userID = localStorage.getItem('userID');
+
+    $(document).ready(function(){
+        $.ajax({
+            url: 'http://52.32.43.132:8080/getUserInfo?',
+            type: 'GET',
+            data: 'userID=' + userID,
+            crossDomain: true,
+            success: function(response){
+                alert(response)
+            }
+        })
+    })
+</script>
 </body>
 </html>
