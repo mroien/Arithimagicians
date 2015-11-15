@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +20,8 @@ import java.io.ObjectOutputStream;
  */
 public class DisplayMap extends AppCompatActivity {
     private Player player;
-
+    private ProgressBar playerProgressBar;
+    private TextView playerHealth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,7 @@ public class DisplayMap extends AppCompatActivity {
         player = (Player) getIntent.getSerializableExtra("player");
         setContent();
         this.player.checkHealthRegen(System.nanoTime());
+        setHealthBar();
     }
 
     /**
@@ -37,11 +41,19 @@ public class DisplayMap extends AppCompatActivity {
      * @param view
      */
     public void inventoryClicked(View view) {
+        setHealthBar();
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
         this.player.checkHealthRegen(System.nanoTime());
         this.player.checkPowerupTimer(System.nanoTime());
+    }
+
+    public void setHealthBar(){
+        playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
+        playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
+        playerHealth.setText("Player HP : " + player.getCurrentHealth());
+        playerProgressBar.setProgress(player.getPercentHealthLeft());
     }
 
     /**
@@ -140,6 +152,7 @@ public class DisplayMap extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        setHealthBar();
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
     }
@@ -148,6 +161,7 @@ public class DisplayMap extends AppCompatActivity {
      * Set content method to display which map to show based of what location a player has last beat
      */
     public void setContent() {
+        setHealthBar();
         String lastMap = player.getLastMap();
         switch (lastMap) {
             case "1_1":
