@@ -45,7 +45,7 @@ public class Player extends Character implements Serializable {
         this.dice.add(dice6);
         this.dice.add(dice6Two);
         this.dice.add(dice8);
-        this.xp = 0;
+        this.xp = 10; //reset this
         this.inventory = new ArrayList<Item>(6);
         this.lootRate = 1.0;
         this.xPRate = 1.0;

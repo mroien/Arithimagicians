@@ -3,7 +3,10 @@ package ics499.arithimagicians;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,7 @@ public class BuyDiceDialog extends DialogFragment {
         final String die = getArguments().getString("die");
         final int cost = getArguments().getInt("cost");
         final int bonus = getArguments().getInt("bonus");
+        final DialogFragment df = (DialogFragment) getTargetFragment();
         AlertDialog.Builder bonusBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_spend_confirm, null);
@@ -75,6 +79,17 @@ public class BuyDiceDialog extends DialogFragment {
                                 }
                                 player.spendXP(cost);
                             }
+                            Bundle passBack = new Bundle();
+                            passBack.putSerializable("player", player);
+                            passBack.putString("die", die);
+                            Fragment newFragment = LevelChoiceDialog.newInstance(player, die);
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.), newFragment);
+                            transaction.addToBackStack(null);
+
+                            // Commit the transaction
+                            transaction.commit();
+
                         }
                     });
             return bonusBuilder.create();

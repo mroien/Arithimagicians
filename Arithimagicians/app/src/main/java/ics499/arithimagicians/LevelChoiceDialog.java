@@ -3,7 +3,10 @@ package ics499.arithimagicians;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +29,7 @@ public class LevelChoiceDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final DialogFragment df = this;
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -82,6 +86,7 @@ public class LevelChoiceDialog extends DialogFragment {
                 if (player.checkXP(passDieCost)) {
                     // Create and show the dialog.
                     BuyDiceDialog diceFragment = BuyDiceDialog.newInstance(player, die, passDieCost);
+                    diceFragment.setTargetFragment(df, 1);
                     diceFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passDieCost);
@@ -193,5 +198,27 @@ public class LevelChoiceDialog extends DialogFragment {
             cost = Integer.parseInt(type.substring(1));
         }
         return cost;
+    }
+
+    @Override
+    public void onActivityResult(int request, int result, Intent intent){
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_dice_level_up, null);
+        int count = 0;
+        int bonus = 0;
+        Player player = (Player) intent.getSerializableExtra("player");
+        String die = intent.getStringExtra("die");
+        for (Die d : player.getDice()){
+            if (die.equals(d.getDiceType())){
+                count++;
+            }
+        }
+        String countText = "" + count;
+        TextView countView = (TextView) view.findViewById(R.id.buyCount);
+        bonus = getBonus(die);
+        countView.setText(countText);
+        TextView bonusView = (TextView) view.findViewById(R.id.bonusCount);
+        bonusView.setText("" + bonus);
+
     }
 }
