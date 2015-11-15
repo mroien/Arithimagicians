@@ -17,7 +17,10 @@
         <item name="android:windowBackground">@drawable/mapdesc</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-
+    <style name="HealthTooLowActivity" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowBackground">@drawable/mapdesc</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <style name="DiceDialog" parent="@android:style/Theme.Holo.Dialog">
         <item name="android:windowBackground">@drawable/dicetray</item>
         <item name="android:windowNoTitle">true</item>

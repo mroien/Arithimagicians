@@ -78,42 +78,42 @@ public class DiceActivity extends Activity {
         previous.putExtra("opponents", opponents);
         switch (view.getId()) {
             case R.id.d4:
-                if(player.checkDice("d4")) {
+                if (player.checkDice("d4")) {
                     swapDice("d4");
                     setResult(104, previous);
                     this.finish();
                 }
                 break;
             case R.id.d6:
-                if(player.checkDice("d6")) {
+                if (player.checkDice("d6")) {
                     swapDice("d6");
                     setResult(106, previous);
                     this.finish();
                 }
                 break;
             case R.id.d8:
-                if(player.checkDice("d8")) {
+                if (player.checkDice("d8")) {
                     swapDice("d8");
                     setResult(108, previous);
                     this.finish();
                 }
                 break;
             case R.id.d10:
-                if(player.checkDice("d10")) {
+                if (player.checkDice("d10")) {
                     swapDice("d10");
                     setResult(110, previous);
                     this.finish();
                 }
                 break;
             case R.id.d12:
-                if(player.checkDice("d10")) {
+                if (player.checkDice("d10")) {
                     swapDice("d12");
                     setResult(112, previous);
                     this.finish();
                 }
                 break;
             case R.id.d20:
-                if(player.checkDice("d20")) {
+                if (player.checkDice("d20")) {
                     swapDice("d20");
                     setResult(120, previous);
                     this.finish();
@@ -129,10 +129,10 @@ public class DiceActivity extends Activity {
      * @param diceClicked String value of what dice was clicked
      */
     public void swapDice(String diceClicked) {
-        if(filled == true){
+        if (filled == true) {
             Die temp;
-            for(Die d : diceUsed){
-                if(d.getDiceType().equals(diceFilled)){
+            for (Die d : diceUsed) {
+                if (d.getDiceType().equals(diceFilled)) {
                     temp = d;
                     diceUsed.remove(d);
                     dice.add(d);

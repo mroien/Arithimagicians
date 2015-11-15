@@ -46,11 +46,6 @@ public class DiceLevelUpActivity extends Activity {
         setDiceCount();
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        generateDice();
-        setDiceCount();
     }
 
     /**

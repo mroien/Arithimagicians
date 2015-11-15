@@ -17,6 +17,7 @@ import java.io.ObjectOutputStream;
 public class DeathActivity extends AppCompatActivity {
     private Player player;
     private int XP;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class DeathActivity extends AppCompatActivity {
                 "Your total is now " + Integer.toString(player.getXp()) + ".");
     }
 
-    public void closeClick(View view){
+    public void closeClick(View view) {
         Intent mapIntent = new Intent(this, DisplayMap.class);
         mapIntent.putExtra("player", player);
         startActivity(mapIntent);

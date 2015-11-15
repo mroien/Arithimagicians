@@ -36,6 +36,7 @@ public class DiceRollResults extends Activity {
     private int secondRowAttack;
     private boolean isDeadOnFirstRoll;
     private boolean isDead;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,8 @@ public class DiceRollResults extends Activity {
         isDead = getIntent.getBooleanExtra("isDead", false);
         generateResults();
     }
-    public void generateResults(){
+
+    public void generateResults() {
         TextView firstRowFirstValue = (TextView) findViewById(R.id.firstRowFirstValue);
         TextView firstRowSecondValue = (TextView) findViewById(R.id.firstRowSecondValue);
         TextView secondRowFirstValue = (TextView) findViewById(R.id.secondRowFirstValue);
@@ -78,11 +80,10 @@ public class DiceRollResults extends Activity {
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
         TextView secondRowResults = (TextView) findViewById(R.id.secondRowResults);
         TextView isDefeated = (TextView) findViewById(R.id.defeatedTextView);
-        if(isDead == true)
-        {
+        if (isDead == true) {
             isDefeated.setText("Opponent Defeated");
         }
-        if(isDeadOnFirstRoll == false) {
+        if (isDeadOnFirstRoll == false) {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
             secondRowFirstValue.setText(Integer.toString(secondRowFirstDice));
@@ -95,9 +96,7 @@ public class DiceRollResults extends Activity {
             secondRowSecondOp.setText(secondRowSecondOpString);
             secondRowAns.setText(secondRowAnsString);
             secondRowResults.setText(secondRowUserString + " takes " + Integer.toString(secondRowAttack) + " Damage");
-        }
-        else
-        {
+        } else {
             firstRowFirstValue.setText(Integer.toString(firstRowFirstDice));
             firstRowSecondValue.setText(Integer.toString(firstRowSecondDice));
             firstRowOp.setText(firstRowOpString);

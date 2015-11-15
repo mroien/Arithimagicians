@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Jacob Kinzer on 11/2/2015.
  */
-public class Opponent extends Character implements Serializable{
+public class Opponent extends Character implements Serializable {
 
     Opponent spearman;
     Opponent shaman;
@@ -15,7 +15,7 @@ public class Opponent extends Character implements Serializable{
     Opponent smasher;
     Opponent wizard;
 
-    public static enum Stats{
+    public static enum Stats {
         GB_SPEARMAN(3, 0, "Gobloid Spearman"),
         GB_SLASHER(4, 1, "Gobloid Slasher"),
         GB_SHAMAN(5, 2, "Gobloid Shaman"),
@@ -27,15 +27,23 @@ public class Opponent extends Character implements Serializable{
         private final int attack;
         private final String name;
 
-        Stats(int health, int attack, String name){
+        Stats(int health, int attack, String name) {
             this.health = health;
             this.attack = attack;
             this.name = name;
         }
 
-        public int getHealth() { return health; }
-        public int getAttack() { return attack; }
-        public String getName() { return name; }
+        public int getHealth() {
+            return health;
+        }
+
+        public int getAttack() {
+            return attack;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     private boolean frozen;
@@ -44,6 +52,7 @@ public class Opponent extends Character implements Serializable{
     private ArrayList<String> op;
     private String layoutName;
     private R.drawable background;
+
     public Opponent(int health, int attack, String name, String layoutName) {
         // Change to actual values
         super(health, attack);
@@ -51,20 +60,25 @@ public class Opponent extends Character implements Serializable{
         this.layoutName = layoutName;
     }
 
-    public Opponent (Stats stats, String layoutName){
+    public Opponent(Stats stats, String layoutName) {
         super(stats.getHealth(), stats.getAttack());
         this.name = stats.getName();
         this.layoutName = layoutName;
     }
 
-    public void setOp(ArrayList<String> opinc){
-    this.op = opinc;
+    public void setOp(ArrayList<String> opinc) {
+        this.op = opinc;
     }
-    public ArrayList<String> getOp(){
-    return this.op;
-}
-    public String getLayout(){
+
+    public ArrayList<String> getOp() {
+        return this.op;
+    }
+
+    public String getLayout() {
         return this.layoutName;
     }
-    public String getName() { return this.name; }
+
+    public String getName() {
+        return this.name;
+    }
 }

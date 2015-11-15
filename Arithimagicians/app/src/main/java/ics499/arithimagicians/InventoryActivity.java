@@ -42,9 +42,9 @@ public class InventoryActivity extends Activity {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.gridWrapper);
         LinearLayout rowOne = (LinearLayout) findViewById(R.id.rowOne);
         LinearLayout rowTwo = (LinearLayout) findViewById(R.id.rowTwo);
-        for (int i = 0; i < Item.Type.LAST.ordinal(); i++){
+        for (int i = 0; i < Item.Type.LAST.ordinal(); i++) {
             final Item item = inventory.get(i);
-            if (item  != null){
+            if (item != null) {
                 LinearLayout btnTotalWrap = new LinearLayout(this);
                 btnTotalWrap.setOrientation(LinearLayout.VERTICAL);
                 btnTotalWrap.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -64,7 +64,7 @@ public class InventoryActivity extends Activity {
 
                 btn.setOnClickListener(new MyOnClickListener(item, itemCount.getId()));
 
-                if (i <= Item.Type.LAST.ordinal() / 2){
+                if (i <= Item.Type.LAST.ordinal() / 2) {
                     rowOne.addView(btnTotalWrap);
                 } else {
                     rowTwo.addView(btnTotalWrap);
@@ -91,7 +91,7 @@ public class InventoryActivity extends Activity {
      *
      * @param view View of the dialog
      */
-    public void levelUpClick(View view){
+    public void levelUpClick(View view) {
         Intent levelUp = new Intent(getApplicationContext(), DiceLevelUpActivity.class);
         levelUp.putExtra("player", this.player);
         startActivity(levelUp);

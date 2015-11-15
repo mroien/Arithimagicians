@@ -15,7 +15,7 @@ public class Character implements Serializable {
      * Constructor for creating a Character
      *
      * @param currentHealth int currentHealth number of the character
-     * @param attack int attack number of the character
+     * @param attack        int attack number of the character
      */
     public Character(int currentHealth, int attack) {
         this.currentHealth = currentHealth;
@@ -33,16 +33,19 @@ public class Character implements Serializable {
         return 0.0;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         this.currentHealth = this.currentHealth - damage;
+        if (this.currentHealth < 0) {
+            this.currentHealth = 0;
+        }
     }
 
-    public int getCurrentHealth(){
+    public int getCurrentHealth() {
         return this.currentHealth;
     }
 
-    public int getPercentHealthLeft(){
-        double z = ((double)this.currentHealth / (double)this.totalHealth) * 100;
+    public int getPercentHealthLeft() {
+        double z = ((double) this.currentHealth / (double) this.totalHealth) * 100;
         return (int) z;
     }
 
@@ -50,7 +53,11 @@ public class Character implements Serializable {
         currentHealth += amt;
     }
 
-    public int getTotalHealth() { return totalHealth; }
+    public int getTotalHealth() {
+        return totalHealth;
+    }
 
-    public int getAttack() { return attack; }
+    public int getAttack() {
+        return attack;
+    }
 }

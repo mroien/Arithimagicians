@@ -33,22 +33,20 @@ public class MapDescriptionActivity extends Activity {
         setDesc(level);
     }
 
-    public void closeClick(View view){
+    public void closeClick(View view) {
         this.finish();
     }
 
-    public void fightClick(View view)
-    {
+    public void fightClick(View view) {
         Intent fightIntent = new Intent(this, FightActivity.class);
         fightIntent.putExtra("player", player);
         fightIntent.putExtra("level", level);
         startActivity(fightIntent);
     }
 
-    public void setDesc(String level)
-    {
+    public void setDesc(String level) {
         TextView t = (TextView) findViewById(R.id.mapDescTextView);
-        switch(level){
+        switch (level) {
             case "1_1":
                 t.setText(getResources().getString(R.string.Level1_1));
                 break;
@@ -98,6 +96,7 @@ public class MapDescriptionActivity extends Activity {
 
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -133,7 +132,6 @@ public class MapDescriptionActivity extends Activity {
             e.printStackTrace();
         }
     }
-
 
 
 }
