@@ -1,4 +1,20 @@
-#powerUpsTable td{
-  background-color: red;
-  color: blue;
+#powerUpsTable {
+  //border: 5px green solid;
+  display: flex;
+  margin:auto;
+  height: 232px;
+}
+
+#powerUpsTable td, #powerUpsTable tr, #powerUpsTable th{
+  border: 2px solid;
+  text-align: center;
+  padding: 3px;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.size {
+  min-width: 50px;
 }

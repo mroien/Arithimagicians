@@ -37,7 +37,7 @@
                 <label for="password">
                     Password:
                 </label>
-                <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{5,15}"><br>
+                <input type="password" id="password" name="username" placeholder="Password" required pattern="[\w\D]{4,15}"><br>
                 <input type="submit" class="bottomButton" name="submit" id="submit" value="Login">
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
@@ -60,7 +60,7 @@
                     // HTML5 Local Storage
                     localStorage.setItem('username', username);
                     localStorage.setItem('userID', userID);
-                    alert("You have been logged in as " + localStorage.getItem('username'));
+//                    alert("You have been logged in as " + localStorage.getItem('username'));
                     window.setTimeout(function(){
                         window.location.href = '../loggedIn/accountInfo.html';
                     }, 500)

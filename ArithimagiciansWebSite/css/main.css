@@ -1,3 +1,21 @@
+.accountTable {
+  display: flex;
+  justify-content: center;
+  height: 324px;
+  width: 411px;
+  margin: auto;
+  font-size: smaller;
+  overflow: auto; }
+
+.accountTable td {
+  border: 2px solid black;
+  padding: 2px;
+  text-align: center; }
+
+.info_dynamic {
+  text-align: center;
+  justify-content: center; }
+
 #signUpForm {
   display: flex;
   justify-content: space-around;
@@ -61,15 +79,19 @@ label {
 
 #powerUpsTable {
   display: flex;
-  justify-content: space-around;
-  top: 11%;
-  max-height: 60%;
-  width: 220px;
-  position: relative; }
+  margin: auto;
+  height: 232px; }
 
-#powerUpsTable td {
-  background-color: red;
-  color: blue; }
+#powerUpsTable td, #powerUpsTable tr, #powerUpsTable th {
+  border: 2px solid;
+  text-align: center;
+  padding: 3px; }
+
+.bold {
+  font-weight: 900; }
+
+.size {
+  min-width: 50px; }
 
 #deleteWrapper {
   font-family: "Peas & Carrots";

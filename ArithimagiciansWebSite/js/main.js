@@ -3,14 +3,15 @@
  */
 
 var logout = '<br><a href="#" class="logout">Logout</a>',
-    storage = localStorage.getItem('username');
+    local_username = localStorage.getItem('username'),
+    local_userID = localStorage.getItem('userID');
 
 $(document).ready(function(){
 
     //On page load
     //Check if user is logged in
 
-    if(storage !== null) {
+    if(local_username !== null) {
         $('.signedIn')
             .text("Welcome, " + localStorage.getItem('username'))
             .append(logout);
@@ -21,6 +22,7 @@ $(document).ready(function(){
     $('.logout').on('click', function(){
         localStorage.clear();
         location.reload(true);
+        window.location.href = '../main/index.html';
     });
 
     //Remove and show stuff on download page
@@ -62,7 +64,7 @@ $(document).ready(function(){
             $phone = $(this);
 
             if ($phone.val().length === 0) {
-                $phone.val('( ');
+                $phone.val('(');
             }
             else {
                 var val = $phone.val();
@@ -81,11 +83,26 @@ $(document).ready(function(){
     //Prompts for Delete page
 
     $('.yes').on('click', function(){
-        var _delete = prompt("Are you sure you want to Delete your account? YES or NO");
+        var _delete = prompt("Are you sure you want to Delete your account? Type YES to confirm");
         _delete.toUpperCase();
         if(_delete === 'YES'){
-            alert("You just deleted your account")
+            $.ajax({
+                url: 'http://52.32.43.132:8080/delete?',
+                type: 'POST',
+                data: 'userID=' + local_userID,
+                crossDomain: true,
+                success: function(response) {
+                    localStorage.clear();
+                    window.location.href = '../main/index.html'
+                }
+            })
         }
+    });
+
+    // Clicking the No button on download page
+
+    $('.no').on('click', function(){
+        window.location.href = 'accountInfo.html';
     })
 
 
