@@ -15,7 +15,7 @@
 <body>
 
 <!--"Experience Bonus"-->
-<!--"Damage bonus"-->
+<!--"Damage Bonus"-->
 <!--"Loot Bonus"-->
 <!--"Health Refresh"-->
 <!--"Regeneration Potion"-->
@@ -42,13 +42,57 @@
         <div class="scrollWrapper">
         <table id="powerUpsTable">
             <tbody>
-             <tbody>
-               <tr>
-                   <td>
-                       Hello
-                   </td>
-               </tr>
-             </tbody>
+            <tr class="row_0 bold">
+                <th>Power Ups</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <tr class="row_1">
+                <td>Experience Bonus</td>
+                <td class="price">$0.99</td>
+                <td>
+                    <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle size" type="button" id="XP_bonus" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="XP_bonus">
+                            // todo make dynamic
+
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">5</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr class="row_2">
+                <td>Damage Bonus</td>
+                <td class="price">$1.49</td>
+            </tr>
+            <tr class="row_3">
+                <td>Loot Bonus</td>
+                <td class="price">$0.99</td>
+            </tr>
+            <tr class="row_4">
+                <td>Health Refresh</td>
+                <td class="price">$1.99</td>
+            </tr>
+            <tr class="row_5">
+                <td>Regeneration Potion</td>
+                <td class="price">$2.99</td>
+            </tr>
+            <tr class="row_6 bold">
+                <td colspan="3">Grand Total</td>
+            </tr>
+
+
+            <!--Dynamic from Database-->
+            <tr class="powerUpsDynamic"></tr>
+
+
             </tbody>
         </table>
             </div>

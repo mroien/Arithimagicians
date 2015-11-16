@@ -105,9 +105,9 @@
                 <label for="phone">Phone Number:*</label>
                 <input type="text" name="phone" id="phone" placeholder="(xxx) xxx-xxxx" maxlength="14" required/><br>
                 <label for="password1">Password:*</label>
-                <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{6,15}" required/><br>
+                <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{4,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>
-                <input type="password" name="password2" id="password2" placeholder="Confirm Password" pattern="[\w\D]{6,15}" required/><br>
+                <input type="password" name="password2" id="password2" placeholder="Confirm Password" pattern="[\w\D]{4,15}" required/><br>
                 <input type="submit" name="submit" class="bottomButton"/>
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>
@@ -137,8 +137,10 @@
                 "&city=" + city + "&state=" + state + "&zipCode=" + zip + "&email=" + email + "&phoneNumber=" + phone +
                 "&password=" + password,
                 crossDomain: true,
-                success: function (response) {
-                    alert(response);
+                success: function (userID) {
+                    localStorage.setItem('userID', userID);
+                    localStorage.setItem('username', userName);
+                    window.location.href = '../loggedIn/accountInfo.html';
                 }
             })
         }

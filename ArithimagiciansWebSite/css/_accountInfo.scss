@@ -1,0 +1,22 @@
+.accountTable {
+  //border: 5px solid red;
+  display: flex;
+  justify-content:center;
+  height:324px;
+  width: 411px;
+  margin:auto;
+  font-size: smaller;
+  overflow: auto;
+
+}
+
+.accountTable td {
+  border: 2px solid black;
+  padding: 2px;
+  text-align: center;
+}
+
+.info_dynamic {
+  text-align: center;
+  justify-content: center;
+}

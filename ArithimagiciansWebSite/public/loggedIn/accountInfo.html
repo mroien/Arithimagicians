@@ -32,7 +32,21 @@
         <div class="signedIn"></div>        <!-- Check if user is logged in -->
 
         <div class="scrollWrapper">
-
+            <!--<table class="accountTable">-->
+                <!--<tr>-->
+                    <!--<td>UserID</td>-->
+                    <!--<td>Name</td>-->
+                    <!--<td>Username</td>-->
+                    <!--<td>Address</td>-->
+                    <!--<td>City</td>-->
+                    <!--<td>State</td>-->
+                    <!--<td>Zip Code</td>-->
+                    <!--<td>Email</td>-->
+                    <!--<td>Phone Number</td>-->
+                <!--</tr>-->
+                <!--<tr class="info_dynamic"></tr>-->
+            <!--</table>-->
+            <div class="description text_wrapper info_dynamic"></div>
         </div>
     </div>
 </div>
@@ -47,8 +61,14 @@
             type: 'GET',
             data: 'userID=' + userID,
             crossDomain: true,
-            success: function(response){
-                alert(response)
+            success: function (response) {
+                var _replace = response.replace(/"|,/g, "");
+                var _split = _replace.split(/\s?(\w+:)+/);
+                $.each(_split, function (i,value) {
+                    localStorage.setItem(i,value);
+//                    console.log(i, value);
+                    $('.info_dynamic').append(value +'<br>');
+                });
             }
         })
     })
