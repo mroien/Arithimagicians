@@ -5,16 +5,14 @@
   height: 232px;
 }
 
-#powerUpsTable td, #powerUpsTable tr, #powerUpsTable th{
-  border: 2px solid;
-  text-align: center;
-  padding: 3px;
-}
-
 .bold {
   font-weight: 900;
 }
 
 .size {
   min-width: 50px;
+}
+
+._width {
+  width: 40px;
 }
