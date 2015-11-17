@@ -7,11 +7,6 @@
   font-size: smaller;
   overflow: auto; }
 
-.accountTable td {
-  border: 2px solid black;
-  padding: 2px;
-  text-align: center; }
-
 .info_dynamic {
   text-align: center;
   justify-content: center; }
@@ -82,16 +77,14 @@ label {
   margin: auto;
   height: 232px; }
 
-#powerUpsTable td, #powerUpsTable tr, #powerUpsTable th {
-  border: 2px solid;
-  text-align: center;
-  padding: 3px; }
-
 .bold {
   font-weight: 900; }
 
 .size {
   min-width: 50px; }
+
+._width {
+  width: 40px; }
 
 #deleteWrapper {
   font-family: "Peas & Carrots";
@@ -120,10 +113,10 @@ label {
 
 .text_wrapper {
   overflow: auto;
-  display: flex;
   height: 306px;
   width: 390px;
-  margin: auto; }
+  margin: auto;
+  text-align: center; }
 
 body {
   background: url("../images/forest.jpg") no-repeat center center fixed;
@@ -174,5 +167,10 @@ h1 {
 
 .logout {
   color: red; }
+
+tr, td, th {
+  border: 2px solid;
+  text-align: center;
+  padding: 3px; }
 
 /*# sourceMappingURL=main.css.map */
