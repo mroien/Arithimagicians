@@ -18,26 +18,47 @@ import android.widget.TextView;
  */
 public class BuyDiceDialog extends DialogFragment {
 
-    public static BuyDiceDialog newInstance(Player player, String die, int bonusCost) {
+    /**
+     * Called when player has enough experience to make the purchase. Creates an instance of the dialog
+     * for buyiing a bonus to dice and puts the arguments in a Bundle to be passed between dialogs.
+     * @param player
+     * @param die
+     * @param dieCost
+     * @return
+     */
+    public static BuyDiceDialog newInstance(Player player, String die, int dieCost) {
         Bundle args = new Bundle();
         BuyDiceDialog dia = new BuyDiceDialog();
         args.putSerializable("player", player);
         args.putString("die", die);
-        args.putInt("cost", bonusCost);
+        args.putInt("cost", dieCost);
         dia.setArguments(args);
         return dia;
     }
 
-    public static BuyDiceDialog newInstance(int bonusCost) {
+    /**
+     * Called when player does not have enough experience for the purchase. Only takes a bonus cost
+     * for parsing the message back to the player.
+     * @param dieCost
+     * @return
+     */
+    public static BuyDiceDialog newInstance(int dieCost) {
         Bundle args = new Bundle();
         BuyDiceDialog dia = new BuyDiceDialog();
-        args.putInt("cost", bonusCost);
+        args.putInt("cost", dieCost);
         dia.setArguments(args);
         return dia;
     }
 
+    /**
+     * Overrides Dialog's onCreateDialog method.
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        //sets final arguments for using in listeners
         final Player player = (Player) getArguments().getSerializable("player");
         final String die = getArguments().getString("die");
         final int cost = getArguments().getInt("cost");
@@ -47,6 +68,8 @@ public class BuyDiceDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_spend_confirm, null);
         TextView title = (TextView) view.findViewById(R.id.spendTitle);
+
+        //A player was passed, so confirm the player wants to make the purchase and update if so.
         if (player != null) {
             title.setText("Buy extra " + die + " for " + cost + " XP?");
             bonusBuilder.setCustomTitle(title)
@@ -80,9 +103,10 @@ public class BuyDiceDialog extends DialogFragment {
                                 }
                                 player.spendXP(cost);
                             }
+
+                            //removes the old LevelChoiceDialog and creates a new one with the updated information
                             Fragment newFragment = LevelChoiceDialog.newInstance(player, die);
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
                             transaction.remove(df);
                             transaction.add(newFragment,"buy");
                             transaction.addToBackStack(null);
@@ -92,6 +116,8 @@ public class BuyDiceDialog extends DialogFragment {
                     });
             return bonusBuilder.create();
         } else {
+
+            //no player object was passed, so the player doesn't have enough xp.
             title.setText("Sorry, you do not have " + cost + " XP.");
             bonusBuilder.setCustomTitle(title)
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
