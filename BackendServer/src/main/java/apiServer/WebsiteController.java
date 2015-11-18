@@ -38,40 +38,29 @@ public class WebsiteController {
 		return web.createUser(firstName, lastName, userName, street, city, state, zipCode, email, phoneNumber,  password);
 	}
 
-	/*
-	 * possible redudant code may delete // Local URL :
-	 * http://localhost:8080/duplicate?userName=testDumby
-	 * 
-	 * @RequestMapping("/duplicate") public String
-	 * checkDuplicate(@RequestParam(value="userName", defaultValue="0000")
-	 * String userName){ Website web = new Website(); return
-	 * web.checkDuplicate(userName); }
-	 * 
-	 * // Local URL :
-	 * http://localhost:8080/newUser?email=dumbEmail&userName=testDumby&password
-	 * =test5
-	 * 
-	 * @RequestMapping("/newUser") public String
-	 * saveNewUser(@RequestParam(value="email", defaultValue="0000") String
-	 * email, @RequestParam(value="userName", defaultValue="0000") String
-	 * userName, @RequestParam(value="password", defaultValue="0000") String
-	 * password){ Website web = new Website(); return web.saveNewUser(email,
-	 * userName, password); }
-	 */
-	// Local URL : http://52.32.43.132:8080/delete?accountId=1028929
+
+	// Local URL : http://52.32.43.132:8080/delete?userID=1028929
 	@RequestMapping("/delete")
-	public String deleteAccount(@RequestParam(value = "accountId", defaultValue = "0000") String accountId)
+	public String deleteAccount(@RequestParam(value = "userID", defaultValue = "0000") String userID)
 			throws SQLException {
 
-		return web.deleteAccount(accountId);
+		return web.deleteAccount(userID);
+	}
+	
+	// Local URL : http://52.32.43.132:8080/getUserInfo?userID=8
+	@RequestMapping("/getUserInfo")
+	public String getUserInfo(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+			throws SQLException {
+
+		return web.getUserInfo(userID);
 	}
 
 	// Local URL : http://52.32.43.132:8080/transactions?accountId=1028929
 	@RequestMapping("/transactions")
-	public String getTransactions(@RequestParam(value = "accountId", defaultValue = "0000") String accountId)
+	public String getTransactions(@RequestParam(value = "userID", defaultValue = "0000") String userID)
 			throws SQLException {
 
-		return web.getTransactions(accountId);
+		return web.getTransactions(userID);
 	}
 
 	// Local URL : http://52.32.43.132:8080/getLeader
@@ -79,6 +68,29 @@ public class WebsiteController {
 	public String getLeaderBoards() throws SQLException {
 
 		return web.getLeaderBoards();
+	}
+	
+	// Local URL : http://52.32.43.132:8080/addPowerup?powerID=DMGBONUS&transactionID=1&userID=8
+	@RequestMapping("/addPowerup")
+	public String addPowerup(@RequestParam(value = "powerID", defaultValue = "0000") String powerID,
+			@RequestParam(value = "transactionID", defaultValue = "0000") String transactionID, @RequestParam(value="userID", defaultValue ="0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.addPowerup(powerID, transactionID, userID);
+	}
+	
+	// Local URL : http://52.32.43.132:8080/getPowerups?userID=8
+	@RequestMapping("/getPowerups")
+	public String getPowerups(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.getPowerups(userID);
+	}
+	
+	// Local URL : http://52.32.43.132:8080/addCard?userID=8&creditCardNumber=1234&creditCardType=visa
+	@RequestMapping("/addCard")
+	public String addCard(@RequestParam(value = "userID", defaultValue = "0000") String userID, @RequestParam(value = "creditCardNumber", defaultValue = "0000") String creditCardNumber,
+			@RequestParam(value = "creditCardType", defaultValue = "0000") String creditCardType)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.addCard(userID, creditCardNumber, creditCardType);
 	}
 
 }

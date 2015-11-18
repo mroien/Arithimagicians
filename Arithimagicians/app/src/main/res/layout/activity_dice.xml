@@ -17,8 +17,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:onClick="selectDice"
         android:background="@null"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="180dp"
         android:layout_marginLeft="30dp"
+
 
         />
 
@@ -30,7 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:background="@null"
         android:onClick="selectDice"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="180dp"
         android:layout_marginLeft= "125dp"
 
   />
@@ -43,8 +44,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:background="@null"
         android:onClick="selectDice"
-        android:layout_marginTop="320dp"
-        android:layout_marginLeft= "225dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft= "215dp"
 
  />
 
@@ -56,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:onClick="selectDice"
         android:background="@null"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="260dp"
         android:layout_marginLeft="30dp"
 
         />
@@ -70,7 +71,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:background="@null"
         android:onClick="selectDice"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="260dp"
         android:layout_marginLeft= "130dp"
 
         />
@@ -84,8 +85,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:background="@null"
         android:onClick="selectDice"
-        android:layout_marginTop="410dp"
-        android:layout_marginLeft= "225dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft= "215dp"
+
         />
 
 
@@ -96,7 +98,7 @@
         android:text="0"
         android:id="@+id/d4TextView"
         android:layout_marginLeft="95dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="220dp"
         android:textColor="#000000" />
 
     <TextView
@@ -105,8 +107,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
         android:id="@+id/d6TextView"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="220dp"
         android:textColor="#000000"
  />
 
@@ -116,8 +118,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
         android:id="@+id/d8TextView"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="220dp"
         android:textColor="#000000"
  />
 
@@ -128,7 +130,7 @@
         android:text="0"
         android:id="@+id/d10TextView"
         android:layout_marginLeft="95dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="300dp"
         android:textColor="#000000" />
 
     <TextView
@@ -137,8 +139,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
         android:id="@+id/d12TextView"
-        android:layout_marginLeft="195dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginLeft="185dp"
+        android:layout_marginTop="300dp"
         android:textColor="#000000"
         />
 
@@ -148,8 +150,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="0"
         android:id="@+id/d20TextView"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="300dp"
         android:textColor="#000000"
         />
 
@@ -160,7 +162,7 @@
         android:text="Close"
         android:id="@+id/closeButton"
         android:onClick="closeClick"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="350dp"
         android:layout_marginLeft="130dp"/>
 
 </RelativeLayout>

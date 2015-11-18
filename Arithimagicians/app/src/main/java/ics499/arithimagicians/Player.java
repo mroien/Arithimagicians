@@ -38,7 +38,6 @@ public class Player extends Character implements Serializable {
     private int maxSingleDamage;
 
     public Player() {
-        // Change to actual values
         super(10, 1);
         this.xp = 0;
         this.dice = new ArrayList<Die>();
@@ -51,7 +50,7 @@ public class Player extends Character implements Serializable {
         this.dice.add(dice6);
         this.dice.add(dice6Two);
         this.dice.add(dice8);
-        this.xp = 32; //reset this
+        this.xp = 0;
         this.inventory = new ArrayList<Item>(6);
         this.lootRate = 1.0;
         this.xPRate = 1.0;
@@ -64,17 +63,24 @@ public class Player extends Character implements Serializable {
         prepareInventory();
     }
 
+    /**
+     * Populates the inventory array with null values so items can be added out of order.
+     * Gives the player one HP potion to begin the game with.
+     */
     private void prepareInventory() {
         //set up inventory as an empty list
         for (int i = 0; i < 6; i++) {
             inventory.add(i, null);
         }
-        ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "5", 2);
+        ConsumableItem healthPotion = new ConsumableItem(Item.Type.HEALTHPOTION.getName(), "5", 1);
         inventory.add(Item.Type.HEALTHPOTION.ordinal(), healthPotion);
-        inventory.add(Item.Type.DMGBONUS.ordinal(), new PowerUpItem(Item.Type.DMGBONUS.getName(), "1.5", 1));
-        inventory.add(Item.Type.LOOTBONUS.ordinal(), new PowerUpItem(Item.Type.LOOTBONUS.getName(), "1.5", 1));
     }
 
+    /**
+     * Takes an item and adds it to the inventory list according to the Item.Type value for that item.
+     * If the item is not listed in the Item.Type enum, it's not a valid item and isn't added.
+     * @param item
+     */
     public void addItem(Item item) {
         int index = -1;
         for (Item.Type type : Item.Type.values()) {
@@ -85,28 +91,27 @@ public class Player extends Character implements Serializable {
                 inventory.get(type.ordinal()).incrementValue();
             }
         }
+
+        // index is > -1 iff item is a valid item in the Item.Type enum
         if (index > -1) {
             inventory.add(index, item);
         }
     }
 
+    /**
+     * Verifies that the player actually has an item of the correct type. If so, this method applies
+     * the effects to the Player object by the item enum type.
+     * @param item
+     */
     public void useItem(Item item) {
         if (item.getQuantity() > 0) {
             String name = item.getName();
             switch (name) {
                 case ("HP\nPotion"):
-                    int missingHealth = getTotalHealth() - getCurrentHealth();
-                    if (missingHealth > Integer.parseInt(item.getBonus())) {
-                        gainHealth(Integer.parseInt(item.getBonus()));
-                    } else {
-                        gainHealth(missingHealth);
-                    }
-
+                    this.gainHealth(Integer.parseInt(item.getBonus()));
                     item.decrementValue();
-                    Log.i("potion", "Player life is now " + getCurrentHealth());
                     break;
                 case ("XP\nBonus"):
-                    //set clock. need a timer to reset to bonus to 1 on all bonus items
                     xPRate = xPRate * Double.parseDouble(item.getBonus());
                     xpTimeStamp = System.nanoTime();
                     item.decrementValue();
@@ -136,34 +141,67 @@ public class Player extends Character implements Serializable {
         }
     }
 
+    /**
+     * Increases the Player's experience points by the passed amount.
+     * @param amt
+     */
     public void gainXP(int amt) {
         xp += amt;
     }
 
+    /**
+     * Decreases the Player's experience points by the passed amount.
+     * @param amt
+     */
     public void spendXP(int amt) {
         xp -= amt;
     }
 
+    /**
+     * Returns a string indicating the last level the Player has completed.
+     * @return
+     */
     public String getLastMap() {
         return this.lastStage;
     }
 
+    /**
+     * Returns the list containing the Player's inventory.
+     * @return
+     */
     public ArrayList<Item> getInventory() {
         return this.inventory;
     }
 
+    /**
+     * Sets the Player's inventory to the passed ArrayList of Items. Used by Activities
+     * that affect the player's inventory.
+     * @param inv
+     */
     public void setInventory(ArrayList<Item> inv) {
         this.inventory = inv;
     }
 
+    /**
+     * Returns the Player's Die ArrayList
+     * @return
+     */
     public ArrayList<Die> getDice() {
         return this.dice;
     }
 
+    /**
+     * Moves a Die from the Player's main ArrayList into the diceUsed ArrayList
+     * @param dice
+     */
     public void setDiceUsed(Die dice) {
         diceUsed.add(dice);
     }
 
+    /**
+     * Returns the ArrayList of the Player's dice.
+     * @return
+     */
     public ArrayList<Die> getDiceUsed() {
         return diceUsed;
     }
@@ -172,6 +210,9 @@ public class Player extends Character implements Serializable {
         diceUsed = new ArrayList<Die>();
     }
 
+    /**
+     * Moves used dice back to the Player's main dice list.
+     */
     public void swapDiceBackToInv() {
         for (Die d : diceUsed) {
             Die temp = d;
@@ -180,10 +221,19 @@ public class Player extends Character implements Serializable {
         diceUsed.clear();
     }
 
+    /**
+     * Sets the Player's level to the passed level string.
+     * @param level
+     */
     public void setLevel(String level) {
         this.lastStage = level;
     }
 
+    /**
+     * Checks to see if the Player has a dice of the given dice type.
+     * @param dice
+     * @return
+     */
     public boolean checkDice(String dice) {
         for (Die d : this.dice) {
             if (d.getDiceType().equals(dice)) {
@@ -193,76 +243,144 @@ public class Player extends Character implements Serializable {
         return false;
     }
 
+    /**
+     * Returns the Player's XP total.
+     * @return
+     */
     public int getXp() {
         return xp;
     }
 
+    /**
+     * Returns the Player's rate of finding loot.
+     * @return
+     */
     public double getLootRate() {
         return lootRate;
     }
 
+    /**
+     * Returns the Player's damage rate. A rate > 1.0 indicates the player has a bonus to damage.
+     * @return
+     */
     public double getDamageRate() {
         return damageRate;
     }
 
+    /**
+     * Sets the user ID.
+     * @param id
+     */
     public void setUserId(int id) {
         this.userId = id;
     }
 
+    /**
+     * Returns the Player's user ID.
+     * @return
+     */
     public int getUserId() {
         return this.userId;
     }
 
+    /**
+     * Returns a true if the passed value is less than the current experience total.
+     * Returns false if the value is greater than the current experience total.
+     * @param value
+     * @return
+     */
     public boolean checkXP(int value) {
         return this.getXp() >= value;
     }
 
+    /**
+     * Adds the passed Die to the Player's Die list.
+     * @param die
+     */
     public void addDie(Die die) {
         this.dice.add(die);
     }
 
+    /**
+     * Updates the Player's highest accuracy to the passed double.
+     * @param acc
+     */
     public void updateHighestAcc(double acc) {
         if (acc < this.highestAcc) {
             this.highestAcc = acc;
         }
     }
 
+    /**
+     * Increases the Player's total hits.
+     */
     public void updateTotalHits() {
         this.totalHits++;
     }
 
+    /**
+     * Increases the Player's total rolls.
+     */
     public void updateTotalRolls() {
         this.totalRolls++;
     }
 
+    /**
+     * Updates the Player's Maximum Damage Dealt to damage.
+     * @param damage
+     */
     public void updateMaxTotalDamage(int damage) {
         if (damage > this.maxTotalDamage) {
             this.maxTotalDamage = damage;
         }
     }
 
+    /**
+     * Updates Maximum Single Damage to the dmg.
+     * @param dmg
+     */
     public void updateMaxSingleDamage(int dmg) {
         if (dmg > this.maxSingleDamage) {
             this.maxSingleDamage = dmg;
         }
     }
 
+    /**
+     * Returns the Player's Highest Accuracy.
+     * @return
+     */
     public double getHighestAcc() {
         return highestAcc;
     }
 
+    /**
+     * Returns the Player's Maximum Total Damage.
+     * @return
+     */
     public int getMaxTotalDamage() {
         return maxTotalDamage;
     }
 
+    /**
+     * Returns the Player's Maximum Single Attack Damage.
+     * @return
+     */
     public int getMaxSingleDamage() {
         return maxSingleDamage;
     }
 
+    /**
+     * Returns the Player's Total Accuracy.
+     * @return
+     */
     public double getTotalAcc() {
         return totalHits / totalRolls * 100;
     }
 
+    /**
+     * Increases the Player's health when appropriate.
+     * @param time
+     */
     public void checkHealthRegen(long time) {
         Log.i("health", "" + this.getCurrentHealth());
         if (((time - this.timeStamp) / 1E9) > 300) {
@@ -271,6 +389,10 @@ public class Player extends Character implements Serializable {
         }
     }
 
+    /**
+     * Checks whether any power-ups have expired.
+     * @param time
+     */
     public void checkPowerupTimer(long time) {
         if (((time - this.xpTimeStamp) / 1E9) > 86400) {
             xPRate = 1.0;

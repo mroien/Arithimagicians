@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="1.367" errors="0" skipped="0" tests="4" name="BackendTemp.BackendServer.AndroidTest">
+<testsuite failures="0" time="1.831" errors="0" skipped="0" tests="4" name="BackendTemp.BackendServer.AndroidTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="T:\Java\jdk1.7.0_79\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 8.1"/>
-    <property name="classworlds.conf" value="D:\Documents\Java Programs\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2604124790890172846.tmp"/>
+    <property name="classworlds.conf" value="D:\Documents\Java Programs\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf8840339001771133826.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="T:\Java\jdk1.7.0_79\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;T:\Java\jdk1.7.0_79\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;T:\Livestreamer;T:\apache-maven-3.3.3\bin;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,8 +61,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.449" classname="BackendTemp.BackendServer.AndroidTest" name="testUsePowerupsSuccess"/>
-  <testcase time="0.308" classname="BackendTemp.BackendServer.AndroidTest" name="testupdateLeaderboard"/>
-  <testcase time="0.299" classname="BackendTemp.BackendServer.AndroidTest" name="testCheckPowerupsUnSuccess"/>
-  <testcase time="0.311" classname="BackendTemp.BackendServer.AndroidTest" name="testCheckPowerupsSuccess"/>
+  <testcase time="0.55" classname="BackendTemp.BackendServer.AndroidTest" name="testupdateLeaderboard"/>
+  <testcase time="0.457" classname="BackendTemp.BackendServer.AndroidTest" name="testCheckPowerupsUnSuccess"/>
+  <testcase time="0.411" classname="BackendTemp.BackendServer.AndroidTest" name="testUsePowerupsSuccess"/>
+  <testcase time="0.413" classname="BackendTemp.BackendServer.AndroidTest" name="testCheckPowerupsSuccess"/>
 </testsuite>

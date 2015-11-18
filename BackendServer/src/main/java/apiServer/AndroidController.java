@@ -16,7 +16,12 @@ public class AndroidController {
 			throws SQLException {
 		return and.checkPowerUps(accountId);
 	}
-
+	//  URL : http://52.32.43.132:8080/powerUpAddedToInv?accountId=testDumby&powerUpName=HealthPotion
+	@RequestMapping("/powerUpAddedToInv")
+	public String powerUpAddedToInv(@RequestParam(value = "accountId", defaultValue = "0000") String accountId ,@RequestParam(value = "powerUpName", defaultValue = "0000") String powerUpName)
+			throws SQLException {
+		return and.powerUpAddedToInv(accountId, powerUpName);
+	}
 	//  URL :
 	// http://52.32.43.132:8080/usePowerUp?accountId=testDumby&powerUp=Fire
 	@RequestMapping("/usePowerUp")
@@ -26,11 +31,16 @@ public class AndroidController {
 		return and.usePowerUp(accountId, powerUp);
 	}
 
-	//  URL : http://52.32.43.132:8080/updateLeaderboardLevel?accountId=test
-	@RequestMapping("/updateLeaderboardLevel")
-	public String updateLeaderboardLevel(@RequestParam(value = "accountId", defaultValue = "0000") String accountId,
-			@RequestParam(value = "level", defaultValue = "0000") String level) throws SQLException {
-		return and.updateLeaderboardLevel(accountId, level);
+	//  URL : http://localhost:8080/updateLeaderboard?accountId=8&username=test&level=1_1&accuracyPerLevel=20&highestAcc=100&maxTotalDmg=10&maxSingleDmg=5
+	@RequestMapping("/updateLeaderboard")
+	public String updateLeaderboard(@RequestParam(value = "accountId", defaultValue = "0000") String accountId,
+			 @RequestParam(value = "username", defaultValue = "0000") String username,
+			@RequestParam(value = "level", defaultValue = "0000") String level,
+			@RequestParam(value = "accuracyPerLevel", defaultValue = "0000") double accuracyPerLevel
+			, @RequestParam(value = "highestAcc", defaultValue = "0000") double highestAcc
+			, @RequestParam(value = "maxTotalDmg", defaultValue = "0000") int maxTotalDmg
+			, @RequestParam(value = "maxSingleDmg", defaultValue = "0000") int maxSingleDmg) throws SQLException {
+		return and.updateLeaderboard(accountId,username, level, accuracyPerLevel, highestAcc, maxTotalDmg, maxSingleDmg);
 	}
 	
 	//  URL : http://52.32.43.132:8080/checkPhoneNumber?number=1234
