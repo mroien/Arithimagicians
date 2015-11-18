@@ -157,8 +157,7 @@ h1 {
   top: -5em; }
 
 .infoBtnWrapper {
-  display: block;
-  text-align: right; }
+  display: block; }
 
 .signedIn {
   position: inherit;

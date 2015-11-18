@@ -80,30 +80,6 @@ $(document).ready(function(){
             }
         });
 
-    //Prompts for Delete page
-
-    $('.yes').on('click', function(){
-        var _delete = prompt("Are you sure you want to Delete your account? Type YES to confirm");
-        _delete.toUpperCase();
-        if(_delete === 'YES'){
-            $.ajax({
-                url: 'http://52.32.43.132:8080/delete?',
-                type: 'POST',
-                data: 'userID=' + local_userID,
-                crossDomain: true,
-                success: function(response) {
-                    localStorage.clear();
-                    window.location.href = '../main/index.html'
-                }
-            })
-        }
-    });
-
-    // Clicking the No button on download page
-
-    $('.no').on('click', function(){
-        window.location.href = 'accountInfo.html';
-    })
 
 
 });

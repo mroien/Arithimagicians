@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+​
 <head>
     <title>Account Information</title>
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <h1>Account Information</h1>
-
+        ​
         <div class="leftNav">
             <a href="../main/index.html" class="btn-default btn">Home</a>
             <a href="purchasePowerUps.html" class="btn-default btn">Purchase Power Ups</a>
@@ -28,33 +28,17 @@
             <a href="stats.html" class="btn btn-default">Stats</a>
             <a href="delete.html" class="btn-danger btn">Delete Account</a>
         </div>
-
+        ​
         <div class="signedIn"></div>        <!-- Check if user is logged in -->
-
+        ​
         <div class="scrollWrapper">
-            <!--<table class="accountTable">-->
-                <!--<tr>-->
-                    <!--<td>UserID</td>-->
-                    <!--<td>Name</td>-->
-                    <!--<td>Username</td>-->
-                    <!--<td>Address</td>-->
-                    <!--<td>City</td>-->
-                    <!--<td>State</td>-->
-                    <!--<td>Zip Code</td>-->
-                    <!--<td>Email</td>-->
-                    <!--<td>Phone Number</td>-->
-                <!--</tr>-->
-                <!--<tr class="info_dynamic"></tr>-->
-            <!--</table>-->
             <div class="description text_wrapper info_dynamic"></div>
         </div>
     </div>
 </div>
-
+​
 <script>
-
     var userID = localStorage.getItem('userID');
-
     $(document).ready(function(){
         $.ajax({
             url: 'http://52.32.43.132:8080/getUserInfo?',
@@ -63,12 +47,12 @@
             crossDomain: true,
             success: function (response) {
                 var _replace = response.replace(/"|,/g, "");
-//                var _split = _replace.split(/\s?(\w+:)+/);  // <-- This splits the data on : and gives everything 1:userID, 2:8...
-                var _split = _replace.split(/"+/);      // <-- This splits on the " and puts all data in the 0 index
+                var _split = _replace.split('*');
                 $.each(_split, function (key,value) {
-                    localStorage.setItem(key,value);
-//                    console.log(i, value);
-                    $('.info_dynamic').append(value +'<br>');
+                    var _key = _split[key].split(":");
+                    localStorage.setItem(_key[0],_key[1]);
+                    console.log(key, value);
+                    $('.info_dynamic').append(_key[0] + ":  " + _key[1] +'<br>');
                 });
             }
         })
