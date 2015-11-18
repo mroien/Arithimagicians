@@ -63,11 +63,12 @@
             crossDomain: true,
             success: function (response) {
                 var _replace = response.replace(/"|,/g, "");
-//                var _split = _replace.split(/\s?(\w+:)+/);  // <-- This splits the data on : and gives everything 1:userID, 2:8...
-                var _split = _replace.split(/"+/);      // <-- This splits on the " and puts all data in the 0 index
+                var _split = _replace.split("*");  // <-- This splits the data on : and gives everything 1:userID, 2:8...
+            //    var _split = _replace.split(/"+/);      // <-- This splits on the " and puts all data in the 0 index
                 $.each(_split, function (key,value) {
-                    localStorage.setItem(key,value);
-//                    console.log(i, value);
+				var _key = _split[key].split(":");
+                    localStorage.setItem(_key[0],_key[1]);
+                   console.log(key, value);
                     $('.info_dynamic').append(value +'<br>');
                 });
             }

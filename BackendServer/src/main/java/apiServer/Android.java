@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Properties;
 
+import javax.xml.transform.Result;
+
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -38,7 +40,7 @@ public class Android {
 		int sshPort = 22;
 		dbHost = "localhost";
 		int dbPort = 3306;
-		localPort = 3366;
+		localPort = 3367;
 		ip = "jdbc:mysql://199.17.234.28:3306";
 
 		try {
@@ -52,13 +54,19 @@ public class Android {
 
 	public String checkPowerUps(String userId) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
-		String queryUser = "SELECT * from powerups WHERE userId = ? and dateUsed IS NULL";
+		String queryUser = "SELECT powerID from powerups WHERE userID = ? and dateUsed = '0000-00-00' and dateAdded = '0000-00-00'";
 		try {
+			
 			PreparedStatement prepState = conn.prepareStatement(queryUser);
 			prepState.setString(1, userId);
 			ResultSet rs = prepState.executeQuery();
+			String result = "";
 			if (rs.absolute(1)) {
-				return rs.toString();
+				result += rs.getString(1);
+				while(rs.next()){
+					result += "," + rs.getString(1);
+				}
+				return result;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,14 +93,60 @@ public class Android {
 			return "DB Error";
 		}
 	}
-
-	public String updateLeaderboardLevel(String accountId, String level) throws SQLException {
-		String updateSQL = "Update leaderboard SET level = ? " + "WHERE userID = ?";
+	
+	public String powerUpAddedToInv(String accountId, String powerUp) throws SQLException {
+		String updateSQL = "Update powerups SET dateAdded = ? " + "WHERE userID = ? AND powerID = ?";
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		try {
+			java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 			PreparedStatement prepState = conn.prepareStatement(updateSQL);
-			prepState.setString(1, level);
+			prepState.setString(1, date.toString());
 			prepState.setString(2, accountId);
+			prepState.setString(3, powerUp);
+			prepState.executeUpdate();
+			return "User Updated";
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "DB Error";
+		}
+	}
+
+	public String updateLeaderboard(String accountId, String username, String level, double accuracyPerLevel, double highestAcc, int maxTotalDmg, int maxSingleDmg) throws SQLException {
+		String updateSQL = "Update leaderboard SET level = ?, accuracyPerLevel = ?, highestAccuracy = ?, maxTotalDamage = ?, maxSingleDamage = ?, dateTime = ? " + "WHERE userID = ?";
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
+		String createSql = "INSERT INTO leaderboard (userID, username,level,accuracyPerLevel,highestAccuracy,maxTotalDamage,maxSingleDamage, dateTime) VALUES (?,?,?,?,?,?,?,?)";
+		String querySql = "Select * from leaderboard WHERE userID = ?";
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		try {
+		
+			PreparedStatement query = conn.prepareStatement(querySql);
+			query.setString(1, accountId);
+			ResultSet rs = query.executeQuery();
+			if(rs.absolute(1)){
+				PreparedStatement prepState = conn.prepareStatement(updateSQL);
+				prepState.setString(1, level);
+				prepState.setDouble(2, accuracyPerLevel);
+				prepState.setDouble(3, highestAcc);
+				prepState.setInt(4, maxTotalDmg);
+				prepState.setInt(5, maxSingleDmg);
+				prepState.setString(6, date.toString());
+				prepState.setString(7, accountId);
+				prepState.executeUpdate();
+				return "User Updated";
+			}
+			
+
+			PreparedStatement prepState = conn.prepareStatement(createSql);
+			prepState.setString(1, accountId);
+			prepState.setString(2, username);
+			prepState.setString(3, level);
+			prepState.setDouble(4, accuracyPerLevel);
+			prepState.setDouble(5, highestAcc);
+			prepState.setInt(6, maxTotalDmg);
+			prepState.setInt(7, maxSingleDmg);
+			prepState.setString(8, date.toString());
 			prepState.executeUpdate();
 			return "User Updated";
 
@@ -104,13 +158,21 @@ public class Android {
 		
 	}
 	public String checkPhoneNumber(String number) throws SQLException {
-		String queryUser = "SELECT * from users WHERE phoneNumber = ?";
+		String queryUser = "SELECT userID from users WHERE phoneNumber = ? AND connected = 0";
+		
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		try {
 			PreparedStatement prepState = conn.prepareStatement(queryUser);
-			prepState.setString(1, number);
-			  prepState.executeQuery();
-			return "Valid and Unused";
+			 prepState.setString(1, number);
+			 ResultSet rs = prepState.executeQuery();
+			if(rs.absolute(1)){
+				String updateSQL = "Update users SET connected = 1 WHERE userID = " + rs.getString(1);
+				PreparedStatement update = conn.prepareStatement(updateSQL);
+				update.executeUpdate();
+				return rs.getString(1);
+			}
+			else
+				return "Already Used";
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,6 +180,8 @@ public class Android {
 			return "DB Error";
 		}
 	}
+	
+
 
 	public static void sshTunnel(String sshUser, String sshPwd, String sshHost, int sshPort, String remoteHost,
 			int localPort, int remotePort) throws JSchException {

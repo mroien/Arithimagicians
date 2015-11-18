@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        read();
     }
 
     /**
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
      */
     public void newGameClicked(View view) {
         // if no account found, ask if they want to make an account and display the webpage
-        if (account == null) {
+        if (this.player == null) {
             Builder builder = new Builder(this);
             builder
                     .setTitle("No Account Found")
@@ -85,7 +86,27 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         }
                     }).show();
         }
-    }
+        else{
+            Builder builder = new Builder(this);
+            builder
+                    .setTitle("Game Found")
+                    .setMessage("Are you sure you want to start a new game? (This will delete your old game!)")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            player = new Player();
+                            Intent connectIntent = new Intent(MainActivity.this, ConnectAccount.class);
+                            connectIntent.putExtra("player", player);
+                            startActivity(connectIntent);
+
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        finish();
+        }
+    }).show();
+        }}
 
     /**
      * Handler for loading a game
@@ -159,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     public void getItems(int userId) {
-        String url = "http://195.168.29.115:8080/checkPowerUp?accountId=" + userId;
+        String url = "http://192.168.29.115:8080/checkPowerUp?accountId=" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.
@@ -191,9 +212,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
-                mapIntent.putExtra("player", player);
-                startActivity(mapIntent);
+
             }
         });
 // Add the request to the RequestQueue.

@@ -1,32 +1,32 @@
 -------------------------------------------------------------------------------
 Test set: BackendTemp.BackendServer.WebsiteTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 4.715 sec <<< FAILURE!
+Tests run: 9, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 6.01 sec <<< FAILURE!
 testCreateUserAlreadyRegistered(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.002 sec  <<< ERROR!
 java.lang.Error: Unresolved compilation problem: 
 	The method CreateUser(String, String, String, String, String, String, String, String, String, String) in the type WebsiteController is not applicable for the arguments (String, String, String, String, String, String, String, String, String)
 
 	at BackendTemp.BackendServer.WebsiteTest.testCreateUserAlreadyRegistered(WebsiteTest.java:58)
 
-testLoginSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.331 sec  <<< FAILURE!
-junit.framework.AssertionFailedError: expected same:<Invalid Login> was not:<Success>
-	at junit.framework.Assert.fail(Assert.java:47)
-	at junit.framework.Assert.failNotSame(Assert.java:278)
-	at junit.framework.Assert.assertSame(Assert.java:242)
-	at junit.framework.Assert.assertSame(Assert.java:249)
-	at BackendTemp.BackendServer.WebsiteTest.testLoginSuccess(WebsiteTest.java:18)
-
-testCreateUserSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0 sec  <<< ERROR!
+testCreateUserSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.Error: Unresolved compilation problem: 
 	The method CreateUser(String, String, String, String, String, String, String, String, String, String) in the type WebsiteController is not applicable for the arguments (String, String, String, String, String, String, String, String, String)
 
 	at BackendTemp.BackendServer.WebsiteTest.testCreateUserSuccess(WebsiteTest.java:42)
 
-testDeleteAccountSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.337 sec  <<< FAILURE!
+testDeleteAccountSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.431 sec  <<< FAILURE!
 junit.framework.AssertionFailedError: expected same:<Account not Found> was not:<Account Deleted>
 	at junit.framework.Assert.fail(Assert.java:47)
 	at junit.framework.Assert.failNotSame(Assert.java:278)
 	at junit.framework.Assert.assertSame(Assert.java:242)
 	at junit.framework.Assert.assertSame(Assert.java:249)
 	at BackendTemp.BackendServer.WebsiteTest.testDeleteAccountSuccess(WebsiteTest.java:67)
+
+testLoginSuccess(BackendTemp.BackendServer.WebsiteTest)  Time elapsed: 0.41 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: expected same:<Invalid Login> was not:<Success>
+	at junit.framework.Assert.fail(Assert.java:47)
+	at junit.framework.Assert.failNotSame(Assert.java:278)
+	at junit.framework.Assert.assertSame(Assert.java:242)
+	at junit.framework.Assert.assertSame(Assert.java:249)
+	at BackendTemp.BackendServer.WebsiteTest.testLoginSuccess(WebsiteTest.java:18)
 
