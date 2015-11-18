@@ -95,12 +95,14 @@ public class Player extends Character implements Serializable {
             String name = item.getName();
             switch (name) {
                 case ("HP\nPotion"):
+                    this.gainHealth(Integer.parseInt(item.getBonus()));
+                    /*
                     int missingHealth = getTotalHealth() - getCurrentHealth();
                     if (missingHealth > Integer.parseInt(item.getBonus())) {
                         gainHealth(Integer.parseInt(item.getBonus()));
                     } else {
                         gainHealth(missingHealth);
-                    }
+                    } */
 
                     item.decrementValue();
                     Log.i("potion", "Player life is now " + getCurrentHealth());

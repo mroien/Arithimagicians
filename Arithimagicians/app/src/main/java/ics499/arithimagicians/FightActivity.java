@@ -446,17 +446,17 @@ public class FightActivity extends AppCompatActivity {
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidslasher));
                 slasher = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
                 Opponent slasherTwo = new Opponent(Opponent.Stats.GB_SLASHER, "zone1gobloidslasher");
-                spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
+                Opponent shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone1gobloidshaman");
                 currOpponet = slasher;
                 setProgressBars(currOpponet);
                 opList.clear();
                 opList.add("+");
                 opList.add("-");
-                spearman.setOp(opList);
+                shaman.setOp(opList);
                 slasher.setOp(opList);
                 slasherTwo.setOp(opList);
                 opponents.add(slasher);
-                opponents.add(spearman);
+                opponents.add(shaman);
                 opponents.add(slasherTwo);
                 generateOperations(opList);
                 generateAns(level);
@@ -464,7 +464,7 @@ public class FightActivity extends AppCompatActivity {
             case "1_5":
                 rl.setBackground(ContextCompat.getDrawable(this, R.drawable.zone1gobloidspearman));
                 spearman = new Opponent(Opponent.Stats.GB_SPEARMAN, "zone1gobloidspearman");
-                Opponent shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone1gobloidshaman");
+                shaman = new Opponent(Opponent.Stats.GB_SHAMAN, "zone1gobloidshaman");
                 Opponent grabber = new Opponent(Opponent.Stats.SK_GRABBER, "zone1skeletoniangrabber");
                 currOpponet = spearman;
                 setProgressBars(currOpponet);

@@ -50,7 +50,14 @@ public class Character implements Serializable {
     }
 
     public void gainHealth(int amt) {
-        currentHealth += amt;
+        if (currentHealth < totalHealth) {
+            int missingHealth = getTotalHealth() - getCurrentHealth();
+            if (missingHealth > amt) {
+                currentHealth += amt;
+            } else {
+                currentHealth += missingHealth;
+            }
+        }
     }
 
     public int getTotalHealth() {
