@@ -51,7 +51,7 @@
                 $.each(_split, function (key,value) {
                     var _key = _split[key].split(":");
                     localStorage.setItem(_key[0],_key[1]);
-                    console.log(key, value);
+//                    console.log(key, value);
                     $('.info_dynamic').append(_key[0] + ":  " + _key[1] +'<br>');
 
                 });
