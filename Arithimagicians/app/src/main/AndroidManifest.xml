@@ -68,6 +68,7 @@
             android:label="@string/title_activity_health_too_low"
             android:theme="@style/HealthTooLowActivity" >
         </activity>
+        <activity android:name=".HelpActivity" />
     </application>
 
 </manifest>
