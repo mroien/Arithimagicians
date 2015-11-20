@@ -42,47 +42,50 @@ $(document).ready(function(){
 
     // Quantity on Purchase page
 
-//function total() {
-    var xp_bonus_sub, damage_sub, loot_sub, health_sub, regeneration_sub;
+    var xp_bonus_sub = 0, damage_sub = 0, loot_sub = 0, health_sub = 0, regeneration_sub = 0;
 
     $('.xp_bonus').on('change', function () {
         sessionStorage.setItem('xp_bonus', this.value);
         xp_bonus = sessionStorage.getItem('xp_bonus');
         xp_bonus_sub = (xp_bonus * .99).toFixed(2);
-        $('.xp_bonus_sub').html(xp_bonus_sub)
+        $('.xp_bonus_sub').html('$' + xp_bonus_sub)
     });
 
     $('.damage').on('change', function () {
         sessionStorage.setItem('damage', this.value);
         damage = sessionStorage.getItem('damage');
         damage_sub = (damage * 1.49).toFixed(2);
-        $('.damage_sub').html(damage_sub)
+        $('.damage_sub').html('$' + damage_sub)
     });
 
     $('.loot').on('change', function () {
         sessionStorage.setItem('loot', this.value);
         loot = sessionStorage.getItem('loot');
         loot_sub = (loot * .99).toFixed(2);
-        $('.loot_sub').html(loot_sub)
+        $('.loot_sub').html('$' + loot_sub)
     });
 
     $('.health').on('change', function () {
         sessionStorage.setItem('health', this.value);
         health = sessionStorage.getItem('health');
         health_sub = (health * 1.99).toFixed(2);
-        $('.health_sub').html(health_sub)
+        $('.health_sub').html('$' + health_sub)
     });
 
     $('.regeneration').on('change', function () {
         sessionStorage.setItem('regeneration', this.value);
         regeneration = sessionStorage.getItem('regeneration');
         regeneration_sub = (regeneration * 2.99).toFixed(2);
-        $('.regeneration_sub').html(regeneration_sub);
+        $('.regeneration_sub').html('$' + regeneration_sub);
+    });
+    $('.xp_bonus, .damage, .loot, .health, .regeneration').on('change', function(){
+        var total = (parseFloat(xp_bonus_sub) + parseFloat(damage_sub) + parseFloat(loot_sub) + parseFloat(health_sub) +
+        parseFloat(regeneration_sub)).toFixed(2);
+        sessionStorage.setItem('total', total);
+        $('.total').html('$' + total);
     });
 
-    $('.total').html(parseFloat(xp_bonus_sub) + parseFloat(damage_sub) + parseFloat(loot_sub) + parseFloat(health_sub)
-        + parseFloat(regeneration_sub)).toFixed(2);
-//}
+    // Redirect page from purchase power up to CC page
 });
 
 
