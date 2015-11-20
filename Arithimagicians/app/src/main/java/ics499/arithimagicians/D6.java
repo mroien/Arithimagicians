@@ -5,20 +5,31 @@ package ics499.arithimagicians;
  */
 public class D6 extends Die {
     private static int bonus = 0;
-
+    /**
+     * Calls Die's constructor to set create a Die with a value of 6 and a type of "d6"
+     */
     public D6(){
         super(6, "d6");
     }
-
-
+    /**
+     * Returns the bonus for all D6s.
+     * @return
+     */
     public static int getBonus() {
         return bonus;
     }
 
-    public static void incrementBonus(){
+    /**
+     * Increments the bonus for all D6s.
+     */
+    public static void incrementBonus() {
         bonus++;
     }
 
+    /**
+     * Overrides Die's rollDice method to correctly calculate the bonus from all D6s.
+     * @return
+     */
     @Override
     public int rollDice() {
         int roll = super.rollDice();
@@ -26,7 +37,11 @@ public class D6 extends Die {
         return roll;
     }
 
-    public int getBonusCost(){
+    /**
+     * Returns the cost of purchasing the next level of bonus for all D6s.
+     * @return
+     */
+    public int getBonusCost() {
         return this.getBonus() * this.getBonus() + this.getDiceValue();
     }
 }

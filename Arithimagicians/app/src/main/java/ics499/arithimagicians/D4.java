@@ -6,19 +6,32 @@ package ics499.arithimagicians;
 public class D4 extends Die {
     private static int bonus = 0;
 
+    /**
+     * Calls Die's constructor to set create a Die with a value of 4 and a type of "d4"
+     */
     public D4() {
         super(4, "d4");
     }
 
-
+    /**
+     * Returns the bonus for all D4s.
+     * @return
+     */
     public static int getBonus() {
         return bonus;
     }
 
+    /**
+     * Increments the bonus for all D4s.
+     */
     public static void incrementBonus() {
         bonus++;
     }
 
+    /**
+     * Overrides Die's rollDice method to correctly calculate the bonus from all D4s.
+     * @return
+     */
     @Override
     public int rollDice() {
         int roll = super.rollDice();
@@ -26,6 +39,10 @@ public class D4 extends Die {
         return roll;
     }
 
+    /**
+     * Returns the cost of purchasing the next level of bonus for all D4s.
+     * @return
+     */
     public int getBonusCost() {
         return this.getBonus() * this.getBonus() + this.getDiceValue();
     }
