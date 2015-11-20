@@ -117,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         read();
     }
 
+    public void helpClicked(View view){
+        Log.i("help", "Help clicked");
+        Intent help = new Intent(MainActivity.this, HelpActivity.class);
+        startActivity(help);
+    }
+
     /**
      * Find the saved game object and read in the player object. Create a displaymap intent and put the player object into it
      * Start the activity
