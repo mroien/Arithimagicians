@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Scroll for Help file\n"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Title Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpfiletitle"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nLoad Game"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The Load Game button opens a game that has been started. If you have linked your phone with an online account, this loading a game will download any power-ups you may have purchased online."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nNew Game"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The New Game button starts a new game. If there is a previously saved game on the device, the system will ask if you're sure you want to start a new game before proceeding.
+
+CAUTION: Starting a new game will overwrite any previously saved data. This means you will lose all progress in the game. You will also lose all stats and power-ups you have previously purchased and downloaded but not yet used. If you have purchased a power-up but not loaded the game since that purchase, it will not have been downloaded and will not be stored on the device. It will be downloaded and saved when the new game is started if you connect the device to your account again with your mobile number.
+
+If there is not an account linked to the device, a dialog will appear asking you to connect your device to an account. See image below."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <ImageView
+        android:layout_width="251dp"
+        android:layout_height="180dp"
+        android:background="@drawable/helpnoaccountfound"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.24" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nIf you choose No, you will not be able to see your progress online, have your records appear on the Leader Board or purchase any power-ups from the online store.  If you choose Yes, you will be asked to enter your mobile number. By entering the mobile number you used in setting up an online account, your device will be linked to that account, allowing you to purchase power-ups, compete for a spot on the Leader Board, and see your performance statistics online."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nHelp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The help button displays this file.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+</LinearLayout>
+</ScrollView>
