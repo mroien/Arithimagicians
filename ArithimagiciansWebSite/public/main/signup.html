@@ -34,15 +34,23 @@
             <fieldset>
                 <div class="red">Required Fields * </div><br>
                 <label for="firstName">First Name:*</label>
-                <input type="text" name="firstName" id="firstName" placeholder="First Name" autofocus pattern="[\w]{1,20}" required/><br>
+                <input type="text" name="firstName" id="firstName" placeholder="First Name" autofocus
+                       oninvalid="setCustomValidity('Please enter your first name');"
+                       oninput="setCustomValidity('')" pattern="[\w]{1,20}" required/><br>
                 <label for="lastName">Last Name:*</label>
-                <input type="text" name="lastName" id="lastName" placeholder="Last Name" pattern="[\w- ]{1,20}" required/><br>
+                <input type="text" name="lastName" id="lastName" placeholder="Last Name"
+                       oninvalid="setCustomValidity('Please enter your last name');"
+                       oninput="setCustomValidity('')" pattern="[\w- ]{1,20}" required/><br>
                 <label for="street">Street:*</label>
-                <input type="text" name="street" id="street" placeholder="Street" pattern="[\w\D]{1,50}" required/><br>
+                <input type="text" name="street" id="street" placeholder="Street"
+                       oninvalid="setCustomValidity('Please enter your address');"
+                       oninput="setCustomValidity('')" pattern="[\w\D]{1,50}" required/><br>
                 <label for="city">City:*</label>
-                <input type="text" name="city" id="city" placeholder="City"pattern="[\w\D]{1,50}" required/><br>
+                <input type="text" name="city" id="city" placeholder="City" pattern="[\w\D]{1,50}"
+                       oninvalid="setCustomValidity('Please enter the city you live in');"
+                       oninput="setCustomValidity('')" required/><br>
                 <label for="state">State*</label>
-                <select id="state">
+                <select id="state"d>
                     <option selected="selected">Select a state</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -97,17 +105,30 @@
                     <option value="WY">Wyoming</option>
                 </select><br>
                 <label for="zip">Zip Code:*</label>
-                <input type="number" name="zip" id="zip" placeholder="Zip Code" pattern="[\D-]{5,10}" required/><br>
+                <input type="number" name="zip" id="zip" placeholder="Zip Code" pattern="[\D-?]{5,10}"
+                       oninvalid="setCustomValidity('Please enter your zip code');"
+                       oninput="setCustomValidity('')" required/><br>
                 <label for="email">Email Address:*</label>
-                <input type="email" name="email" id="email" placeholder="Email Address" pattern="[\w\D]{5,50}" required/><br>
+                <input type="email" name="email" id="email" placeholder="Email Address"
+                       oninvalid="setCustomValidity('Please enter your email address');" oninput="setCustomValidity('')"
+                       required/><br>
                 <label for="username">Username:*</label>
-                <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,10}" required/><br>
+                <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,15}"
+                       oninvalid="setCustomValidity('Please pick a username');"
+                       oninput="setCustomValidity('')" required/><br>
                 <label for="phone">Phone Number:*</label>
-                <input type="text" name="phone" id="phone" placeholder="(xxx) xxx-xxxx" maxlength="14" required/><br>
+                <input type="text" name="phone" id="phone" placeholder="(xxx) xxx-xxxx" maxlength="14"
+                       oninvalid="setCustomValidity('Please enter your phone number');"
+                       oninput="setCustomValidity('')" required/><br>
                 <label for="password1">Password:*</label>
-                <input type="password" name="password1" id="password1" placeholder="6-15 characters" onchange="form.password2.pattern = this.value" pattern="[\w\D]{4,15}" required/><br>
+                <input type="password" name="password1" id="password1" placeholder="8-15 characters"
+                       oninvalid="setCustomValidity('Please enter a valid password 8 to 16 characters');"
+                       oninput="setCustomValidity('')" onchange="form.password2.pattern = this.value"
+                pattern="[\w\D]{4,15}" required/><br>
                 <label for="password2">Confirm Password:*</label>
-                <input type="password" name="password2" id="password2" placeholder="Confirm Password" pattern="[\w\D]{4,15}" required/><br>
+                <input type="password" name="password2" id="password2" placeholder="Confirm Password"
+                       oninvalid="setCustomValidity('The passwords did not match');"
+                       oninput="setCustomValidity('')" pattern="[\w\D]{4,15}" required/><br>
                 <input type="submit" name="submit" class="bottomButton"/>
                 <input type="reset" name="reset" class="bottomButton">
             </fieldset>

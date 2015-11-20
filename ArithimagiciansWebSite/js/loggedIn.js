@@ -42,6 +42,9 @@ $(document).ready(function(){
 
     // Quantity on Purchase page
 
+//function total() {
+    var xp_bonus_sub, damage_sub, loot_sub, health_sub, regeneration_sub;
+
     $('.xp_bonus').on('change', function () {
         sessionStorage.setItem('xp_bonus', this.value);
         xp_bonus = sessionStorage.getItem('xp_bonus');
@@ -74,13 +77,12 @@ $(document).ready(function(){
         sessionStorage.setItem('regeneration', this.value);
         regeneration = sessionStorage.getItem('regeneration');
         regeneration_sub = (regeneration * 2.99).toFixed(2);
-        $('.regeneration_sub').html(regeneration_sub)
+        $('.regeneration_sub').html(regeneration_sub);
     });
 
-    console.log("test " + parseInt(window.regeneration_sub))
-
-
-
+    $('.total').html(parseFloat(xp_bonus_sub) + parseFloat(damage_sub) + parseFloat(loot_sub) + parseFloat(health_sub)
+        + parseFloat(regeneration_sub)).toFixed(2);
+//}
 });
 
 

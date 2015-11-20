@@ -32,6 +32,7 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
+            <div id="transactions"></div>
 
         </div>
     </div>
@@ -41,7 +42,10 @@
         $.ajax({
             url: 'http://52.32.43.132:8080/transactions?',
             type: 'GET',
-            data: 'accountId='
+            data: 'accountId=',
+            success: function(response){
+                $('#transactions').html(response)
+            }
         })
     })
 </script>
