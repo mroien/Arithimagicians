@@ -302,6 +302,34 @@ public class Website {
 		
 		
 	}
+	
+	public String addTransaction(String userID, String amount) throws SQLException {
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
+		String insert = "INSERT INTO transactions"
+				+ "( userID, date, amount) VALUES"
+				+ "(?,?,?)";
+		try {
+			java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+			PreparedStatement prep = conn.prepareStatement(insert);
+			
+			prep.setInt(1, Integer.parseInt(userID));
+			prep.setDate(2, date);
+			prep.setDouble(3,  Double.parseDouble(amount));
+			prep.executeUpdate();
+			conn.close();
+			return "Transaction Added";
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			conn.close();
+			return "DB Error";
+		}
+		
+		
+	}
 	public String getPowerups(String userId) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		String queryUser = "SELECT powerID from powerups WHERE userID = ? and dateUsed = '0000-00-00'";

@@ -78,6 +78,14 @@ public class WebsiteController {
 		return web.addPowerup(powerID, transactionID, userID);
 	}
 	
+	// Local URL : http://52.32.43.132:8080/addTransaction?&userID=1&amount=8
+	@RequestMapping("/addTransaction")
+	public String addTransaction(
+			@RequestParam(value = "userID", defaultValue = "0000") String userID, @RequestParam(value="amount", defaultValue ="0000") String amount)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.addTransaction( userID, amount);
+	}
+	
 	// Local URL : http://52.32.43.132:8080/getPowerups?userID=8
 	@RequestMapping("/getPowerups")
 	public String getPowerups(@RequestParam(value = "userID", defaultValue = "0000") String userID)

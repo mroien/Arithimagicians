@@ -1010,9 +1010,6 @@ public class FightActivity extends AppCompatActivity {
             playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
             playerHealth.setText("Player HP : " + player.getCurrentHealth());
             playerProgressBar.setProgress(player.getPercentHealthLeft());
-        } else if (resultCode == 104) {
-            playerHealth.setText("Player HP : " + player.getCurrentHealth());
-            playerProgressBar.setProgress(player.getPercentHealthLeft());
         }
         //d4 returned
         else if (resultCode == 104) {
