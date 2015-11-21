@@ -30,6 +30,7 @@ import java.util.Random;
 
 /**
  * Created by Jacob Kinzer on 10/20/2015.
+ * Main class to dictate the fighting
  */
 public class FightActivity extends AppCompatActivity {
     private Player player;
@@ -75,11 +76,16 @@ public class FightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fight);
         setContent();
         totalEnemyHP = 0;
-        for(Opponent enemy : opponents) {
+        for (Opponent enemy : opponents) {
             totalEnemyHP += enemy.getTotalHealth();
         }
     }
 
+    /**
+     * Method to actually do the calculations of the attack. First grab the dice that were used, do the computations against the operations presented and then deal out damage. Then if an opponent dies, generate a new opponent or if there is none go to the reward screen.
+     *
+     * @param view view of the application
+     */
     public void attackClicked(View view) {
         currentElement = "Light";
         // Generate all of the stuff we need to calculate damage
@@ -199,10 +205,10 @@ public class FightActivity extends AppCompatActivity {
             }
             Log.i("firstrowdm", "first row damage : " + firstRowTotal);
             Log.i("firstrowdmg", "second rwo damage : " + secondRowTotal);
-            if(firstRowTotal < 0){
+            if (firstRowTotal < 0) {
                 firstRowTotal = 0;
             }
-            if(secondRowTotal < 0){
+            if (secondRowTotal < 0) {
                 secondRowTotal = 0;
             }
             this.player.updateMaxSingleDamage(firstRowTotal);
@@ -238,7 +244,7 @@ public class FightActivity extends AppCompatActivity {
                     isDeadOnFirstRoll = true;
                     isDead = true;
                     this.player.updateHighestAcc(totalHits / totalRolls * 100);
-                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(),firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead, currOpponet.getAttack());
+                    generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, isDeadOnFirstRoll, isDead, currOpponet.getAttack());
                     generateNextOpponent();
                 }
                 // Else if it is less than the answer
@@ -328,11 +334,32 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to generate the results screen that is displayed when an attack is concluded
+     *
+     * @param firstRowFirstDice   int first dice that is used in the first row, first location
+     * @param firstRowSecondDice  int second dice that is used in the first row, second location
+     * @param secondRowFirstDice  int  first dice that is used in the second row, first location
+     * @param secondRowSecondDice int second dice that is used in the second row, second location
+     * @param firstRowOp          String first operation in first row
+     * @param secondRowOp         String second operation in second row
+     * @param firstRowSecondOp    String second operation in first row
+     * @param secondRowSecondOp   String second operation in second row
+     * @param firstRowAns         String first row answer
+     * @param secondRowAns        String second row answer
+     * @param firstRowAttack      int first row attack total
+     * @param firstRowUser        String user who got dealt damage
+     * @param secondRowAttack     int second row attack total
+     * @param secondRowUser       String user who got dealt damage
+     * @param isDeadOnFirstRoll   boolean to tell if opponent is dead on the first roll
+     * @param isDead              boolean to tell if the player is dead
+     * @param opAttack            double attack from the opponenet
+     */
     private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
                                  int secondRowSecondDice, String firstRowOp, String secondRowOp,
                                  String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
                                  String secondRowAns, int firstRowAttack, String firstRowUser, int secondRowAttack,
-                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead, double opAttack){
+                                 String secondRowUser, boolean isDeadOnFirstRoll, boolean isDead, double opAttack) {
 
         Intent results = new Intent(this, DiceRollResults.class);
         results.putExtra("player", player);
@@ -355,14 +382,16 @@ public class FightActivity extends AppCompatActivity {
         results.putExtra("secondRowUser", secondRowUser);
         results.putExtra("isDeadOnFirstRoll", isDeadOnFirstRoll);
         results.putExtra("isDead", isDead);
-        if(opAttack!= 0){
+        if (opAttack != 0) {
             results.putExtra("opAttack", opAttack);
-        }
-        else
-        results.putExtra("opAttack",1);
+        } else
+            results.putExtra("opAttack", 1);
         startActivityForResult(results, 100);
     }
 
+    /**
+     * Method to show the death screen. Send to the death activity
+     */
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
@@ -370,6 +399,9 @@ public class FightActivity extends AppCompatActivity {
         startActivity(deathIntent);
     }
 
+    /**
+     * Method to reset the dice locations to nothing so a user can select dice again
+     */
     private void resetDicePics() {
         ImageButton firstRowFirstDice = (ImageButton) findViewById(R.id.firstRowFirstDice);
         ImageButton firstRowSecondDice = (ImageButton) findViewById(R.id.firstRowSecondDice);
@@ -382,6 +414,9 @@ public class FightActivity extends AppCompatActivity {
         secondRowSecondDice.setBackgroundResource(R.drawable.border);
     }
 
+    /**
+     * Method to generate the rewards screen
+     */
     private void rewardsScreen() {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
         rewardsIntent.putExtra("player", player);
@@ -390,14 +425,20 @@ public class FightActivity extends AppCompatActivity {
         startActivity(rewardsIntent);
     }
 
-
+    /**
+     * Method to handle when a user clicks the inventory button
+     *
+     * @param view view of the application
+     */
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
     }
 
-
+    /**
+     * Method to set which background to display, which operations to allow, and which opponents to generate
+     */
     public void setContent() {
         String lastMap = player.getLastMap();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
@@ -677,7 +718,12 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
-    private void setProgressBars(Opponent opponent){
+    /**
+     * Method to set the progress bars when damage is dealt
+     *
+     * @param opponent
+     */
+    private void setProgressBars(Opponent opponent) {
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -688,6 +734,11 @@ public class FightActivity extends AppCompatActivity {
         opHealth.setText(oppBar);
     }
 
+    /**
+     * Method to generate which answers are allowed
+     *
+     * @param level
+     */
     private void generateAns(String level) {
         TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
@@ -759,68 +810,68 @@ public class FightActivity extends AppCompatActivity {
             Random r = new Random();
             int opIndex;
             if (i == 0) {
-                switch(firstRowOp){
+                switch (firstRowOp) {
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                 }
                 firstRowAns.setText(Integer.toString(opIndex));
             } else
-                switch(secondRowOp){
+                switch (secondRowOp) {
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "-":
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "*":
                         opIndex = r.nextInt(ansMult - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
                     default:
                         opIndex = r.nextInt(ansMax - 1);
-                        if (opIndex < 3){
+                        if (opIndex < 3) {
                             opIndex = 3;
                         }
                         break;
@@ -829,6 +880,11 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to generate which operations are shown
+     *
+     * @param opList ArrayList of operations allowed
+     */
     private void generateOperations(ArrayList<String> opList) {
         TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
         TextView secondRowFirstOp = (TextView) findViewById(R.id.secondRowFirstOp);
@@ -846,6 +902,9 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to generate the next opponent if there is one
+     */
     public void generateNextOpponent() {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
         ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
@@ -874,6 +933,11 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to handle when a user clicks a dice location, shows the dice activity so a user can select a dice
+     *
+     * @param view
+     */
     public void diceClicked(View view) {
         Intent diceIntent = new Intent(this, DiceActivity.class);
         diceIntent.putExtra("player", player);
@@ -883,8 +947,7 @@ public class FightActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.firstRowFirstDice:
                 ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
-                if(frfd.getTag() != null)
-                {
+                if (frfd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", frfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -893,8 +956,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.firstRowSecondDice:
                 ImageButton frsd = (ImageButton) findViewById(R.id.firstRowSecondDice);
-                if(frsd.getTag() != null)
-                {
+                if (frsd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", frsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -903,8 +965,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowFirstDice:
                 ImageButton srfd = (ImageButton) findViewById(R.id.secondRowFirstDice);
-                if(srfd.getTag() != null)
-                {
+                if (srfd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", srfd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -913,8 +974,7 @@ public class FightActivity extends AppCompatActivity {
                 break;
             case R.id.secondRowSecondDice:
                 ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
-                if(srsd.getTag() != null)
-                {
+                if (srsd.getTag() != null) {
                     diceIntent.putExtra("diceFilled", srsd.getTag().toString());
                     diceIntent.putExtra("alreadyFilled", true);
                 }
@@ -928,90 +988,83 @@ public class FightActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 100){
+        if (resultCode == 100) {
             this.player = (Player) data.getSerializableExtra("player");
             playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
             playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
-                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                       playerProgressBar.setProgress(player.getPercentHealthLeft());
-        }
-        else
-        if (resultCode == 104) {
+            playerHealth.setText("Player HP : " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
+        } else if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
-        }
-        else if (resultCode == 106) {
+        } else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
-        }
-        else if (resultCode == 108) {
+        } else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
-        }
-        else if (resultCode == 110) {
+        } else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
-        }
-        else if (resultCode == 112) {
+        } else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
-        }
-        else if (resultCode == 120) {
+        } else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d20);
             img.setTag("d20");
-        }
-        else if(resultCode == 130){
+        } else if (resultCode == 130) {
             this.player = (Player) data.getSerializableExtra("player");
             this.opList = data.getStringArrayListExtra("opList");
             this.opponents = (ArrayList<Opponent>) data.getSerializableExtra("opponents");
             this.level = data.getStringExtra("level");
             displayedResults = true;
 
-        }
-        else if(resultCode == 200){
+        } else if (resultCode == 200) {
             this.player = (Player) data.getSerializableExtra("player");
         }
     }
 
+    /**
+     * Method to call the rest service to update the leadrboards
+     */
     public void updateLeaderboard() {
-        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level="+ this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
-+                "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
+        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
+                + "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
-// Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!response.equals("No Powerups")){
-
-                            }
+                        if (!response.equals("No Powerups")) {
 
                         }
+
+                    }
 
 
                 }, new Response.ErrorListener() {
@@ -1020,10 +1073,10 @@ public class FightActivity extends AppCompatActivity {
 
             }
         });
-// Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }
+
     @Override
     public void onPause() {
         super.onPause();

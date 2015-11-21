@@ -15,8 +15,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+/**
+ * Main class for connecting an android user with web application user
+ */
 public class ConnectAccount extends AppCompatActivity {
+    // Player object of the player
     private Player player;
+    // Phone number to connect
     private String phoneNumber;
 
     @Override
@@ -28,6 +33,11 @@ public class ConnectAccount extends AppCompatActivity {
 
     }
 
+    /**
+     * When the user clicks ok, call the rest service to connect the account
+     *
+     * @param view view of the application
+     */
     public void okClick(View view) {
         EditText edit = (EditText) findViewById(R.id.phoneNumber);
         phoneNumber = edit.getText().toString();
@@ -35,18 +45,26 @@ public class ConnectAccount extends AppCompatActivity {
 
     }
 
+    /**
+     * Close click if the user hasnt made an account or doesent want to connect, send the player to the map screen
+     *
+     * @param view view of the application
+     */
     public void closeClick(View view) {
         Intent mapIntent = new Intent(ConnectAccount.this, DisplayMap.class);
         mapIntent.putExtra("player", player);
         startActivity(mapIntent);
     }
 
-
+    /**
+     * Method to connect a phone number. First check to see if the number has been used, if it hasnt been used add it to the player object
+     *
+     * @param number
+     */
     public void checkNumberRest(String number) {
         String url = "http://192.168.29.115:8080/checkPhoneNumber?number=" + number;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
-// Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -68,7 +86,6 @@ public class ConnectAccount extends AppCompatActivity {
 
             }
         });
-// Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }

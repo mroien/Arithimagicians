@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Method to stop a user from fighting when their health is lower than 0
+ */
 public class HealthTooLowActivity extends Activity {
     private Player player;
 
@@ -26,6 +29,10 @@ public class HealthTooLowActivity extends Activity {
 
     }
 
+    /**
+     * Method to handle the click from a user
+     * @param view
+     */
     public void closeClick(View view) {
         Intent previous = new Intent(getApplicationContext(), DisplayMap.class);
         previous.putExtra("player", this.player);
