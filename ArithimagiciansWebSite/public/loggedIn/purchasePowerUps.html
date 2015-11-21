@@ -51,43 +51,54 @@
             <tr class="row_1">
                 <td>Experience Bonus</td>
                 <td class="price">$0.99</td>
-                <td><input type="number" class="xp_bonus _width"></td>
-                <td class="xp_bonus_sub">$</td>
+                <td><input type="number" class="xp_bonus _width" min="0" max="10"></td>
+                <td class="xp_bonus_sub"></td>
             </tr>
             <tr class="row_2">
                 <td>Damage Bonus</td>
                 <td class="price">$1.49</td>
-                <td><input type="number" class="damage _width"></td>
-                <td class="damage_sub">$</td>
+                <td><input type="number" class="damage _width" min="0" max="10"></td>
+                <td class="damage_sub"></td>
             </tr>
             <tr class="row_3">
                 <td>Loot Bonus</td>
                 <td class="price">$0.99</td>
-                <td><input type="number" class="loot _width"></td>
-                <td class="loot_sub">$</td>
+                <td><input type="number" class="loot _width" min="0" max="10"></td>
+                <td class="loot_sub"></td>
             </tr>
             <tr class="row_4">
                 <td>Health Refresh</td>
                 <td class="price">$1.99</td>
-                <td><input type="number" class="health _width"></td>
-                <td class="health_sub">$</td>
+                <td><input type="number" class="health _width" min="0" max="10"></td>
+                <td class="health_sub"></td>
             </tr>
             <tr class="row_5">
                 <td>Regeneration Potion</td>
                 <td class="price">$2.99</td>
-                <td><input type="number" class="regeneration _width"></td>
-                <td class="regeneration_s$ub">$</td>
+                <td><input type="number" class="regeneration _width" min="0" max="10"></td>
+                <td class="regeneration_sub"></td>
             </tr>
             <tr class="row_6 bold">
-                <td colspan="3">Grand Total</td>
-                <td class="total">$</td>
+                <td colspan="2">Grand Total</td>
+                <td class="confirm"><button class="btn btn-default btn-success sub_purchase">Confirm</button></td>
+                <td class="total"></td>
             </tr>
-
             </tbody>
         </table>
             </div>
+
     </div>
 </div>
+<script>
+    sessionStorage.clear();
 
+//    $('.total').on('click', function(){
+//        $.ajax({
+//            url: 'http://52.32.43.132:8080/addPowerup?',
+//            type: 'GET',
+//            data: 'powerID=' DMGBONUS&transactionID=1&userID=8.
+//        })
+//    })
+</script>
 </body>
 </html>

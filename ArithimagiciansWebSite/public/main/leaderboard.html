@@ -72,11 +72,16 @@ require('leftNav.php');
 <script>
    $(document).ready(function(){
        $.ajax({
-           url: 'http://52.32.43.132:8080/getLeader?',
-           type: 'GET',
+           url: 'http://52.32.43.132:8080/getLeader',
+           type: 'POST',
            crossDomain: true,
            success: function(response){
-               console.log(response)
+//               $.each(response, function(key, value){
+//                   console.log('Key: ' + key + 'value ' + value);
+//                   $('#leaderboardBody').html('<td>' + key + '</td>');
+               console.log(response);
+//               });
+
            }
        })
    })

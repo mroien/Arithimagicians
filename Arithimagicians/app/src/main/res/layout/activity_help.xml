@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Scroll for Help file\n"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Title Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpfiletitle"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nLoad Game"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The Load Game button opens a game that has been started. If you have linked your phone with an online account, this loading a game will download any power-ups you may have purchased online."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nNew Game"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The New Game button starts a new game. If there is a previously saved game on the device, the system will ask if you're sure you want to start a new game before proceeding.
+
+\n\nCAUTION: Starting a new game will overwrite any previously saved data. This means you will lose all progress in the game. You will also lose all stats and power-ups you have previously purchased and downloaded but not yet used. If you have purchased a power-up but not loaded the game since that purchase, it will not have been downloaded and will not be stored on the device. It will be downloaded and saved when the new game is started if you connect the device to your account again with your mobile number.
+
+\n\nIf there is not an account linked to the device, a dialog will appear asking you to connect your device to an account. See image below.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <ImageView
+        android:layout_width="251dp"
+        android:layout_height="180dp"
+        android:background="@drawable/helpnoaccountfound"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nIf you choose No, you will not be able to see your progress online, have your records appear on the Leader Board or purchase any power-ups from the online store.  If you choose Yes, you will be asked to enter your mobile number. By entering the mobile number you used in setting up an online account, your device will be linked to that account, allowing you to purchase power-ups, compete for a spot on the Leader Board, and see your performance statistics online."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nHelp"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "The help button displays this file.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Map Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpmapscreen"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nThe map is your path through the world of Arithimagicians. You will begin the game with one location available. To progress to the Arithimagic University of Learnings, Skills, and Smarts (with Wisdom taught where applicable) [P.S. It's applicable everywhere, The Dean] you will need to defeat opponents at each of fifteen locations. You can face an opponent in a location by clicking on the dot you wish to enter on the map. A description  of the location and the opponent(s) you will face there will pop up for you to read. After deciding to face these opponents, click Fight. You will be taken to the fight screen. If you do not wish to face the opponents yet, click Cancel to dismiss the dialog.
+
+\n\nYou  may also access your inventory for using consumable and power-up items or for leveling up your dice with experience points you've earned in the game by clicking the inventory satchel in the upper  right hand corner of the screen. The inventory satchel is available from the map or the fight screen and is always located in the upper right corner of the screen.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Fight Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpfightscreen"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nYou will progress through the game by fighting Gobloids and Skeletonians. On the fight screen you will find a variety of information. At the top is the player's hit points and health bar. When hit points reach 0, you will fall into a magically induced stasis until your hit points are restored. Outside of a fight, your hit points regenerate at a slow rate. To the right of the health bar is the inventory satchel described on the Map Screen.  At the bottom of the screen, you can see a similar health bar for your opponent. It contains your opponent's name and current hit points.
+
+\n\nBelow the health bar and the inventory satchel are two equations. This is the main activity in the game. Each equation has two blank spaces separated by a mathematical symbol. To the right of the spaces is a '>' and a number. To fight an opponent you must generate a number greater than the answer on the right of the equation. You generate  the number by placing dice in the blank spaces. Click on a space to open the dice tray. See Figure 5. With the dice tray open, click on the die you would like to place in the blank space.
+
+\n\nAfter all four blank spaces are filled, you are ready to cast your spell. Click the \'Attack\' button below the equations to roll the dice. The game will generate a number between one and the number of sides on the dice you chose. If the total of each equation beats the equation's answer, you will deal damage to your opponent. If not, your opponent will hit you. If you or your opponent is not defeated, you will get a display showing the results of your attack. If your opponent is defeated, you will move on to the Rewards Screen. If you are defeated, you will instead see the Stasis screen.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Inventory Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpinventoryscreen"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nBy clicking on the inventory satchel, you can access your collection of usable items and spend experience points to buy more dice or bonuses to dice you already have.
+
+\n\nClicking on one of the items you have, such as the health potion, will apply the bonus to your character. Bonuses received from power-ups last for one hour.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nItems"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nHealth Potion - Gives the player 5 hit points back.\n
+\nExperience Bonus (Power-Up) - For one hour, the player earns 1.5 times the normal experience points from a fight. For example, an opponent that would normally give four experience points will give six instead.\n
+\nDamage Bonus (Power-Up) - For one hour, all damage you deal to opponents will be multiplied by 1.5 and rounded to the nearest whole number.\n
+\nLoot Bonus (Power-Up) - For one hour, you will be 1.5 times more likely to receive a health potion after winning a fight.\n
+\nFull Hit Point Refresh (Power-Up) - Your hit points will be immediately returned to the maximum value (10, 15, or 20 depending on your highest level completed).\n
+\nHit Point Regeneration Rate (Power-Up) - For one hour, your hit points will return 1.5 times faster.\n
+\nClicking the Level Up button will open the dice tray for you. Clicking the Close button will close the inventory screen.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Leveling Up the Dice"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpleveldice"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nAfter you have faced some opponents and earned experience points, you can use that experience to increase the power of your dice. You can level up your dice by opening the inventory satchel and clicking the Level Up button. From there, select a dice by clicking on it. This will open the Level Up window.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <ImageView
+        android:layout_width="251dp"
+        android:layout_height="180dp"
+        android:background="@drawable/helplevelupdialog"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nFrom this window, you can either buy another die of this value or add a bonus to all die of this type you already have. The current count of dice or bonus to these dice is listed under Current. The cost in XP is listed under Cost. If you have enough experience points, click either Buy Dice or Buy Bonus. You will be asked to confirm the purchase. If you do, you will have an extra die in the tray if you purchased another die or all die that you have of this type will roll higher numbers.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Rewards Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpreward"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nYou see the Reward Screen after you defeat an opponent. It tells you how much experience points you earned and what your total experience points is now. If you found a healing potion, it will tell you that here as well.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "Stasis Screen"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize = "30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:background="@drawable/helpstasis"
+        android:layout_marginLeft= "25dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "\nYou are taken to the Stasis Screen if you are defeated by an opponent. You will earn half experience points if you lose a fight. You will never find a healing potion if you lost.\n"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Use the Back Button to exit Help.\n"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
+</ScrollView>

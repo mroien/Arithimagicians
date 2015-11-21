@@ -53,18 +53,12 @@ label {
   display: flex;
   flex-direction: row; }
 
-.download, .cancel {
-  margin: auto; }
-
 .progress {
   width: 300px;
   align-self: center; }
 
 #leaderboard {
-  display: flex;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto; }
+  justify-content: center; }
 
 .bgBlue th, .bgBlue td {
   background-color: cadetblue;
@@ -73,8 +67,6 @@ label {
   text-align: center; }
 
 #powerUpsTable {
-  display: flex;
-  margin: auto;
   height: 232px; }
 
 .bold {
@@ -85,6 +77,9 @@ label {
 
 ._width {
   width: 40px; }
+
+#payment-form {
+  margin: auto; }
 
 #deleteWrapper {
   font-family: "Peas & Carrots";
@@ -110,6 +105,10 @@ label {
   width: 700px;
   top: 40%;
   right: 30%; }
+
+#transactions {
+  display: flex;
+  margin: auto; }
 
 .text_wrapper {
   overflow: auto;
@@ -157,8 +156,7 @@ h1 {
   top: -5em; }
 
 .infoBtnWrapper {
-  display: block;
-  text-align: right; }
+  display: block; }
 
 .signedIn {
   position: inherit;
@@ -172,5 +170,9 @@ tr, td, th {
   border: 2px solid;
   text-align: center;
   padding: 3px; }
+
+#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment {
+  display: flex;
+  margin: auto; }
 
 /*# sourceMappingURL=main.css.map */
