@@ -55,6 +55,7 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Overrides parent's onCreate method. Sets player, opponents and health bars.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -87,6 +88,7 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Method to actually do the calculations of the attack. First grab the dice that were used, do the computations against the operations presented and then deal out damage. Then if an opponent dies, generate a new opponent or if there is none go to the reward screen.
+     *
      * @param view view of the application
      */
     public void attackClicked(View view) {
@@ -430,6 +432,7 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Calls the InventoryActivity screen when the inventory satchel is pressed.
+     *
      * @param view
      */
     public void inventoryClicked(View view) {
@@ -723,11 +726,11 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Method to set the progress bars when damage is dealt
-     * @param opponent
-     * Sets player and opponent health bars based on percentage of health left.
+     *
+     * @param opponent Sets player and opponent health bars based on percentage of health left.
      * @param opponent
      */
-    private void setProgressBars(Opponent opponent){
+    private void setProgressBars(Opponent opponent) {
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -741,6 +744,7 @@ public class FightActivity extends AppCompatActivity {
     /**
      * Generates answers based on the level. Each level has a maximum possible answer, depending on
      * the operators that might be present in the fight.
+     *
      * @param level
      */
     private void generateAns(String level) {
@@ -886,6 +890,7 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Generates operators for the fight based on opList
+     *
      * @param opList
      */
     private void generateOperations(ArrayList<String> opList) {
@@ -939,6 +944,7 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Sets intent and passes information based on die chosen.
+     *
      * @param view
      */
     public void diceClicked(View view) {
@@ -990,6 +996,7 @@ public class FightActivity extends AppCompatActivity {
     /**
      * Overrides parent's onActivityResults. Handles placing proper die image and setting player
      * dice arrays based on the request code returned from the DiceActivity.
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -1004,8 +1011,8 @@ public class FightActivity extends AppCompatActivity {
             playerHealth.setText("Player HP : " + player.getCurrentHealth());
             playerProgressBar.setProgress(player.getPercentHealthLeft());
         } else if (resultCode == 104) {
-                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
-                       playerProgressBar.setProgress(player.getPercentHealthLeft());
+            playerHealth.setText("Player HP : " + player.getCurrentHealth());
+            playerProgressBar.setProgress(player.getPercentHealthLeft());
         }
         //d4 returned
         else if (resultCode == 104) {
@@ -1015,6 +1022,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
+        }
         //d6 returned
         else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
@@ -1023,6 +1031,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
+        }
         //d8 returned
         else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
@@ -1031,6 +1040,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
+        }
         //d10 returned
         else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
@@ -1039,6 +1049,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
+        }
         //d12 returned
         else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
@@ -1047,6 +1058,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
+        }
         //d12 returned
         else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
@@ -1055,6 +1067,7 @@ public class FightActivity extends AppCompatActivity {
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d20);
             img.setTag("d20");
+
         } else if (resultCode == 130) {
             this.player = (Player) data.getSerializableExtra("player");
             this.opList = data.getStringArrayListExtra("opList");
@@ -1066,6 +1079,7 @@ public class FightActivity extends AppCompatActivity {
             this.player = (Player) data.getSerializableExtra("player");
         }
     }
+
 
     /**
      * Passes leader board information to online database for the user's acccount.
