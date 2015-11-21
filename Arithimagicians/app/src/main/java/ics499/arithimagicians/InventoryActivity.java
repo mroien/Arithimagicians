@@ -32,6 +32,11 @@ public class InventoryActivity extends Activity {
     private ArrayList<Item> inventory;
     private ArrayList<TextView> invCounts = new ArrayList<TextView>();
 
+    /**
+     * Overrides parent's onCreate method. Called when activity is created.
+     * Dynamically sets the inventory buttons based on the player's inventory.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,11 +102,21 @@ public class InventoryActivity extends Activity {
         startActivityForResult(levelUp, 5);
     }
 
+    /**
+     * onActivityResult is called when a dialog or activity returns to this screen. Updates the player
+     * with the most recent information.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");
     }
 
+    /**
+     * Listens to each item for user clicks. Calls player.useItem() for the item that is clicked.
+     */
     public class MyOnClickListener implements View.OnClickListener {
 
         Item itemUsed;
@@ -120,6 +135,9 @@ public class InventoryActivity extends Activity {
         }
     }
 
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -138,6 +156,9 @@ public class InventoryActivity extends Activity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

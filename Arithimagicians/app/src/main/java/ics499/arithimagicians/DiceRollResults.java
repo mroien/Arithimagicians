@@ -15,6 +15,10 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * DiceRollResults extends Activity and handles displaying the results of a dice roll/attack
+ * to the user.
+ */
 public class DiceRollResults extends Activity {
     private Player player;
     private String level;
@@ -38,6 +42,11 @@ public class DiceRollResults extends Activity {
     private boolean isDead;
     private double opAttack;
 
+    /**
+     * Overrides parent's onCreate method. Runs when the activity creates and stores all of the
+     * die rolls, opponents and operands found in savedInstanceState.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +77,11 @@ public class DiceRollResults extends Activity {
         generateResults();
     }
 
+    /**
+     * Displays the results of the data passed in with savedInstanceState Bundle.
+     */
     public void generateResults() {
+        //update all text views.
         TextView firstRowFirstValue = (TextView) findViewById(R.id.firstRowFirstValue);
         TextView firstRowSecondValue = (TextView) findViewById(R.id.firstRowSecondValue);
         TextView secondRowFirstValue = (TextView) findViewById(R.id.secondRowFirstValue);
@@ -142,6 +155,9 @@ public class DiceRollResults extends Activity {
         this.finish();
     }
 
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -160,6 +176,9 @@ public class DiceRollResults extends Activity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

@@ -148,6 +148,9 @@ public class RewardActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -166,6 +169,9 @@ public class RewardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

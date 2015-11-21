@@ -30,6 +30,7 @@ import java.util.Random;
 
 /**
  * Created by Jacob Kinzer on 10/20/2015.
+ * FightActivity extends AppCompatActivity and handles all of the fighting in the app.
  */
 public class FightActivity extends AppCompatActivity {
     private Player player;
@@ -51,7 +52,10 @@ public class FightActivity extends AppCompatActivity {
     private boolean displayedResults;
     private int totalEnemyHP;
 
-
+    /**
+     * Overrides parent's onCreate method. Sets player, opponents and health bars.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +84,10 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles the user clicking the 'Attack' button.
+     * @param view
+     */
     public void attackClicked(View view) {
         currentElement = "Light";
         // Generate all of the stuff we need to calculate damage
@@ -328,6 +336,26 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates Intent and passes necessary information to DiceRollResultsActivity.
+     * @param firstRowFirstDice
+     * @param firstRowSecondDice
+     * @param secondRowFirstDice
+     * @param secondRowSecondDice
+     * @param firstRowOp
+     * @param secondRowOp
+     * @param firstRowSecondOp
+     * @param secondRowSecondOp
+     * @param firstRowAns
+     * @param secondRowAns
+     * @param firstRowAttack
+     * @param firstRowUser
+     * @param secondRowAttack
+     * @param secondRowUser
+     * @param isDeadOnFirstRoll
+     * @param isDead
+     * @param opAttack
+     */
     private void generateResults(int firstRowFirstDice, int firstRowSecondDice, int secondRowFirstDice,
                                  int secondRowSecondDice, String firstRowOp, String secondRowOp,
                                  String firstRowSecondOp, String secondRowSecondOp, String firstRowAns,
@@ -363,6 +391,9 @@ public class FightActivity extends AppCompatActivity {
         startActivityForResult(results, 100);
     }
 
+    /**
+     * Sets Intent and calls the DeathActivity screen
+     */
     private void generateDeathScreen() {
         Intent deathIntent = new Intent(this, DeathActivity.class);
         deathIntent.putExtra("player", player);
@@ -370,6 +401,9 @@ public class FightActivity extends AppCompatActivity {
         startActivity(deathIntent);
     }
 
+    /**
+     * Removes dice images and resets the formulas to have blank spaces.
+     */
     private void resetDicePics() {
         ImageButton firstRowFirstDice = (ImageButton) findViewById(R.id.firstRowFirstDice);
         ImageButton firstRowSecondDice = (ImageButton) findViewById(R.id.firstRowSecondDice);
@@ -382,6 +416,9 @@ public class FightActivity extends AppCompatActivity {
         secondRowSecondDice.setBackgroundResource(R.drawable.border);
     }
 
+    /**
+     * Generates the Intent and calls the RewardActivity screen after a victorious combat.
+     */
     private void rewardsScreen() {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
         rewardsIntent.putExtra("player", player);
@@ -390,14 +427,20 @@ public class FightActivity extends AppCompatActivity {
         startActivity(rewardsIntent);
     }
 
-
+    /**
+     * Calls the InventoryActivity screen when the inventory satchel is pressed.
+     * @param view
+     */
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
         invIntent.putExtra("player", player);
         startActivityForResult(invIntent, 100);
     }
 
-
+    /**
+     * Sets the content for the fight based on the level chosen. For each level, adds opponents
+     * equation operators and answers, plus sets the first background.
+     */
     public void setContent() {
         String lastMap = player.getLastMap();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
@@ -677,6 +720,10 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets player and opponent health bars based on percentage of health left.
+     * @param opponent
+     */
     private void setProgressBars(Opponent opponent){
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
@@ -688,6 +735,11 @@ public class FightActivity extends AppCompatActivity {
         opHealth.setText(oppBar);
     }
 
+    /**
+     * Generates answers based on the level. Each level has a maximum possible answer, depending on
+     * the operators that might be present in the fight.
+     * @param level
+     */
     private void generateAns(String level) {
         TextView firstRowAns = (TextView) findViewById(R.id.firstRowFirstAns);
         TextView secondRowAns = (TextView) findViewById(R.id.secondRowAns);
@@ -829,6 +881,10 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Generates operators for the fight based on opList
+     * @param opList
+     */
     private void generateOperations(ArrayList<String> opList) {
         TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
         TextView secondRowFirstOp = (TextView) findViewById(R.id.secondRowFirstOp);
@@ -846,6 +902,10 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets the next opponent after the current opponent is defeated. Updates Leaderboard
+     * and calls RewardScreen if victorious.
+     */
     public void generateNextOpponent() {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
         ImageButton frfd = (ImageButton) findViewById(R.id.firstRowFirstDice);
@@ -874,6 +934,10 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets intent and passes information based on die chosen.
+     * @param view
+     */
     public void diceClicked(View view) {
         Intent diceIntent = new Intent(this, DiceActivity.class);
         diceIntent.putExtra("player", player);
@@ -924,7 +988,13 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Overrides parent's onActivityResults. Handles placing proper die image and setting player
+     * dice arrays based on the request code returned from the DiceActivity.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -935,8 +1005,8 @@ public class FightActivity extends AppCompatActivity {
                        playerHealth.setText("Player HP : " + player.getCurrentHealth());
                        playerProgressBar.setProgress(player.getPercentHealthLeft());
         }
-        else
-        if (resultCode == 104) {
+        //d4 returned
+        else if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
@@ -944,6 +1014,7 @@ public class FightActivity extends AppCompatActivity {
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
         }
+        //d6 returned
         else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
@@ -952,6 +1023,7 @@ public class FightActivity extends AppCompatActivity {
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
         }
+        //d8 returned
         else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
@@ -960,6 +1032,7 @@ public class FightActivity extends AppCompatActivity {
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
         }
+        //d10 returned
         else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
@@ -968,6 +1041,7 @@ public class FightActivity extends AppCompatActivity {
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
         }
+        //d12 returned
         else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
@@ -976,6 +1050,7 @@ public class FightActivity extends AppCompatActivity {
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
         }
+        //d12 returned
         else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
@@ -997,6 +1072,9 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Passes leader board information to online database for the user's acccount.
+     */
     public void updateLeaderboard() {
         String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level="+ this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
 +                "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
@@ -1022,8 +1100,11 @@ public class FightActivity extends AppCompatActivity {
         });
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
     }
+
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -1042,6 +1123,9 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

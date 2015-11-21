@@ -49,6 +49,9 @@ public class DisplayMap extends AppCompatActivity {
         this.player.checkPowerupTimer(System.nanoTime());
     }
 
+    /**
+     * Sets the health bar based on the percentage of health the player has left.
+     */
     public void setHealthBar(){
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -150,6 +153,13 @@ public class DisplayMap extends AppCompatActivity {
 
     }
 
+    /**
+     * Overrides parent's onActivityResult. Sets the health bar and stores the player passed into
+     * the method.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         setHealthBar();
@@ -212,6 +222,9 @@ public class DisplayMap extends AppCompatActivity {
         setHealthBar();
     }
 
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -230,6 +243,9 @@ public class DisplayMap extends AppCompatActivity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

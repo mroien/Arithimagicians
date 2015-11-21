@@ -14,10 +14,19 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
+/**
+ * DeathActivity extends AppCompatActivity. It creates the post fight screen
+ * when the player's hit points are taken to 0 during a fight.
+ */
 public class DeathActivity extends AppCompatActivity {
     private Player player;
     private int XP;
 
+    /**
+     * Overrides parent's onCreate() method. Calls super.onCreate with savedInstanceState Bundle
+     * and sets the screen, player, xp, and message on the screen.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,20 +34,27 @@ public class DeathActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         player = (Player) getIntent.getSerializableExtra("player");
         XP = getIntent.getIntExtra("XP", 0);
-        Log.i("Prereward", "Pre XP is " + Integer.toString(player.getXp()));
         player.gainXP(XP);
-        Log.i("Postreward", "New XP is " + Integer.toString(player.getXp()));
         TextView xPRewards = (TextView) findViewById(R.id.XPreward);
         xPRewards.setText("You earned " + Integer.toString(XP) + " experience.\n" +
                 "Your total is now " + Integer.toString(player.getXp()) + ".");
     }
 
+    /**
+     * Called when user clicks the 'Close' button. Returns the game to the DisplayMap
+     * activity and passes player.
+     * @param view
+     */
     public void closeClick(View view) {
         Intent mapIntent = new Intent(this, DisplayMap.class);
         mapIntent.putExtra("player", player);
         startActivity(mapIntent);
     }
 
+    /**
+     * Overrides parent's onPause() method. Saves the game into a file when the
+     * app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -57,6 +73,9 @@ public class DeathActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();
