@@ -30,6 +30,11 @@ public class DiceLevelUpActivity extends Activity {
     private ArrayList<String> opList;
     private ArrayList<Opponent> opponents;
 
+    /**
+     * Overrides parent's onCreate method. Sets the view to show the dice tray and
+     * loads the dice arrays from the player.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +136,7 @@ public class DiceLevelUpActivity extends Activity {
     }
 
     /**
-     * Method to set the dice textfields to state how many dice of each the player has
+     * Method to set the dice text fields to state how many dice of each the player has
      */
     public void setDiceCount() {
         int d4 = 0;
@@ -163,7 +168,7 @@ public class DiceLevelUpActivity extends Activity {
 
             }
         }
-
+        //Update text values with counts
         TextView t = (TextView) findViewById(R.id.d4TextView);
         t.setText(Integer.toString(d4));
         t = (TextView) findViewById(R.id.d6TextView);
@@ -179,6 +184,13 @@ public class DiceLevelUpActivity extends Activity {
 
     }
 
+    /**
+     * Accepts results from another activity or dialog. Stores the passed Intent's player and
+     * updates the dice values with the new player's dice.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         this.player = (Player) data.getSerializableExtra("player");

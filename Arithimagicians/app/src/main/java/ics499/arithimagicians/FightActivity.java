@@ -31,6 +31,7 @@ import java.util.Random;
 /**
  * Created by Jacob Kinzer on 10/20/2015.
  * Main class to dictate the fighting
+ * FightActivity extends AppCompatActivity and handles all of the fighting in the app.
  */
 public class FightActivity extends AppCompatActivity {
     private Player player;
@@ -52,7 +53,10 @@ public class FightActivity extends AppCompatActivity {
     private boolean displayedResults;
     private int totalEnemyHP;
 
-
+    /**
+     * Overrides parent's onCreate method. Sets player, opponents and health bars.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +87,6 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Method to actually do the calculations of the attack. First grab the dice that were used, do the computations against the operations presented and then deal out damage. Then if an opponent dies, generate a new opponent or if there is none go to the reward screen.
-     *
      * @param view view of the application
      */
     public void attackClicked(View view) {
@@ -415,7 +418,7 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to generate the rewards screen
+     * Generates the Intent and calls the RewardActivity screen after a victorious combat.
      */
     private void rewardsScreen() {
         Intent rewardsIntent = new Intent(this, RewardActivity.class);
@@ -426,9 +429,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to handle when a user clicks the inventory button
-     *
-     * @param view view of the application
+     * Calls the InventoryActivity screen when the inventory satchel is pressed.
+     * @param view
      */
     public void inventoryClicked(View view) {
         Intent invIntent = new Intent(this, InventoryActivity.class);
@@ -437,7 +439,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to set which background to display, which operations to allow, and which opponents to generate
+     * Sets the content for the fight based on the level chosen. For each level, adds opponents
+     * equation operators and answers, plus sets the first background.
      */
     public void setContent() {
         String lastMap = player.getLastMap();
@@ -720,10 +723,11 @@ public class FightActivity extends AppCompatActivity {
 
     /**
      * Method to set the progress bars when damage is dealt
-     *
+     * @param opponent
+     * Sets player and opponent health bars based on percentage of health left.
      * @param opponent
      */
-    private void setProgressBars(Opponent opponent) {
+    private void setProgressBars(Opponent opponent){
         playerProgressBar = (ProgressBar) findViewById(R.id.playerProgressBar);
         opProgressBar = (ProgressBar) findViewById(R.id.oppProgressBar);
         playerHealth = (TextView) findViewById(R.id.playerHealthTextView);
@@ -735,8 +739,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to generate which answers are allowed
-     *
+     * Generates answers based on the level. Each level has a maximum possible answer, depending on
+     * the operators that might be present in the fight.
      * @param level
      */
     private void generateAns(String level) {
@@ -881,9 +885,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to generate which operations are shown
-     *
-     * @param opList ArrayList of operations allowed
+     * Generates operators for the fight based on opList
+     * @param opList
      */
     private void generateOperations(ArrayList<String> opList) {
         TextView firstRowFirstOp = (TextView) findViewById(R.id.firstRowFirstOp);
@@ -903,7 +906,8 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to generate the next opponent if there is one
+     * Gets the next opponent after the current opponent is defeated. Updates Leaderboard
+     * and calls RewardScreen if victorious.
      */
     public void generateNextOpponent() {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.fightLayout);
@@ -934,8 +938,7 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to handle when a user clicks a dice location, shows the dice activity so a user can select a dice
-     *
+     * Sets intent and passes information based on die chosen.
      * @param view
      */
     public void diceClicked(View view) {
@@ -984,7 +987,13 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Overrides parent's onActivityResults. Handles placing proper die image and setting player
+     * dice arrays based on the request code returned from the DiceActivity.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -995,41 +1004,51 @@ public class FightActivity extends AppCompatActivity {
             playerHealth.setText("Player HP : " + player.getCurrentHealth());
             playerProgressBar.setProgress(player.getPercentHealthLeft());
         } else if (resultCode == 104) {
+                       playerHealth.setText("Player HP : " + player.getCurrentHealth());
+                       playerProgressBar.setProgress(player.getPercentHealthLeft());
+        }
+        //d4 returned
+        else if (resultCode == 104) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d4);
             img.setTag("d4");
-        } else if (resultCode == 106) {
+        //d6 returned
+        else if (resultCode == 106) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d6);
             img.setTag("d6");
-        } else if (resultCode == 108) {
+        //d8 returned
+        else if (resultCode == 108) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d8);
             img.setTag("d8");
-        } else if (resultCode == 110) {
+        //d10 returned
+        else if (resultCode == 110) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d10);
             img.setTag("d10");
-        } else if (resultCode == 112) {
+        //d12 returned
+        else if (resultCode == 112) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
             ImageButton img = (ImageButton) this.findViewById(this.getResources().getIdentifier(diceLoc, "id", this.getPackageName()));
             img.setBackgroundResource(R.drawable.d12);
             img.setTag("d12");
-        } else if (resultCode == 120) {
+        //d12 returned
+        else if (resultCode == 120) {
             this.player = (Player) data.getSerializableExtra("player");
             String diceLoc = data.getStringExtra("diceLoc");
             currentElement = data.getStringExtra("element");
@@ -1049,7 +1068,7 @@ public class FightActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to call the rest service to update the leadrboards
+     * Passes leader board information to online database for the user's acccount.
      */
     public void updateLeaderboard() {
         String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
@@ -1074,9 +1093,12 @@ public class FightActivity extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
-
     }
 
+
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -1095,6 +1117,9 @@ public class FightActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();

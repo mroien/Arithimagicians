@@ -28,6 +28,11 @@ public class DiceActivity extends Activity {
     private ArrayList<String> opList;
     private ArrayList<Opponent> opponents;
 
+    /**
+     * Overrides parent's onCreate method. Sets the view to show the dice tray and
+     * loads the dice arrays from the player.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +81,8 @@ public class DiceActivity extends Activity {
         previous.putExtra("diceLoc", diceLoc);
         previous.putExtra("opList", opList);
         previous.putExtra("opponents", opponents);
+
+        //switches on the view ID of the die selected
         switch (view.getId()) {
             case R.id.d4:
                 if (player.checkDice("d4")) {
@@ -193,6 +200,7 @@ public class DiceActivity extends Activity {
             }
         }
 
+        //update the values of all dice to show how many are available.
         TextView t = (TextView) findViewById(R.id.d4TextView);
         t.setText(Integer.toString(d4));
         t = (TextView) findViewById(R.id.d6TextView);
@@ -208,6 +216,9 @@ public class DiceActivity extends Activity {
 
     }
 
+    /**
+     * Overrides parent's onPause method. Saves the game when the app loses focus.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -226,6 +237,9 @@ public class DiceActivity extends Activity {
         }
     }
 
+    /**
+     * Overrides parent's onStop method. Saves the game when the app is shut down.
+     */
     @Override
     public void onStop() {
         super.onStop();
