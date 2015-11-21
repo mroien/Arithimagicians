@@ -183,13 +183,16 @@ public class Website {
 
 	public String getTransactions(String userId) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
-		String queryTrans = "SELECT * from transactions WHERE userId = ?";
+		String queryTrans = "SELECT * from transactions WHERE userID = ?";
 		try {
 			PreparedStatement prepStateFirst = conn.prepareStatement(queryTrans);
-			prepStateFirst.setString(1, userId);
+			prepStateFirst.setInt(1, Integer.parseInt(userId));
 			ResultSet rs = prepStateFirst.executeQuery();
+			System.out.println(userId);
+			System.out.println(prepStateFirst.toString());
 			String result = "";
 			if(rs.absolute(1)){
+				System.out.println("in");
 				rs.beforeFirst();
 			while(rs.next())
 			{

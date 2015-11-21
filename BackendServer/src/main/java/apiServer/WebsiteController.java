@@ -57,7 +57,7 @@ public class WebsiteController {
 
 	// Local URL : http://52.32.43.132:8080/transactions?accountId=1028929
 	@RequestMapping("/transactions")
-	public String getTransactions(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+	public String getTransactions(@RequestParam(value = "accountId", defaultValue = "0000") String userID)
 			throws SQLException {
 
 		return web.getTransactions(userID);
