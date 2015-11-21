@@ -386,6 +386,7 @@ public class Player extends Character implements Serializable {
         if (((time - this.timeStamp) / 1E9) > 300) {
             int amt = 1 * regenRate.intValue();
             this.gainHealth(amt);
+            this.timeStamp = time;
         }
     }
 

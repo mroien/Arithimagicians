@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        read();
+
     }
 
     /**
@@ -56,7 +56,53 @@ public class MainActivity extends AppCompatActivity implements Serializable {
      */
     public void newGameClicked(View view) {
         // if no account found, ask if they want to make an account and display the webpage
-        if (this.player == null) {
+
+        if (this.player != null) {
+            Builder sure = new Builder(this);
+            final Builder builder = new Builder(this);
+            sure
+                    .setTitle("Are you sure?")
+                    .setMessage("Are you sure you would like to create a new game?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ;
+                            builder
+                                    .setTitle("No Account Found")
+                                    .setMessage("Would you like to connect your account?")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            player = new Player();
+                                            Intent connectIntent = new Intent(MainActivity.this, ConnectAccount.class);
+                                            connectIntent.putExtra("player", player);
+                                            startActivity(connectIntent);
+
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Get the mobile phone number, call the db and see if it matches an account from the website, if it does, tie them together with a rest call
+
+                                            // Create user account without any information besides random accountId, and set level to the start
+                                            player = new Player();
+                                            // Send to start screen:
+                                            Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
+                                            mapIntent.putExtra("player", player);
+                                            startActivity(mapIntent);
+
+
+                                        }
+                                    }).show();
+
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+        }
+        else{
             Builder builder = new Builder(this);
             builder
                     .setTitle("No Account Found")
@@ -86,27 +132,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         }
                     }).show();
         }
-        else{
-            Builder builder = new Builder(this);
-            builder
-                    .setTitle("Game Found")
-                    .setMessage("Are you sure you want to start a new game? (This will delete your old game!)")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            player = new Player();
-                            Intent connectIntent = new Intent(MainActivity.this, ConnectAccount.class);
-                            connectIntent.putExtra("player", player);
-                            startActivity(connectIntent);
+    }
 
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        finish();
-        }
-    }).show();
-        }}
+
 
     /**
      * Handler for loading a game
@@ -115,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
      */
     public void loadGameClicked(View view) {
         read();
+        if(!(this.player == null)){
+            Intent mapIntent = new Intent(MainActivity.this, DisplayMap.class);
+            mapIntent.putExtra("player", player);
+            startActivity(mapIntent);
+        }
     }
 
     /**
