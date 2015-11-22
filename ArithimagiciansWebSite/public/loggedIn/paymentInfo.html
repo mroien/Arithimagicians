@@ -91,19 +91,18 @@
 
             function payment() {
                 var ccNumber = document.getElementById('ccNumber').value,
+                        newCC = ccNumber.replace(/\s/g,""),
                         ccName = document.getElementById('ccName').value,
                         ccExp = document.getElementById('ccExp').value,
                         ccCVC = document.getElementById('ccCVC').value,
                         ccType = sessionStorage.getItem('ccType');
-                    console.log('number: ' + ccNumber + '  name: ' + ccName+' exp: ' +ccExp+ ' cvc: ' + ccCVC+ ' type ' +ccType);
-                // TODO: fix AJAX call
+
                 $.ajax({
                     url: 'http://52.32.43.132:8080/addCard?',
-                    type: 'GET',
-                    data: 'userID=' + local_userID + '&creditCardNumber=' + ccNumber + '&creditCardType=' + ccType,
+                    type: 'POST',
+                    data: 'userID=' + local_userID + '&creditCardNumber=' + newCC + '&creditCardType=' + ccType,
                     crossDomain: true,
                     success: function (response) {
-                        alert(response);
                         sessionStorage.setItem('ccNumber', ccNumber);
                         sessionStorage.setItem('ccName', ccName);
                         sessionStorage.setItem('ccExp', ccExp);
