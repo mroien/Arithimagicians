@@ -66,6 +66,11 @@ label {
   padding: 2px;
   text-align: center; }
 
+#current {
+  border: 5px solid;
+  display: flex;
+  margin: auto; }
+
 #powerUpsTable {
   height: 232px; }
 
@@ -78,8 +83,17 @@ label {
 ._width {
   width: 40px; }
 
-#payment-form {
-  margin: auto; }
+.card-wrapper {
+  margin: auto;
+  position: relative;
+  left: 26%;
+  bottom: 14%; }
+
+.form-container {
+  margin: auto;
+  position: relative;
+  top: 19%;
+  right: 18%; }
 
 #deleteWrapper {
   font-family: "Peas & Carrots";
@@ -98,17 +112,10 @@ label {
   max-width: 50px;
   margin: auto; }
 
-#viewTransactions {
-  position: absolute;
-  border: 5px solid red;
-  height: 500px;
-  width: 700px;
-  top: 40%;
-  right: 30%; }
-
 #transactions {
-  display: flex;
-  margin: auto; }
+  width: 166px;
+  height: 300px;
+  overflow: auto; }
 
 .text_wrapper {
   overflow: auto;

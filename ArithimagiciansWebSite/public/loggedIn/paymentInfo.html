@@ -11,6 +11,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../../js/loggedIn.js"></script>
     <script src="../../js/main.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
@@ -33,66 +34,41 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
-            <form action="javascript:card()" method="post" id="payment-form">
-                    <label for="cc">Card Number</label>
-                        <input type="text" size="20" id="cc" maxlength="14" pattern="[\d]{14}"
-                               oninvalid="setCustomValidity('The credit card must be 14 characters');"
-                               oninput="setCustomValidity('')" placeholder="14 numbers" required/><br>
+        <div class="card-wrapper"></div>
+            <div class="form-container active">
+                <form action="">
+                    <input placeholder="Card Number" type="text" name="number" size ="20"
+                           maxlength="20" pattern="[\d]{,20}" 
+                           oninvalid="setCustomValidity('The credit card must be 14 characters');"
+                           oninput="setCustomValidity('')" autofocus required/>
+                    <input placeholder="Full Name" type="text" name="name" pattern="[A-Za-z ]{,20}"
+                           oninvalid="setCustomValidity('Please enter your name');"
+                           oninput="setCustomValidity('')" required>
+                    <input placeholder="MM/YY" type="text" name="expiry"
+                           oninvalid="setCustomValidity('Please enter the month and year');"
+                           oninput="setCustomValidity('')" required>
+                    <input placeholder="CVC" type="text" name="cvc"
+                           oninvalid="setCustomValidity('Please enter your CVC number');"
+                           oninput="setCustomValidity('')" required>
+                    <input type="submit" class="ccSubmit" value="Add Card">
+                    <input type="reset">
+                </form>
 
-                    <label for="cvc">CVC</label>
-                        <input type="text" size="4" id="cvc" maxlength="3" pattern="[\d]{3}"
-                               oninvalid="setCustomValidity('The CVC must be 3 numbers');"
-                               oninput="setCustomValidity('')" placeholder="123" required/><br>
-
-                    <label for="month">Expiration (MM/YYYY)</label>
-                        <input type="text" size="2" id="month" maxlength="2" pattern="[\d]{2}"
-                               oninvalid="setCustomValidity('Please enter a valid 2 digit month');"
-                               oninput="setCustomValidity('')" placeholder="04" required/>
-                /
-                    <input type="text" size="4" data-stripe="exp-year" id="year" maxlength="4" pattern="[\d]{4}"
-                           oninvalid="setCustomValidity('Please enter a valid year');"
-                           oninput="setCustomValidity('')" placeholder="2015" required/><br>
-
-                <label for="ccType">Credit Card Type</label>
-                        <select id="ccType" required>
-                            <option selected="selected">Select a Credit Card Type</option>
-                            <option value="Visa" class="visa">Visa</option>
-                            <option value="Mastercard" class="mastercard">Mastercard</option>
-                            <option value="Discover" class="discover">Discover</option>
-                            <option value="Amex" class="amex">American Express</option>
-                        </select><br>
-                <button type="submit" class="payment">Submit Payment</button>
-            </form>
+            </div>
+        </div>
         </div>
     </div>
-</div>
-<script>
+<script src="../../js/card.js"></script>
+        <script>
+            new Card({
+                form: document.querySelector('form'),
+                container: '.card-wrapper'
+            });
 
-    function card() {
-        var ccNumber = document.getElementById('cc').value,
-                cvc = document.getElementById('cvc').value,
-                month = document.getElementById('month').value,
-                year = document.getElementById('year').value,
-                type = document.getElementById('ccType').value;
-
-        localStorage.setItem('Credit Card #', ccNumber);
-        localStorage.setItem('CVC', cvc);
-        localStorage.setItem('CC_month', month);
-        localStorage.setItem('CC_year', year);
-        localStorage.setItem('CC_type', type);
-
-        $('.payment').on('click', function () {
-            $.ajax({
-                url: 'http://52.32.43.132:8080/addCard?',
-                type: 'POST',
-                data: 'userID=' + userID + 'creditCardNumber=' + ccNumber + 'creditCardType=' + type,
-                crossDomain: true,
-                success: function(response){
-                    window.location.href = 'paymentStub.html';
-                }
+            $('.ccSubmit').on('click', function(){
+                var button = document.getElementsByClassName('jp-card-logo');
+                alert(button)
             })
-        })
-    }
-</script>
+        </script>
 </body>
 </html>
