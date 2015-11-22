@@ -76,12 +76,11 @@ require('leftNav.php');
            type: 'POST',
            crossDomain: true,
            success: function(response){
-//               $.each(response, function(key, value){
-//                   console.log('Key: ' + key + 'value ' + value);
-//                   $('#leaderboardBody').html('<td>' + key + '</td>');
-               console.log(response);
-//               });
-
+               var _split = response.split(" ");
+               $.each(_split, function(key, value){
+                   var _key = _split[key].split(":");
+                   $('#leaderboardBody').append('<td>' + _key[1] + '</td>')
+               })
            }
        })
    })

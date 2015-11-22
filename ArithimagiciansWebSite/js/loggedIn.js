@@ -48,6 +48,7 @@ $(document).ready(function(){
         sessionStorage.setItem('xp_bonus', this.value);
         xp_bonus = sessionStorage.getItem('xp_bonus');
         xp_bonus_sub = (xp_bonus * .99).toFixed(2);
+        sessionStorage.setItem('xp_bonus_sub', xp_bonus_sub);
         $('.xp_bonus_sub').html('$' + xp_bonus_sub)
     });
 
@@ -55,6 +56,7 @@ $(document).ready(function(){
         sessionStorage.setItem('damage', this.value);
         damage = sessionStorage.getItem('damage');
         damage_sub = (damage * 1.49).toFixed(2);
+        sessionStorage.setItem('damage_sub', damage_sub);
         $('.damage_sub').html('$' + damage_sub)
     });
 
@@ -62,6 +64,7 @@ $(document).ready(function(){
         sessionStorage.setItem('loot', this.value);
         loot = sessionStorage.getItem('loot');
         loot_sub = (loot * .99).toFixed(2);
+        sessionStorage.setItem('loot_sub', loot_sub);
         $('.loot_sub').html('$' + loot_sub)
     });
 
@@ -69,6 +72,7 @@ $(document).ready(function(){
         sessionStorage.setItem('health', this.value);
         health = sessionStorage.getItem('health');
         health_sub = (health * 1.99).toFixed(2);
+        sessionStorage.setItem('health_sub', health_sub);
         $('.health_sub').html('$' + health_sub)
     });
 
@@ -76,6 +80,7 @@ $(document).ready(function(){
         sessionStorage.setItem('regeneration', this.value);
         regeneration = sessionStorage.getItem('regeneration');
         regeneration_sub = (regeneration * 2.99).toFixed(2);
+        sessionStorage.setItem('regeneration_sub', regeneration_sub);
         $('.regeneration_sub').html('$' + regeneration_sub);
     });
     $('.xp_bonus, .damage, .loot, .health, .regeneration').on('change', function(){
@@ -86,6 +91,9 @@ $(document).ready(function(){
     });
 
     // Redirect page from purchase power up to CC page
+    $('.confirm').on('click', function() {
+        window.location.href = 'paymentInfo.html';
+    })
 });
 
 

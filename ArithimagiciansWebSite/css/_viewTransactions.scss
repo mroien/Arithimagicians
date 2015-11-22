@@ -1,13 +1,6 @@
-#viewTransactions {
-  position: absolute;
-  border: 5px solid red;
-  height: 500px;
-  width: 700px;
-  top: 40%;
-  right: 30%;
-}
 
 #transactions {
-  display: flex;
-  margin: auto;
+  width: 166px;
+  height: 300px;
+  overflow: auto;
 }
