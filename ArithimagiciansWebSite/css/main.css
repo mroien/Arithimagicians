@@ -32,7 +32,6 @@ input label {
   font-family: fantasy; }
 
 #login {
-  /*border: 3px solid red;*/
   text-align: center;
   margin: auto;
   z-index: 999; }
@@ -85,15 +84,25 @@ label {
 
 .card-wrapper {
   margin: auto;
-  position: relative;
-  left: 26%;
-  bottom: 14%; }
+  width: 400px;
+  text-align: center; }
 
-.form-container {
-  margin: auto;
+.buttonWrapper {
   position: relative;
-  top: 19%;
-  right: 18%; }
+  right: 1rem; }
+
+#stubWrapper {
+  border: 5px solid;
+  display: flex;
+  margin: auto; }
+
+#wrapper {
+  margin: auto;
+  text-align: center; }
+
+#wrapper label {
+  text-align: left;
+  width: 125px; }
 
 #deleteWrapper {
   font-family: "Peas & Carrots";

@@ -34,26 +34,28 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
-        <div class="card-wrapper"></div>
+        <div class="card-wrapper">
             <div class="form-container active">
-                <form action="">
+                <form action="javascipt:payment()" method="post">
                     <input placeholder="Card Number" type="text" name="number" size ="20"
-                           maxlength="20" pattern="[\d]{,20}" 
-                           oninvalid="setCustomValidity('The credit card must be 14 characters');"
-                           oninput="setCustomValidity('')" autofocus required/>
-                    <input placeholder="Full Name" type="text" name="name" pattern="[A-Za-z ]{,20}"
-                           oninvalid="setCustomValidity('Please enter your name');"
-                           oninput="setCustomValidity('')" required>
-                    <input placeholder="MM/YY" type="text" name="expiry"
+                           maxlength="20" pattern="[\d ]+"  class="ccNumber"
+                           oninvalid="setCustomValidity('The credit card must be 16 characters');"
+                           oninput="setCustomValidity('')" autofocus autocomplete="off" required/>
+                    <input placeholder="Full Name" type="text" name="name" pattern="[A-Z a-z]{1,20}"
+                           oninvalid="setCustomValidity('Please enter your name');" class="ccName"
+                           oninput="setCustomValidity('')" autocomplete="off" required>
+                    <input placeholder="MM/YY" type="text" name="expiry" class="ccExp"
                            oninvalid="setCustomValidity('Please enter the month and year');"
-                           oninput="setCustomValidity('')" required>
-                    <input placeholder="CVC" type="text" name="cvc"
+                           oninput="setCustomValidity('')" autocomplete="off" required>
+                    <input placeholder="CVC" type="text" name="cvc" class="ccCVC"
                            oninvalid="setCustomValidity('Please enter your CVC number');"
-                           oninput="setCustomValidity('')" required>
+                           oninput="setCustomValidity('')" autocomplete="off" required><br>
+                    <span class="buttonWrapper">
                     <input type="submit" class="ccSubmit" value="Add Card">
                     <input type="reset">
+                    </span>
                 </form>
-
+                </div>
             </div>
         </div>
         </div>
@@ -65,10 +67,29 @@
                 container: '.card-wrapper'
             });
 
-            $('.ccSubmit').on('click', function(){
-                var button = document.getElementsByClassName('jp-card-logo');
-                alert(button)
-            })
+            function payment() {
+                var ccNumber = document.getElementsByClassName('ccNumber').value,
+                        ccName = document.getElementsByClassName('ccName').value,
+                        ccExp = document.getElementsByClassName('ccExp').value,
+                        ccCVC = document.getElementsByClassName('ccCVC').value;
+
+                // TODO: add AJAX call
+                $.ajax({
+                    url: 'http://52.32.43.132:8080/addCard?',
+                    type: 'POST',
+                    data: 'userID=' + local_userID + '&creditCardNumber=' + ccNumber + '&creditCardType=' + 'visa',
+                    crossDomain: true,
+                    success: function (response) {
+                        alert(response);
+                        sessionStorage.setItem('ccNumber', ccNumber);
+                        sessionStorage.setItem('ccName', ccName);
+                        sessionStorage.setItem('ccExp', ccExp);
+                        sessionStorage.setItem('ccCVC', ccCVC);
+//                var button = document.getElementsByClassName('jp-card-logo').value;
+                        window.location.href = 'paymentStub.html';
+                    }
+                })
+            }
         </script>
 </body>
 </html>

@@ -15,6 +15,8 @@ $(document).ready(function(){
         $('.signedIn')
             .text("Welcome, " + localStorage.getItem('username'))
             .append(logout);
+        $('a:contains("Sign Up")').addClass('disabled');
+        $('a:contains("Login")').addClass('disabled');
     }
 
     //Clear localStorage and sign the user out

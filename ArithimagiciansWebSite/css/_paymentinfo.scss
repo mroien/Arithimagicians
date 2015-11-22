@@ -1,17 +1,11 @@
 .card-wrapper {
   margin:auto;
-  position: relative;
-  left: 26%;
-  bottom: 14%;
+  //border: 5px solid;
+  width: 400px;
+  text-align: center;;
 }
 
-.form-container {
-  margin: auto;
+.buttonWrapper {
   position: relative;
-  top: 19%;
-  right: 18%;
-}
-
-.ccSubmit {
-
+  right: 1rem;
 }
