@@ -14,10 +14,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * Created by 2owls on 11/14/2015.
+ * Created by Brian Shaffer on 11/14/2015.
+ * LevelChoiceDialog extends DialogFragment and handles leveling up the dice with
+ * experience points. It allows the user to choose between buying a die or buying a
+ * bonus to the dice.
  */
 public class LevelChoiceDialog extends DialogFragment {
 
+    /**
+     * newInstance is called in place of the Constructor to handle setting up the arguments
+     * setting up the Bundle.
+     * @param player
+     * @param die
+     * @return
+     */
     public static LevelChoiceDialog newInstance(Player player, String die) {
         Bundle args = new Bundle();
         LevelChoiceDialog dia = new LevelChoiceDialog();
@@ -27,6 +37,12 @@ public class LevelChoiceDialog extends DialogFragment {
         return dia;
     }
 
+    /**
+     * Overrides parent's onCreateDialog method. Called when dialog is created.
+     * Gets dice from player, sets up display and button onClick methods.
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final DialogFragment df = this;
@@ -66,12 +82,16 @@ public class LevelChoiceDialog extends DialogFragment {
                 String die = getArguments().getString("die");
                 int passBonusCost = getBonusCost(player, die);
                 int currBonus = getBonus(die);
+                //if player has enough XP to buy the die
                 if (player.checkXP(passBonusCost)) {
                     // Create and show the dialog.
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(player, die, passBonusCost, currBonus);
                     bonusFragment.setTargetFragment(df, 1);
                     bonusFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
+                    /* player does not have enough xp for the die, so call BuyBonusDialog with only a bonus
+                     * so the player is notified.
+                     */
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passBonusCost);
                     bonusFragment.show(getFragmentManager().beginTransaction(), "test");
                 }
@@ -84,12 +104,16 @@ public class LevelChoiceDialog extends DialogFragment {
                 Player player = (Player) getArguments().getSerializable("player");
                 String die = getArguments().getString("die");
                 int passDieCost = getDiceCost(player, die);
+                //if player has enough XP to buy the die
                 if (player.checkXP(passDieCost)) {
                     // Create and show the dialog.
                     BuyDiceDialog diceFragment = BuyDiceDialog.newInstance(player, die, passDieCost);
                     diceFragment.setTargetFragment(df, 1);
                     diceFragment.show(getFragmentManager().beginTransaction(), "test");
                 } else {
+                    /* player does not have enough xp for the die, so call BuyBonusDialog with only a bonus
+                     * so the player is notified.
+                     */
                     BuyBonusDialog bonusFragment = BuyBonusDialog.newInstance(passDieCost);
                     bonusFragment.show(getFragmentManager().beginTransaction(), "test");
                 }
@@ -111,6 +135,11 @@ public class LevelChoiceDialog extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Gets the bonus for the passed die type.
+     * @param type
+     * @return
+     */
     private int getBonus(String type){
         int bonus = 0;
         switch (type){
@@ -136,6 +165,12 @@ public class LevelChoiceDialog extends DialogFragment {
         return bonus;
     }
 
+    /**
+     * Gets the cost of the given die based on type.
+     * @param player
+     * @param type
+     * @return
+     */
     private int getDiceCost(Player player, String type){
         int cost = 0;
         for (Die die : player.getDice()) {
@@ -149,6 +184,13 @@ public class LevelChoiceDialog extends DialogFragment {
         }
         return cost;
     }
+
+    /**
+     * Gets the cost of the bonus for the dice type.
+     * @param player
+     * @param type
+     * @return
+     */
     private int getBonusCost(Player player, String type){
         int cost = 0;
         switch (type){

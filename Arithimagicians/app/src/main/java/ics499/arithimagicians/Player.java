@@ -37,6 +37,9 @@ public class Player extends Character implements Serializable {
 
     private int maxSingleDamage;
 
+    /**
+     * Constructor
+     */
     public Player() {
         super(10, 1);
         this.xp = 0;

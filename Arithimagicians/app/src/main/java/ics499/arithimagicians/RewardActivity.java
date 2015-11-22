@@ -21,12 +21,20 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.Random;
 
+/**
+ * RewardActivity extends AppCompatActivity and handles displaying XP and loot
+ * rewards to the user after winning a fight.
+ */
 public class RewardActivity extends AppCompatActivity {
     private Player player;
     private String level;
     private int XP;
     private final static double LOOTRATE = 0.25;
 
+    /**
+     * Overrides parent's onCreate method and creates screen when activity is called.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,10 @@ public class RewardActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks to see if the player should get a health potion.
+     * @return
+     */
     public Item checkLootReward() {
         Random random = new Random();
         float roll = random.nextFloat();
@@ -60,12 +72,19 @@ public class RewardActivity extends AppCompatActivity {
         return null;
     }
 
+    /**
+     * Calls the MapActivity when the player clicks 'Close'
+     * @param view
+     */
     public void closeClick(View view) {
         Intent mapIntent = new Intent(this, DisplayMap.class);
         mapIntent.putExtra("player", player);
         startActivity(mapIntent);
     }
 
+    /**
+     * Sets the next level on Player and handles any zone related increases to max hp.
+     */
     public void setNewLevel() {
         TextView healthReward = (TextView) findViewById(R.id.healthReward);
         switch (level) {
