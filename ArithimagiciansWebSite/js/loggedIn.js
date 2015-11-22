@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     if(storage === null) {
         console.log('Not logged in');
-        //window.location.href = '../main/login.html'
+        window.location.href = '../main/login.html'
     } else {
         console.log("You are logged in")
     }
