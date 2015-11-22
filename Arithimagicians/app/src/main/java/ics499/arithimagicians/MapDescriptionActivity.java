@@ -18,10 +18,18 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
+/**
+ * MapDescriptionActivity extends Activity and handles the description window when the
+ * user clicks a location on the map screen.
+ */
 public class MapDescriptionActivity extends Activity {
     private Player player;
     private String level;
 
+    /**
+     * Overrides parent's onCreate method. Sets variables when the activity is loaded.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +41,18 @@ public class MapDescriptionActivity extends Activity {
         setDesc(level);
     }
 
+    /**
+     * Finishes this activity if 'Close' button is clicked.
+     * @param view
+     */
     public void closeClick(View view) {
         this.finish();
     }
 
+    /**
+     * Calls the FightActivity screen when the 'Fight' button is clicked.
+     * @param view
+     */
     public void fightClick(View view) {
         Intent fightIntent = new Intent(this, FightActivity.class);
         fightIntent.putExtra("player", player);
@@ -44,6 +60,10 @@ public class MapDescriptionActivity extends Activity {
         startActivity(fightIntent);
     }
 
+    /**
+     * Sets the description text based on the level in the strings.xml
+     * @param level
+     */
     public void setDesc(String level) {
         TextView t = (TextView) findViewById(R.id.mapDescTextView);
         switch (level) {
