@@ -95,6 +95,14 @@ label {
   top: 19%;
   right: 18%; }
 
+#wrapper {
+  margin: auto;
+  text-align: center; }
+
+#wrapper label {
+  text-align: left;
+  width: 125px; }
+
 #deleteWrapper {
   font-family: "Peas & Carrots";
   display: flex;

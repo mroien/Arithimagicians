@@ -2,7 +2,12 @@
  * Created by mroien on 11/15/15.
  */
 
-var storage = localStorage.getItem('username');
+var storage = localStorage.getItem('username'),
+    accuracy = localStorage.getItem('accuracy'),
+    operations = localStorage.getItem('operation'),
+    target = localStorage.getItem('target'),
+    number = localStorage.getItem('numberOfTries'),
+    maxLevel = localStorage.getItem('maxLevel');
 
 
 
@@ -93,7 +98,14 @@ $(document).ready(function(){
     // Redirect page from purchase power up to CC page
     $('.confirm').on('click', function() {
         window.location.href = 'paymentInfo.html';
-    })
+    });
+
+    // Stats Page
+   $('#accuracy').html(accuracy);
+   $('#operations').html(operations);
+    $('#number').html(number);
+    $('#maxLevel').html(maxLevel);
+    $('#target').html(target);
 });
 
 
