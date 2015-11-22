@@ -91,14 +91,10 @@
 </div>
 <script>
     sessionStorage.clear();
-
-//    $('.total').on('click', function(){
-//        $.ajax({
-//            url: 'http://52.32.43.132:8080/addPowerup?',
-//            type: 'GET',
-//            data: 'powerID=' DMGBONUS&transactionID=1&userID=8.
-//        })
-//    })
+    // removes value when user hits the back button
+    $(window).bind("pageshow", function(){
+        $('.xp_bonus, .damage, .loot, .health, .regeneration').val('');
+    })
 </script>
 </body>
 </html>

@@ -21,6 +21,7 @@ $(document).ready(function(){
 
     $('.logout').on('click', function(){
         localStorage.clear();
+        sessionStorage.clear();
         location.reload(true);
         window.location.href = '../main/index.html';
     });

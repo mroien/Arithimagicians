@@ -42,9 +42,14 @@
         $.ajax({
             url: 'http://52.32.43.132:8080/transactions?',
             type: 'GET',
-            data: 'accountId=',
+            data: 'accountId=' + 8,
             success: function(response){
-                $('#transactions').html(response)
+                var comma = response.replace( /,/g, '<br>');
+                var trans = comma.split(" ");
+                $.each(trans, function(key, value){
+                    var _key = trans[key].split(":");
+                    $('#transactions').append(_key[0] + ': ' + _key[1] + '<br>')
+                })
             }
         })
     })
