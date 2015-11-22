@@ -2,7 +2,13 @@
  * Created by mroien on 11/15/15.
  */
 
-var storage = localStorage.getItem('username');
+var storage = localStorage.getItem('username'),
+    accuracy = localStorage.getItem('accuracy'),
+    operations = localStorage.getItem('operation'),
+    target = localStorage.getItem('target'),
+    number = localStorage.getItem('numberOfTries'),
+    maxLevel = localStorage.getItem('maxLevel'),
+    fname = localStorage.getItem('firstname');
 
 
 
@@ -90,10 +96,31 @@ $(document).ready(function(){
         $('.total').html('$' + total);
     });
 
+    // TODO: fix to make go to 10 if entered larger
+    // If number in input is larger than 10 set to 10
+    //$('#powerUpsTable td input').on('change', function(){
+    //    if(parseInt(this.value) > 11){
+    //        $('input').val(10);
+    //    }
+    //});
+
     // Redirect page from purchase power up to CC page
     $('.confirm').on('click', function() {
         window.location.href = 'paymentInfo.html';
-    })
+    });
+
+    // Stats Page
+   $('#accuracy').html(accuracy);
+   $('#operations').html(operations);
+    $('#number').html(number);
+    $('#maxLevel').html(maxLevel);
+    $('#target').html(target);
+
+    // Setting up Payment Stub
+    $('#fname').html(fname);
+
+
+
 });
 
 
