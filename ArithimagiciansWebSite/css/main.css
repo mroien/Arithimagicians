@@ -24,13 +24,6 @@ input label {
   color: red;
   text-align: right; }
 
-.description {
-  color: black;
-  font-size: medium;
-  width: 220px;
-  margin: auto;
-  font-family: fantasy; }
-
 #login {
   text-align: center;
   margin: auto;
@@ -66,9 +59,10 @@ label {
   text-align: center; }
 
 #current {
-  border: 5px solid;
-  display: flex;
-  margin: auto; }
+  margin: auto;
+  text-align: center;
+  overflow: auto;
+  height: 300px; }
 
 #powerUpsTable {
   height: 232px; }
@@ -89,19 +83,20 @@ label {
 
 .buttonWrapper {
   position: relative;
-  right: 1rem; }
+  right: 3rem; }
 
 .total {
   text-align: center; }
 
-#stubWrapper {
-  border: 5px solid;
-  display: flex;
-  margin: auto; }
+.stubWrapper {
+  text-align: left;
+  font-size: xx-large !important;
+  margin-top: 11rem !important;
+  width: 282px !important; }
 
 #wrapper {
   margin: auto;
-  text-align: center; }
+  text-align: left; }
 
 #wrapper label {
   text-align: left;
@@ -124,7 +119,7 @@ label {
   max-width: 50px;
   margin: auto; }
 
-#transactions {
+.transactions {
   width: 166px;
   height: 300px;
   overflow: auto; }
@@ -166,6 +161,13 @@ h1 {
   justify-content: center;
   /*background-position: 10%,50%;*/
   margin: 10px; }
+
+.description {
+  color: black;
+  font-size: medium;
+  width: 220px;
+  margin: auto;
+  font-family: fantasy; }
 
 .btn-default {
   margin: 3px; }

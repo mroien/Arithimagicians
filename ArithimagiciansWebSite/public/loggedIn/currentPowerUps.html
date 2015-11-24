@@ -41,8 +41,6 @@
 <script>
     $(document).ready(function(){
 
-        var max_char =
-
         $.ajax({
             url: 'http://52.32.43.132:8080/getPowerups?',
             type: 'GET',
@@ -50,8 +48,9 @@
             crossDomain: true,
             success: function(response){
                 var comma = response.split(",");
-                $.each(function(key, value){
-                    console.log("This is a key: " + key + " value: " + value)
+                $.each(comma, function(key, value){
+                    console.log(value);
+                    $('#current').append('<div>' + value + '</div>')
                 })
             }
         })

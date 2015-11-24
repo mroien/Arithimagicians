@@ -8,7 +8,9 @@ var storage = localStorage.getItem('username'),
     target = localStorage.getItem('target'),
     number = localStorage.getItem('numberOfTries'),
     maxLevel = localStorage.getItem('maxLevel'),
-    fname = localStorage.getItem('firstname');
+    fname = localStorage.getItem('firstname'),
+    total = sessionStorage.getItem('total'),
+    ccType = sessionStorage.getItem('ccType');
 
 
 
@@ -118,8 +120,8 @@ $(document).ready(function(){
 
     // Setting up Payment Stub
     $('#fname').html(fname);
-
-
+    $('#total').html(total);
+    $('.ccType').html(ccType);
 
 });
 

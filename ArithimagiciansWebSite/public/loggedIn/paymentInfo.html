@@ -38,7 +38,7 @@
             <div class="form-container active">
                 <form action="javascript:payment()" method="post">
                     <input placeholder="Card Number" type="text" name="number" size ="20"
-                           maxlength="20"  id="ccNumber" autofocus autocomplete="off"
+                           maxlength="20"  class="ccNumber" autofocus autocomplete="off"
                            oninvalid="setCustomValidity('Please enter a valid credit card number');"
                            oninput="setCustomValidity('')" pattern="[\d\s]{1,20}" required/>
                     <input placeholder="Full Name" type="text" name="name" pattern="[A-Z a-z]{1,20}"
@@ -51,7 +51,7 @@
                            oninvalid="setCustomValidity('Please enter your CVC number');"
                            oninput="setCustomValidity('')" autocomplete="off" required><br>
                     <span class="buttonWrapper">
-                    <input type="submit" class="ccSubmit" value="Add Card">
+                    <input type="submit" class="ccSubmit" value="Submit Payment">
                     <input type="reset">
                     </span>
                 </form>
@@ -90,7 +90,7 @@
             });
 
             function payment() {
-                var ccNumber = document.getElementById('ccNumber').value,
+                var ccNumber = document.getElementsByClassName('ccNumber')[0].value,
                         newCC = ccNumber.replace(/\s/g,""),
                         ccName = document.getElementById('ccName').value,
                         ccExp = document.getElementById('ccExp').value,
@@ -109,7 +109,10 @@
                         sessionStorage.setItem('ccCVC', ccCVC);
                         window.location.href = 'paymentStub.html';
                     }
-                })
+                });
+//                $.ajax({
+//
+//                })
             }
         </script>
 </body>

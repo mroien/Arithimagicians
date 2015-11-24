@@ -32,7 +32,7 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
-            <div id="transactions"></div>
+            <div class="transactions description"></div>
 
         </div>
     </div>
@@ -48,7 +48,7 @@
                 var trans = comma.split(" ");
                 $.each(trans, function(key, value){
                     var _key = trans[key].split(":");
-                    $('#transactions').append(_key[0] + ': ' + _key[1] + '<br>')
+                    $('.transactions').append(_key[0] + ': ' + _key[1] + '<br>')
                 })
             }
         })
