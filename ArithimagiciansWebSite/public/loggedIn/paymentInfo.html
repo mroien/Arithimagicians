@@ -64,8 +64,10 @@
     </div>
 <script src="../../js/card.js"></script>
         <script>
-            var total = sessionStorage.getItem('total');
-            $('#total').html(total);
+            if (total_check == (null || undefined)){
+                window.location.href = 'purchasePowerUps.html'
+            }
+            $('#total').html(total_check);
             $('.ccNumber').blur(function(){
                 if($('input.ccNumber.jp-card-invalid.mastercard.identified')[0]) {
                     sessionStorage.setItem('ccType', 'Mastercard');
@@ -110,9 +112,21 @@
                         window.location.href = 'paymentStub.html';
                     }
                 });
-//                $.ajax({
-//
-//                })
+                if (DMGBOUNUS_check > 0){
+                    for(i = 0; i < DMGBOUNUS_check; i++){
+                        $.ajax({
+                            url: 'http://52.32.43.132:8080/addPowerup?',
+                            type: 'GET',
+                            data: 'powerID=DMGBONUS' + '&userID=' + local_userID,
+                            crossDomain: 'true',
+                            success: function(response){
+
+                            }
+                        });
+                    }
+                } else {
+                    console.log('You did it wrong')
+                }
             }
         </script>
 </body>

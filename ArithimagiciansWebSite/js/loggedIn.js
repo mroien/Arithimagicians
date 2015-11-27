@@ -10,7 +10,10 @@ var storage = localStorage.getItem('username'),
     maxLevel = localStorage.getItem('maxLevel'),
     fname = localStorage.getItem('firstname'),
     total = sessionStorage.getItem('total'),
-    ccType = sessionStorage.getItem('ccType');
+    ccType = sessionStorage.getItem('ccType'),
+    total_check = sessionStorage.getItem('total'),
+    XPBONUS_check = sessionStorage.getItem('xp_bonus'),
+    DMGBOUNUS_check = sessionStorage.getItem('damage');
 
 
 
