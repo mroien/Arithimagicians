@@ -113,7 +113,7 @@
                     }
                 });
                 if (DMGBOUNUS_check > 0){
-                    for(i = 0; i < DMGBOUNUS_check; i++){
+                    for(var i = 0; i < DMGBOUNUS_check; i++){
                         $.ajax({
                             url: 'http://52.32.43.132:8080/addPowerup?',
                             type: 'GET',
@@ -124,7 +124,7 @@
                             }
                         });
                     }
-                } else {
+                } else if (){
                     console.log('You did it wrong')
                 }
             }
