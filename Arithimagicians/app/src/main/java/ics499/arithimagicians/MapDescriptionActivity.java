@@ -54,6 +54,8 @@ public class MapDescriptionActivity extends Activity {
      * @param view
      */
     public void fightClick(View view) {
+        this.player.incrementTries();
+        this.player.setTarget(level);
         Intent fightIntent = new Intent(this, FightActivity.class);
         fightIntent.putExtra("player", player);
         fightIntent.putExtra("level", level);

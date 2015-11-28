@@ -31,11 +31,15 @@ public class Player extends Character implements Serializable {
     private long lootTimeStamp;
     private long hpRefreshTimeStamp;
     private long hpRegenTimeStamp;
+    private int numberOfTries;
+    private String operation;
+    private String target;
 
 
     private long timeStamp;
 
     private int maxSingleDamage;
+
 
     /**
      * Constructor
@@ -59,11 +63,15 @@ public class Player extends Character implements Serializable {
         this.xPRate = 1.0;
         this.damageRate = 1.0;
         this.regenRate = 1.0;
-        this.lastStage = "1_5";
+        this.lastStage = "1_1";
         this.userId = 0;
         this.highestAcc = 100;
         this.timeStamp = System.nanoTime();
+        this.numberOfTries = 0;
+        this.operation = "+";
+        this.target = "1_1";
         prepareInventory();
+
     }
 
     /**
@@ -414,6 +422,31 @@ public class Player extends Character implements Serializable {
             hpRegenTimeStamp = 1;
         }
     }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public int getNumberOfTries() {
+        return numberOfTries;
+    }
+
+    public void incrementTries(){
+        this.numberOfTries++;
+    }
+
+    public void setTarget(String target){
+        this.target = target;
+    }
+
+    public void setOperation(String op){
+        this.operation = op;
+    }
+
 
 }
 

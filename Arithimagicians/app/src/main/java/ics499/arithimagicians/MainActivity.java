@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     public void getItems(int userId) {
-        String url = "http://192.168.29.115:8080/checkPowerUp?accountId=" + userId;
+        String url = "http://52.32.43.132:8080/checkPowerUp?accountId=" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     public void updateDateInDB(String powerup) {
-        String url = "http://192.168.29.115:8080/powerUpAddedToInv?accountId=" + player.getUserId() + "&powerUpName=" + powerup;
+        String url = "http://52.32.43.132:8080/powerUpAddedToInv?accountId=" + player.getUserId() + "&powerUpName=" + powerup;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 // Request a string response from the provided URL.

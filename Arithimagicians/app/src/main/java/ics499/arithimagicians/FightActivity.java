@@ -908,6 +908,7 @@ public class FightActivity extends AppCompatActivity {
                 secondRowOp = opList.get(opIndex);
             secondRowFirstOp.setText(opList.get(opIndex));
         }
+        this.player.setOperation(opList.get(0));
     }
 
     /**
@@ -1082,8 +1083,9 @@ public class FightActivity extends AppCompatActivity {
      * Passes leader board information to online database for the user's acccount.
      */
     public void updateLeaderboard() {
-        String url = "http://192.168.29.115:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
-                + "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage();
+        String url = "http://52.32.43.132:8080/updateLeaderboard?accountId=" + this.player.getUserId() + "&level=" + this.player.getLastMap() + "&accuracyPerLevel=" + this.player.getTotalAcc()
+                + "&highestAcc=" + this.player.getHighestAcc() + "&maxTotalDmg=" + this.player.getMaxTotalDamage() + "&maxSingleDmg=" + this.player.getMaxSingleDamage() + "&operation=" + this.player.getOperation() +
+        "&target=" + this.player.getTarget() + "&numberOfTries=" + this.player.getNumberOfTries();
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,

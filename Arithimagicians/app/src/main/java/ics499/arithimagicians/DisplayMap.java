@@ -162,9 +162,10 @@ public class DisplayMap extends AppCompatActivity {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        this.player = (Player) data.getSerializableExtra("player");
         setHealthBar();
         super.onActivityResult(requestCode, resultCode, data);
-        this.player = (Player) data.getSerializableExtra("player");
+
     }
 
     /**
