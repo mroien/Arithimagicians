@@ -44,12 +44,11 @@
         $.ajax({
             url: 'http://52.32.43.132:8080/getPowerups?',
             type: 'GET',
-            data: 'userID=8' ,
+            data: 'userID=' + local_userID ,
             crossDomain: true,
             success: function(response){
                 var comma = response.split(",");
                 $.each(comma, function(key, value){
-                    console.log(value);
                     $('#current').append('<div>' + value + '</div>')
                 })
             }

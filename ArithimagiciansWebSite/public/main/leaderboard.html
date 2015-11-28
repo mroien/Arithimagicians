@@ -79,6 +79,8 @@ require('leftNav.php');
                var _split = response.split(" ");
                $.each(_split, function(key, value){
                    var _key = _split[key].split(":");
+
+                   console.log("Key: " + _key[1] + " value: " + value);
                    $('#leaderboardBody').append('<td>' + _key[1] + '</td>')
                })
            }

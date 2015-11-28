@@ -42,7 +42,7 @@
         $.ajax({
             url: 'http://52.32.43.132:8080/transactions?',
             type: 'GET',
-            data: 'accountId=' + 8,
+            data: 'accountId=' + local_userID,
             success: function(response){
                 var comma = response.replace( /,/g, '<br>');
                 var trans = comma.split(" ");

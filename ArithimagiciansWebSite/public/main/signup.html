@@ -50,8 +50,9 @@
                        oninvalid="setCustomValidity('Please enter the city you live in');"
                        oninput="setCustomValidity('')" required/><br>
                 <label for="state">State*</label>
-                <select id="state"d>
-                    <option selected="selected">Select a state</option>
+                <select id="state" oninvalid="setCustomValidity('Please enter the state you live in');"
+                        oninput="setCustomValidity('')" required>
+                    <option selected="selected" value="">Select a state</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -105,13 +106,13 @@
                     <option value="WY">Wyoming</option>
                 </select><br>
                 <label for="zip">Zip Code:*</label>
-                <input type="number" name="zip" id="zip" placeholder="Zip Code" pattern="[\D-?]{5,10}"
+                <input type="text" name="zip" id="zip" placeholder="Zip Code" pattern="^\d{5}(?:[-\s]\d{4})?$"
                        oninvalid="setCustomValidity('Please enter your zip code');"
                        oninput="setCustomValidity('')" required/><br>
                 <label for="email">Email Address:*</label>
                 <input type="email" name="email" id="email" placeholder="Email Address"
                        oninvalid="setCustomValidity('Please enter your email address');" oninput="setCustomValidity('')"
-                       required/><br>
+                       pattern="[\w@.]+" required/><br>
                 <label for="username">Username:*</label>
                 <input type="text" name="username" id="username" placeholder="Username" pattern="[\w\D]{1,15}"
                        oninvalid="setCustomValidity('Please pick a username');"
