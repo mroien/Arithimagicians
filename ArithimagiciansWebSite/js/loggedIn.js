@@ -12,7 +12,10 @@ var accuracy = localStorage.getItem('accuracy'),
     ccType = sessionStorage.getItem('ccType'),
     total_check = sessionStorage.getItem('total'),
     XPBONUS_check = sessionStorage.getItem('xp_bonus'),
-    DMGBOUNUS_check = sessionStorage.getItem('damage');
+    DMGBOUNUS_check = sessionStorage.getItem('damage'),
+    LOOTBONUS_check = sessionStorage.getItem('loot'),
+    HPFULLREFRESH_check = sessionStorage.getItem('health'),
+    HPREGEN_check = sessionStorage.getItem('regeneration');
 
 
 

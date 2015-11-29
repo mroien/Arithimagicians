@@ -124,17 +124,53 @@
                             }
                         });
                     }
-                    if (XPBONUS_check > 0) {
-                        for(var j = 0; j < XPBONUS_check; j++) {
-                            $.ajax({
-                                url: 'http://52.32.43.132:8080/addPowerup?',
-                                type: 'GET',
-                                data: 'powerID=XPBONUS' + '&userID=' + local_userID,
-                                crossDomain: 'true',
-                                success: function (response) {
-                                }
-                            });
-                        }
+                }
+                if (XPBONUS_check > 0) {
+                    for (var j = 0; j < XPBONUS_check; j++) {
+                        $.ajax({
+                            url: 'http://52.32.43.132:8080/addPowerup?',
+                            type: 'GET',
+                            data: 'powerID=XPBONUS' + '&userID=' + local_userID,
+                            crossDomain: 'true',
+                            success: function (response) {
+                            }
+                        });
+                    }
+                }
+                if (LOOTBONUS_check > 0) {
+                    for (var k = 0; k < LOOTBONUS_check; k++) {
+                        $.ajax({
+                            url: 'http://52.32.43.132:8080/addPowerup?',
+                            type: 'GET',
+                            data: 'powerID=LOOTBONUS' + '&userID=' + local_userID,
+                            crossDomain: 'true',
+                            success: function (response) {
+                            }
+                        });
+                    }
+                }
+                if (HPFULLREFRESH_check > 0){
+                    for (var l = 0; l < HPFULLREFRESH_check; l++) {
+                        $.ajax({
+                            url: 'http://52.32.43.132:8080/addPowerup?',
+                            type: 'GET',
+                            data: 'powerID=HPFULLREFRESH' + '&userID=' + local_userID,
+                            crossDomain: 'true',
+                            success: function (response) {
+                            }
+                        });
+                    }
+                }
+                if (HPREGEN_check > 0){
+                    for (var m = 0; m < HPREGEN_check; m++) {
+                        $.ajax({
+                            url: 'http://52.32.43.132:8080/addPowerup?',
+                            type: 'GET',
+                            data: 'powerID=HPREGEN' + '&userID=' + local_userID,
+                            crossDomain: 'true',
+                            success: function (response) {
+                            }
+                        });
                     }
                 }
             }
