@@ -124,8 +124,18 @@
                             }
                         });
                     }
-                } else if (){
-                    console.log('You did it wrong')
+                    if (XPBONUS_check > 0) {
+                        for(var j = 0; j < XPBONUS_check; j++) {
+                            $.ajax({
+                                url: 'http://52.32.43.132:8080/addPowerup?',
+                                type: 'GET',
+                                data: 'powerID=XPBONUS' + '&userID=' + local_userID,
+                                crossDomain: 'true',
+                                success: function (response) {
+                                }
+                            });
+                        }
+                    }
                 }
             }
         </script>

@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<?php
-require('leftNav.php');
-
-?>
 <html>
 
 <head>
@@ -15,9 +11,6 @@ require('leftNav.php');
     <script src="../../js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
 
-    <script>
-
-    </script>
 </head>
 <body>
 <div class="container">
@@ -78,8 +71,7 @@ require('leftNav.php');
            success: function(response){
                var _split = response.split(" ");
                $.each(_split, function(key, value){
-                   var _key = _split[key].split(":");
-
+                   var _key = _split[key].split(/[:]+/);
                    console.log("Key: " + _key[1] + " value: " + value);
                    $('#leaderboardBody').append('<td>' + _key[1] + '</td>')
                })

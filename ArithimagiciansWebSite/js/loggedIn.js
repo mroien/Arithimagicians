@@ -2,8 +2,7 @@
  * Created by mroien on 11/15/15.
  */
 
-var storage = localStorage.getItem('username'),
-    accuracy = localStorage.getItem('accuracy'),
+var accuracy = localStorage.getItem('accuracy'),
     operations = localStorage.getItem('operation'),
     target = localStorage.getItem('target'),
     number = localStorage.getItem('numberOfTries'),
@@ -19,7 +18,7 @@ var storage = localStorage.getItem('username'),
 
 $(document).ready(function(){
 
-    if(storage === null) {
+    if(local_username === null) {
         console.log('Not logged in');
         window.location.href = '../main/login.html'
     } else {
