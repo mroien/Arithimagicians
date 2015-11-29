@@ -118,9 +118,9 @@
                        oninvalid="setCustomValidity('Please pick a username');"
                        oninput="setCustomValidity('')" required/><br>
                 <label for="phone">Phone Number:*</label>
-                <input type="text" name="phone" id="phone" placeholder="(xxx) xxx-xxxx" maxlength="14"
+                <input type="text" name="phone" id="phone" placeholder="Phone Number" maxlength="10"
                        oninvalid="setCustomValidity('Please enter your phone number');"
-                       oninput="setCustomValidity('')" required/><br>
+                       oninput="setCustomValidity('')" pattern="[\d]{10}" required/><br>
                 <label for="password1">Password:*</label>
                 <input type="password" name="password1" id="password1" placeholder="8-15 characters"
                        oninvalid="setCustomValidity('Please enter a valid password 8 to 16 characters');"
