@@ -228,9 +228,9 @@ public class Website {
 			while(rs.next())
 			{
 				System.out.println(rs.getString(1));
-				result += "userID:" +  rs.getString(1) + " username:" + rs.getString(2) + " level:" + rs.getString(3) + " accuracyPerLeve:" + rs.getString(4) + " highestAccuracy:"
-				+  rs.getString(5) + " maxTotalDamag:" + rs.getString(6) 
-				+ " maxSingleDamage:" + rs.getString(7) + " Date:" + rs.getString(8) + ",";
+				result +=  "username:" + rs.getString(2) + " level:" + rs.getString(3) + " accuracyPerLeve:" + rs.getString(4) + " highestAccuracy:"
+						+  rs.getString(5) + " maxTotalDamag:" + rs.getString(6) 
+						+ " maxSingleDamage:" + rs.getString(7) + ",";
 				System.out.println(result);
 			}
 			conn.close();
@@ -281,16 +281,15 @@ public class Website {
 		return "No User Found";
 	}
 	
-	public String addPowerup(String powerID, String transactionID, String userID) throws SQLException {
+	public String addPowerup(String powerID, String userID) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		String insert = "INSERT INTO powerups"
-				+ "(powerID, transactionID, userID) VALUES"
-				+ "(?,?,?)";
+				+ "(powerID, userID) VALUES"
+				+ "(?,?)";
 		try {
 			PreparedStatement prep = conn.prepareStatement(insert);
 			prep.setString(1, powerID);
-			prep.setInt(2, Integer.parseInt(transactionID));
-			prep.setInt(3,  Integer.parseInt(userID));
+			prep.setInt(2,  Integer.parseInt(userID));
 			prep.executeUpdate();
 			conn.close();
 			return "Powerup Added";
@@ -366,7 +365,7 @@ public class Website {
 			PreparedStatement prep = conn.prepareStatement(insert);
 			java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 			prep.setString(1, userID);
-			prep.setInt(2, Integer.parseInt(creditCardNumber));
+			prep.setString(2, creditCardNumber);
 			prep.setString(3,creditCardType);
 			prep.setDate(4, date);
 			prep.executeUpdate();

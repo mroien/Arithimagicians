@@ -70,12 +70,12 @@ public class WebsiteController {
 		return web.getLeaderBoards();
 	}
 	
-	// Local URL : http://52.32.43.132:8080/addPowerup?powerID=DMGBONUS&transactionID=1&userID=8
+	// Local URL : http://52.32.43.132:8080/addPowerup?powerID=DMGBONUS&userID=8
 	@RequestMapping("/addPowerup")
 	public String addPowerup(@RequestParam(value = "powerID", defaultValue = "0000") String powerID,
-			@RequestParam(value = "transactionID", defaultValue = "0000") String transactionID, @RequestParam(value="userID", defaultValue ="0000") String userID)
+			 @RequestParam(value="userID", defaultValue ="0000") String userID)
 					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
-		return web.addPowerup(powerID, transactionID, userID);
+		return web.addPowerup(powerID, userID);
 	}
 	
 	// Local URL : http://52.32.43.132:8080/addTransaction?&userID=1&amount=8

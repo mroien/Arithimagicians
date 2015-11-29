@@ -62,7 +62,7 @@ public class ConnectAccount extends AppCompatActivity {
      * @param number
      */
     public void checkNumberRest(String number) {
-        String url = "http://192.168.29.115:8080/checkPhoneNumber?number=" + number;
+        String url = "http://52.32.43.132:8080/checkPhoneNumber?number=" + number;
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
