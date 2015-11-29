@@ -19,7 +19,6 @@ var accuracy = localStorage.getItem('accuracy'),
 $(document).ready(function(){
 
     if(local_username === null) {
-        console.log('Not logged in');
         window.location.href = '../main/login.html'
     } else {
         console.log("You are logged in")

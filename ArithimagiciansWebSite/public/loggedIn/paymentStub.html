@@ -48,6 +48,15 @@
         if (total_check == (null || undefined)){
             window.location.href = 'purchasePowerUps.html'
         }
+        $.ajax({
+            url: 'http://52.32.43.132:8080/addTransaction?',
+            type: 'GET',
+            data: 'userID=' + local_userID + '&amount=' + total,
+            crossDomain: true,
+            success: function (response){
+                console.log(response)
+            }
+        })
     })
 </script>
 </body>
