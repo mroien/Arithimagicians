@@ -92,6 +92,14 @@ public class WebsiteController {
 					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
 		return web.getPowerups(userID);
 	}
+	
+	// Local URL : http://52.32.43.132:8080/getCards?userID=8
+	@RequestMapping("/getCards")
+	public String getCards(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.getCards(userID);
+	}
+	
 	// Local URL : http://52.32.43.132:8080/optOut?userID=8
 	@RequestMapping("/optOut")
 	public String optOut(@RequestParam(value = "userID", defaultValue = "0000") String userID)

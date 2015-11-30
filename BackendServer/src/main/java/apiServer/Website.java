@@ -383,6 +383,32 @@ public class Website {
 		}
 		return "No Powerups";
 	}
+	
+	public String getCards(String userId) throws SQLException {
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
+		String queryUser = "SELECT creditCardNumber, creditCardType from creditCards WHERE userID = ?";
+		try {
+			
+			PreparedStatement prepState = conn.prepareStatement(queryUser);
+			prepState.setString(1, userId);
+			ResultSet rs = prepState.executeQuery();
+			String result = "";
+			if(rs.absolute(1)){
+				rs.beforeFirst();
+			while(rs.next())
+			{
+				result += "cardNumber:" +  rs.getString(1) + " type:" + rs.getString(2) + ",";
+			}
+			conn.close();
+			return result;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "DB Error";
+		}
+		return "No Powerups";
+	}
 
 	public String addCard(String userID, String creditCardNumber, String creditCardType) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
