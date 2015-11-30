@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Reset Password</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Reset Password</h1>
+
+        <div class="leftNav">
+            <a href="index.html" class="btn-default btn">Home</a>
+            <a href="signup.html" class="btn-default btn">Sign Up</a>
+            <a href="login.html" class="btn-default btn">Login</a>
+            <a href="download.html" class="btn-default btn">Download</a>
+            <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
+            <a href="about.html" class="btn-default btn">About</a>
+            <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
+        </div>
+
+        <div class="signedIn"></div>        <!-- Check if you are logged in -->
+
+        <div class="scrollWrapper">
+            <div class="restWrapper">
+                <form action="javascript:reset()" method="post" class="restForm">
+                    <div class="resetPass">Do you want to reset your password?
+                    <input type="email" placeholder="Email address" id="email_reset" autocomplete="off" autofocus
+                           oninvalid="setCustomValidity('Please enter your email address');" oninput="setCustomValidity('')"
+                           required>
+                        </div>
+                        <button type="submit" class="btn-danger btn btn-lg rest_yes">Yes</button>
+                        <button class="btn-primary btn btn-lg rest_no">No</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function reset(){
+        $('.rest_yes').on('click', function() {
+            var _rest = confirm("Are you sure you want to reset your password? ");
+            if(_rest == true){
+                var email_reset = document.getElementById('email_rest').value;
+                sessionStorage.setItem('email_reset', email_reset);
+                window.location.href = 'resetMessage.html';
+            } else {
+                console.log('Make up your mind')
+            }
+        })
+    }
+</script>
+</body>
+</html>

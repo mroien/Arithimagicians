@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>View Transactions</title>
+    <title>Show Credit Cards</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -15,15 +15,15 @@
 <body>
 <div class="container">
     <div class="row">
-        <h1>View Transactions</h1>
+        <h1>Show Credit Cards</h1>
 
         <div class="leftNav">
             <a href="../main/index.html" class="btn-default btn">Home</a>
             <a href="purchasePowerUps.html" class="btn-default btn">Purchase Power Ups</a>
             <a href="currentPowerUps.html" class="btn-default btn">Current Power Ups</a>
-            <!--<a href="viewTransactions.html" class="btn-default btn">View Transactions</a>-->
+            <a href="viewTransactions.html" class="btn-default btn">View Transactions</a>
             <a href="paymentInfo.html" class="btn-default btn">Payment Information</a>
-            <a href="showCC.html" class="btn-default btn">Show Credit Cards</a>
+            <!--<a href="showCC.html" class="btn-default btn">Show Credit Cards</a>-->
             <a href="../main/leaderboard.html" class="btn-default btn">Leaderboard</a>
             <a href="paymentStub.html" class="btn btn-default">Payment Stub</a>
             <a href="stats.html" class="btn btn-default">Stats</a>
@@ -34,7 +34,7 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
-            <div class="transactions description"></div>
+            <div class="showCC description"></div>
 
         </div>
     </div>
@@ -42,16 +42,16 @@
 <script>
     $(document).ready(function(){
         $.ajax({
-            url: 'http://52.32.43.132:8080/transactions?',
+            url: 'http://52.32.43.132:8080/getCards?',
             type: 'GET',
-            data: 'accountId=' + local_userID,
+            data: 'userID=' + local_userID,
             success: function(response){
-                var comma = response.replace( /,/g, '<br>');
-                var trans = comma.split(" ");
-                $.each(trans, function(key, value){
-                    var _key = trans[key].split(":");
-                    $('.transactions').append(_key[0] + ': ' + _key[1] + '<br>')
-                });
+                var cards = response.split(/[\s,]/);
+                $.each(cards, function(key, value){
+                    var _key = cards[key].split(":");
+                    if (_key[1] !== undefined)
+                    $('.showCC').append(_key[0] + ': ' + _key[1] + '<br>')
+                })
             }
         })
     })

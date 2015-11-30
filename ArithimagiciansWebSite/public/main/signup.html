@@ -160,8 +160,8 @@
                 "&password=" + password,
                 crossDomain: true,
                 success: function (userID) {
-                    localStorage.setItem('userID', userID);
-                    localStorage.setItem('username', userName);
+                    sessionStorage.setItem('userID', userID);
+                    sessionStorage.setItem('username', userName);
                     window.location.href = '../loggedIn/accountInfo.html';
                 }
             })

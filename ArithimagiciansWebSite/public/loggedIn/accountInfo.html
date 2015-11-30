@@ -23,9 +23,11 @@
             <a href="currentPowerUps.html" class="btn-default btn">Current Power Ups</a>
             <a href="viewTransactions.html" class="btn-default btn">View Transactions</a>
             <a href="paymentInfo.html" class="btn-default btn">Payment Information</a>
+            <a href="showCC.html" class="btn-default btn">Show Credit Cards</a>
             <a href="../main/leaderboard.html" class="btn-default btn">Leaderboard</a>
             <a href="paymentStub.html" class="btn btn-default">Payment Stub</a>
             <a href="stats.html" class="btn btn-default">Stats</a>
+            <a href="optOut.html" class="btn-danger btn">Opt Out</a>
             <a href="delete.html" class="btn-danger btn">Delete Account</a>
         </div>
         ​
@@ -38,20 +40,18 @@
 </div>
 ​
 <script>
-    var userID = localStorage.getItem('userID');
     $(document).ready(function(){
         $.ajax({
             url: 'http://52.32.43.132:8080/getUserInfo?',
             type: 'GET',
-            data: 'userID=' + userID,
+            data: 'userID=' + local_userID,
             crossDomain: true,
             success: function (response) {
                 var _replace = response.replace(/"|,/g, "");
                 var _split = _replace.split('*');
                 $.each(_split, function (key,value) {
                     var _key = _split[key].split(":");
-                    localStorage.setItem(_key[0],_key[1]);
-//                    console.log(key, value);
+                    sessionStorage.setItem(_key[0],_key[1]);
                     $('.info_dynamic').append(_key[0] + ":  " + _key[1] +'<br>');
 
                 });

@@ -3,8 +3,8 @@
  */
 
 var logout = '<br><a href="#" class="logout">Logout</a>',
-    local_username = localStorage.getItem('username'),
-    local_userID = localStorage.getItem('userID');
+    local_username = sessionStorage.getItem('username'),
+    local_userID = sessionStorage.getItem('userID');
 
 $(document).ready(function(){
 
@@ -13,7 +13,7 @@ $(document).ready(function(){
 
     if(local_username !== null) {
         $('.signedIn')
-            .text("Welcome, " + localStorage.getItem('username'))
+            .text("Welcome, " + sessionStorage.getItem('username'))
             .append(logout);
         $('a:contains("Sign Up")').addClass('disabled');
         $('a:contains("Login")').addClass('disabled');
@@ -22,7 +22,6 @@ $(document).ready(function(){
     //Clear localStorage and sign the user out
 
     $('.logout').on('click', function(){
-        localStorage.clear();
         sessionStorage.clear();
         location.reload(true);
         window.location.href = '../main/index.html';
@@ -36,7 +35,6 @@ $(document).ready(function(){
     $('.cancel').click(function(){
         $('.progress, .cancel').addClass('hide');
     });
-    
 });
 
 

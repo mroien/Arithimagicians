@@ -16,6 +16,7 @@ $font-color: cadetblue;
 @import "paymentinfo";
 @import "paymentStub";
 @import "stats";
+// Delete used CSS for delete, opt out and reset password
 @import "delete";
 @import "viewTransactions";
 @import "about";
@@ -66,7 +67,7 @@ h1 {
     font-family: fantasy;
 }
 
-.btn-default {
+.btn-default, .btn-danger {
     margin: 3px;
 }
 
@@ -95,7 +96,7 @@ tr, td, th {
     padding: 3px;
 }
 
-#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment  {
+#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment, .restWrapper, .restMessage {
     display: flex;
     margin: auto;
 }
