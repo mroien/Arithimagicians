@@ -1,4 +1,6 @@
-#deleteWrapper {
+// CSS for delete, opt out and reset password pages.
+
+#deleteWrapper, .optWrapper, .restWrapper {
   font-family:$font-family;
   display: flex;
   justify-content: center;
@@ -12,7 +14,7 @@
   z-index: 999;
 }
 
-.yes, .no {
+.del_yes, .del_no, .opt_yes, .opt_no, .rest_yes, .rest_no {
   max-width: 50px;
   margin:auto;
 }

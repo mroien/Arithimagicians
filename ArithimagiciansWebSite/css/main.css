@@ -36,6 +36,9 @@ label {
 .bottomButton {
   margin: auto; }
 
+.forgot {
+  position: relative; }
+
 .download_wrapper, .downloadText {
   font-size: 25px;
   width: 342px;
@@ -102,7 +105,7 @@ label {
   text-align: left;
   width: 125px; }
 
-#deleteWrapper {
+#deleteWrapper, .optWrapper, .restWrapper {
   font-family: "Peas & Carrots";
   display: flex;
   justify-content: center;
@@ -115,14 +118,15 @@ label {
   margin: auto;
   z-index: 999; }
 
-.yes, .no {
+.del_yes, .del_no, .opt_yes, .opt_no, .rest_yes, .rest_no {
   max-width: 50px;
   margin: auto; }
 
-.transactions {
-  width: 166px;
+.transactions, .showCC {
+  width: 335px !important;
   height: 300px;
-  overflow: auto; }
+  overflow: auto;
+  text-align: center; }
 
 .text_wrapper {
   overflow: auto;
@@ -169,7 +173,7 @@ h1 {
   margin: auto;
   font-family: fantasy; }
 
-.btn-default {
+.btn-default, .btn-danger {
   margin: 3px; }
 
 .confirm {
@@ -192,7 +196,7 @@ tr, td, th {
   text-align: center;
   padding: 3px; }
 
-#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment {
+#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment, .restWrapper, .restMessage {
   display: flex;
   margin: auto; }
 

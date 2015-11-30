@@ -1,5 +1,6 @@
-.transactions {
-  width: 166px;
+.transactions, .showCC {
+  width: 335px !important;
   height: 300px;
   overflow: auto;
+  text-align: center;;
 }

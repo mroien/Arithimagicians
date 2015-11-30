@@ -44,8 +44,10 @@
                        oninput="setCustomValidity('')" pattern="[\w\D]{4,15}"><br>
                 <input type="submit" class="bottomButton" name="submit" id="submit" value="Login">
                 <input type="reset" name="reset" class="bottomButton">
+                <div class="forgot"><a href="resetPass.html" class="btn-default btn">Reset Password</a></div>
             </fieldset>
         </form>
+
         </div>
     </div>
 </div>
@@ -62,9 +64,8 @@
             success: function(userID) {
                 if (userID != "Invalid Login"){
                     // HTML5 Local Storage
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('userID', userID);
-//                    alert("You have been logged in as " + localStorage.getItem('username'));
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('userID', userID);
                     window.setTimeout(function(){
                         window.location.href = '../loggedIn/accountInfo.html';
                     }, 500)
