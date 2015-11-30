@@ -92,6 +92,12 @@ public class WebsiteController {
 					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
 		return web.getPowerups(userID);
 	}
+	// Local URL : http://52.32.43.132:8080/optOut?userID=8
+	@RequestMapping("/optOut")
+	public String optOut(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.optOut(userID);
+	}
 	
 	// Local URL : http://52.32.43.132:8080/addCard?userID=8&creditCardNumber=1234&creditCardType=visa
 	@RequestMapping("/addCard")

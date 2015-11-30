@@ -31,7 +31,7 @@ public class AndroidController {
 		return and.usePowerUp(accountId, powerUp);
 	}
 
-	//  URL : http://localhost:8080/updateLeaderboard?accountId=8&username=test&level=1_1&accuracyPerLevel=20&highestAcc=100&maxTotalDmg=10&maxSingleDmg=5
+	//  URL : http://localhost:8080/updateLeaderboard?accountId=8&username=test&level=1_1&accuracyPerLevel=20&highestAcc=100&maxTotalDmg=10&maxSingleDmg=5&operation=+&target=5&numberOfTries=10
 	@RequestMapping("/updateLeaderboard")
 	public String updateLeaderboard(@RequestParam(value = "accountId", defaultValue = "0000") String accountId,
 			 @RequestParam(value = "username", defaultValue = "0000") String username,
@@ -39,8 +39,11 @@ public class AndroidController {
 			@RequestParam(value = "accuracyPerLevel", defaultValue = "0000") double accuracyPerLevel
 			, @RequestParam(value = "highestAcc", defaultValue = "0000") double highestAcc
 			, @RequestParam(value = "maxTotalDmg", defaultValue = "0000") int maxTotalDmg
-			, @RequestParam(value = "maxSingleDmg", defaultValue = "0000") int maxSingleDmg) throws SQLException {
-		return and.updateLeaderboard(accountId,username, level, accuracyPerLevel, highestAcc, maxTotalDmg, maxSingleDmg);
+			, @RequestParam(value = "maxSingleDmg", defaultValue = "0000") int maxSingleDmg
+			, @RequestParam(value = "operation", defaultValue = "0000") String operation
+			, @RequestParam(value = "target", defaultValue = "0000") String target
+			, @RequestParam(value = "numberOfTries", defaultValue = "0000") int numberOfTries)throws SQLException {
+		return and.updateLeaderboard(accountId,username, level, accuracyPerLevel, highestAcc, maxTotalDmg, maxSingleDmg, operation, target, numberOfTries);
 	}
 	
 	//  URL : http://52.32.43.132:8080/checkPhoneNumber?number=1234

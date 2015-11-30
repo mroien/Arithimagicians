@@ -113,11 +113,14 @@ public class Android {
 		}
 	}
 
-	public String updateLeaderboard(String accountId, String username, String level, double accuracyPerLevel, double highestAcc, int maxTotalDmg, int maxSingleDmg) throws SQLException {
-		String updateSQL = "Update leaderboard SET level = ?, accuracyPerLevel = ?, highestAccuracy = ?, maxTotalDamage = ?, maxSingleDamage = ?, dateTime = ? " + "WHERE userID = ?";
+	public String updateLeaderboard(String accountId, String username, String level, double accuracyPerLevel, double highestAcc, int maxTotalDmg, int maxSingleDmg, String operation, String target, int numberOfTries) throws SQLException {
+		String updateSQL = "Update leaderboard SET username = ?, level = ?, accuracyPerLevel = ?, highestAccuracy = ?, maxTotalDamage = ?, maxSingleDamage = ?, dateTime = ? " + "WHERE userID = ?";
+		String updateUsers = "Update users SET accuracy = ?, operation = ?, target = ?, numberOfTries = ?, maxLevel = ? " + "WHERE userID = ?";
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
 		String createSql = "INSERT INTO leaderboard (userID, username,level,accuracyPerLevel,highestAccuracy,maxTotalDamage,maxSingleDamage, dateTime) VALUES (?,?,?,?,?,?,?,?)";
 		String querySql = "Select * from leaderboard WHERE userID = ?";
+		String username1 = "Select username from users where userID = ?";
+		String userNameString = "";
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		try {
 		
@@ -125,22 +128,45 @@ public class Android {
 			query.setString(1, accountId);
 			ResultSet rs = query.executeQuery();
 			if(rs.absolute(1)){
+				PreparedStatement usernameQuery = conn.prepareStatement(username1);
+				usernameQuery.setString(1, accountId);
+				ResultSet rs1 = usernameQuery.executeQuery();
+				if(rs1.absolute(1)){
+					userNameString = rs1.getString(1);
+					System.out.println(userNameString);
+				}
 				PreparedStatement prepState = conn.prepareStatement(updateSQL);
-				prepState.setString(1, level);
-				prepState.setDouble(2, accuracyPerLevel);
-				prepState.setDouble(3, highestAcc);
-				prepState.setInt(4, maxTotalDmg);
-				prepState.setInt(5, maxSingleDmg);
-				prepState.setString(6, date.toString());
-				prepState.setString(7, accountId);
+				prepState.setString(1, userNameString);
+				prepState.setString(2, level);
+				prepState.setDouble(3, accuracyPerLevel);
+				prepState.setDouble(4, highestAcc);
+				prepState.setInt(5, maxTotalDmg);
+				prepState.setInt(6, maxSingleDmg);
+				prepState.setString(7, date.toString());
+				prepState.setString(8, accountId);
 				prepState.executeUpdate();
+				
+				PreparedStatement userUpdate = conn.prepareStatement(updateUsers);
+				userUpdate.setDouble(1, accuracyPerLevel);
+				userUpdate.setString(2, operation);
+				userUpdate.setString(3, target);
+				userUpdate.setInt(4, numberOfTries);
+				userUpdate.setString(5, level);
+				userUpdate.setString(6, accountId);
+				userUpdate.executeUpdate();
 				return "User Updated";
 			}
 			
-
+			PreparedStatement usernameQuery = conn.prepareStatement(username1);
+			usernameQuery.setString(1, accountId);
+			ResultSet rs1 = usernameQuery.executeQuery();
+			if(rs1.absolute(1)){
+				userNameString = rs1.getString(1);
+				System.out.println(userNameString);
+			}
 			PreparedStatement prepState = conn.prepareStatement(createSql);
 			prepState.setString(1, accountId);
-			prepState.setString(2, username);
+			prepState.setString(2, userNameString);
 			prepState.setString(3, level);
 			prepState.setDouble(4, accuracyPerLevel);
 			prepState.setDouble(5, highestAcc);

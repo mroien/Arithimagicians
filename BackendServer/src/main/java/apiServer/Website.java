@@ -180,6 +180,34 @@ public class Website {
 		conn.close();
 		return "Account not Found";
 	}
+	
+	public String optOut(String userId) throws SQLException {
+		String deleteUser = "Update users SET optOut = 1 " + "WHERE userID = ?";
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
+		String queryUser = "SELECT * from users WHERE userID = ?";
+		try {
+			PreparedStatement prepStateFirst = conn.prepareStatement(queryUser);
+			prepStateFirst.setString(1, userId);
+			ResultSet rs = prepStateFirst.executeQuery();
+			if (rs.absolute(1)) {
+				PreparedStatement prepStateDelete = conn.prepareStatement(deleteUser);
+				
+				prepStateDelete.setString(1, userId);
+				System.out.println(prepStateDelete.toString());
+				prepStateDelete.executeUpdate();
+				conn.close();
+				return "Opted Out";
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			conn.close();
+			return "DB Error";
+		}
+		conn.close();
+		return "Account not Found";
+	}
 
 	public String getTransactions(String userId) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
@@ -215,7 +243,7 @@ public class Website {
 
 	public String getLeaderBoards() throws SQLException {
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:" + localPort + "/ics499fa1501", dbUser, dbPass);
-		String queryLeaderboards = "SELECT * from leaderboard";
+		String queryLeaderboards = "SELECT leaderboard.username, leaderboard.level, leaderboard.accuracyPerLevel, leaderboard.highestAccuracy, leaderboard.maxTotalDamage, leaderboard.maxSingleDamage from leaderboard left join users on users.userID = leaderboard.userID WHERE users.optOut = 0 ORDER BY leaderboard.maxSingleDamage DESC;";
 		try {
 			PreparedStatement prepStateFirst = conn.prepareStatement(queryLeaderboards);
 			ResultSet rs = prepStateFirst.executeQuery();
@@ -227,10 +255,10 @@ public class Website {
 				rs.beforeFirst();
 			while(rs.next())
 			{
-				System.out.println(rs.getString(1));
-				result +=  "username:" + rs.getString(2) + " level:" + rs.getString(3) + " accuracyPerLeve:" + rs.getString(4) + " highestAccuracy:"
-						+  rs.getString(5) + " maxTotalDamag:" + rs.getString(6) 
-						+ " maxSingleDamage:" + rs.getString(7) + ",";
+				
+				result +=  "username:" + rs.getString(1) + " level:" + rs.getString(2) + " accuracyPerLeve:" + rs.getString(3) + " highestAccuracy:"
+						+  rs.getString(4) + " maxTotalDamag:" + rs.getString(5) 
+						+ " maxSingleDamage:" + rs.getString(6) + ",";
 				System.out.println(result);
 			}
 			conn.close();
