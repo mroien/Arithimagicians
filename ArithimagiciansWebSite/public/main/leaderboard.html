@@ -30,32 +30,28 @@
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <table id="leaderboard" class="bgBlue">
-            <tbody>
-                <thead>
-                <tr>
-                    <th class="itemHeader">
-                        Username
-                    </th>
-                    <th class="itemHeader">
-                        Level
-                    </th>
-                    <th class="itemHeader">
-                        Accuracy Per Level
-                    </th>
-                    <th class="itemHeader">
-                        Highest Accuracy
-                    </th>
-                    <th class="itemHeader">
-                        Max Total Damage
-                    </th>
-                    <th class="itemHeader">
-                        Max Single Damage
-                    </th>
-                </tr>
-
                 <!--Dynamic from Database-->
-                <tr id="leaderboardBody"></tr>
-                </thead>
+            <tbody id="leaderboardBody">
+            <tr>
+                <th class="itemHeader">
+                    Username
+                </th>
+                <th class="itemHeader">
+                    Level
+                </th>
+                <th class="itemHeader">
+                    Accuracy Per Level
+                </th>
+                <th class="itemHeader">
+                    Highest Accuracy
+                </th>
+                <th class="itemHeader">
+                    Max Total Damage
+                </th>
+                <th class="itemHeader">
+                    Max Single Damage
+                </th>
+            </tr>
 
             </tbody>
         </table>
@@ -69,12 +65,19 @@
            type: 'POST',
            crossDomain: true,
            success: function(response){
-               var _split = response.split(" ");
-               $.each(_split, function(key, value){
-                   var _key = _split[key].split(":");
-                   console.log("Key: " + _key[1] + " value: " + value);
-                   $('#leaderboardBody').append('<td>' + _key[1] + '</td>')
-               })
+               var comma = response.split(",");
+               for (var i = 0; i < comma.length; i++){
+                   $('#leaderboardBody').append('<tr>');
+                   var _split = comma[i].split(" ");
+                   $.each(_split, function(key, value){
+                       var _key = _split[key].split(":");
+                       console.log("Key: " + _key[1] + " value: " + value);
+                       if (_key[1] !== undefined)
+                       $('#leaderboardBody').append('<td>' + _key[1] + '</td>')
+                   });
+                   $('#leaderboardBody').append('</tr>');
+               }
+
            }
        })
    })

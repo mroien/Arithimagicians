@@ -25,9 +25,11 @@
             <a href="currentPowerUps.html" class="btn-default btn">Current Power Ups</a>
             <a href="viewTransactions.html" class="btn-default btn">View Transactions</a>
             <!--<a href="paymentInfo.html" class="btn-default btn">Payment Information</a>-->
+            <a href="showCC.html" class="btn-default btn">Show Credit Cards</a>
             <a href="../main/leaderboard.html" class="btn-default btn">Leaderboard</a>
             <a href="paymentStub.html" class="btn btn-default">Payment Stub</a>
             <a href="stats.html" class="btn btn-default">Stats</a>
+            <a href="optOut.html" class="btn-danger btn">Opt Out</a>
             <a href="delete.html" class="btn-danger btn">Delete Account</a>
         </div>
 
@@ -40,16 +42,17 @@
                     <input placeholder="Card Number" type="text" name="number" size ="20"
                            maxlength="20"  class="ccNumber" autofocus autocomplete="off"
                            oninvalid="setCustomValidity('Please enter a valid credit card number');"
-                           oninput="setCustomValidity('')" pattern="[\d\s]{1,20}" required/>
+                           oninput="setCustomValidity('')" pattern="[\d\s]{14,20}" required/>
                     <input placeholder="Full Name" type="text" name="name" pattern="[A-Z a-z]{1,20}"
                            oninvalid="setCustomValidity('Please enter your name');" id="ccName"
                            oninput="setCustomValidity('')" autocomplete="off" required>
                     <input placeholder="MM/YY" type="text" name="expiry" id="ccExp"
                            oninvalid="setCustomValidity('Please enter the month and year');"
-                           oninput="setCustomValidity('')" autocomplete="off" required>
+                           oninput="setCustomValidity('')" autocomplete="off"
+                           pattern="[0-9/ ]{7,9}" required>
                     <input placeholder="CVC" type="text" name="cvc" id="ccCVC"
                            oninvalid="setCustomValidity('Please enter your CVC number');"
-                           oninput="setCustomValidity('')" autocomplete="off" required><br>
+                           oninput="setCustomValidity('')" autocomplete="off" pattern="[\d]{3,4}" required><br>
                     <span class="buttonWrapper">
                     <input type="submit" class="ccSubmit" value="Submit Payment">
                     <input type="reset">
@@ -81,51 +84,53 @@
                     sessionStorage.setItem('ccType', 'Dankort');
                 } else if ($('input.ccNumber.jp-card-invalid.maestro.identified')[0]) {
                     sessionStorage.setItem('ccType', 'Maestro');
-                } else if ($('input.ccNumber.jp-card-invalid.unknown.jp-card-invalid')[0]) {
-                    alert("Please enter a valid Credit card Number");
+                } else if ($('input.ccNumber.jp-card-invalid.unknown')[0]) {
+                    alert('Enter a valid credit card number')
                 }
             });
-
             new Card({
                 form: document.querySelector('form'),
                 container: '.card-wrapper'
             });
-
             function payment() {
                 var ccNumber = document.getElementsByClassName('ccNumber')[0].value,
-                        newCC = ccNumber.replace(/\s/g,""),
+                        newCC = ccNumber.replace(/\s/g, ""),
                         ccName = document.getElementById('ccName').value,
                         ccExp = document.getElementById('ccExp').value,
                         ccCVC = document.getElementById('ccCVC').value,
                         ccType = sessionStorage.getItem('ccType');
 
-                $.ajax({
-                    url: 'http://52.32.43.132:8080/addCard?',
-                    type: 'POST',
-                    data: 'userID=' + local_userID + '&creditCardNumber=' + newCC + '&creditCardType=' + ccType,
-                    crossDomain: true,
-                    success: function (response) {
-                        sessionStorage.setItem('ccNumber', ccNumber);
-                        sessionStorage.setItem('ccName', ccName);
-                        sessionStorage.setItem('ccExp', ccExp);
-                        sessionStorage.setItem('ccCVC', ccCVC);
-                        window.location.href = 'paymentStub.html';
-                    }
-                });
-                if (DMGBOUNUS_check > 0){
-                    for(var i = 0; i < DMGBOUNUS_check; i++){
-                        $.ajax({
-                            url: 'http://52.32.43.132:8080/addPowerup?',
-                            type: 'GET',
-                            data: 'powerID=DMGBONUS' + '&userID=' + local_userID,
-                            crossDomain: 'true',
-                            success: function(response){
+                // Check if card is 'unknown'
+                if (!$('input.ccNumber.jp-card-invalid.unknown')[0]) {
 
-                            }
-                        });
+                    $.ajax({
+                        url: 'http://52.32.43.132:8080/addCard?',
+                        type: 'POST',
+                        data: 'userID=' + local_userID + '&creditCardNumber=' + newCC + '&creditCardType=' + ccType,
+                        crossDomain: true,
+                        success: function (response) {
+                            sessionStorage.setItem('ccNumber', ccNumber);
+                            sessionStorage.setItem('ccName', ccName);
+                            sessionStorage.setItem('ccExp', ccExp);
+                            sessionStorage.setItem('ccCVC', ccCVC);
+                            window.location.href = 'paymentStub.html';
+                        }
+                    });
+                    if (DMGBOUNUS_check > 0) {
+                        for (var i = 0; i < DMGBOUNUS_check; i++) {
+                            $.ajax({
+                                url: 'http://52.32.43.132:8080/addPowerup?',
+                                type: 'GET',
+                                data: 'powerID=DMGBONUS' + '&userID=' + local_userID,
+                                crossDomain: 'true',
+                                success: function (response) {
+
+                                }
+                            });
+                        }
                     }
                     if (XPBONUS_check > 0) {
-                        for(var j = 0; j < XPBONUS_check; j++) {
+                        for (var j = 0; j < XPBONUS_check; j++) {
                             $.ajax({
                                 url: 'http://52.32.43.132:8080/addPowerup?',
                                 type: 'GET',
@@ -136,6 +141,44 @@
                             });
                         }
                     }
+                    if (LOOTBONUS_check > 0) {
+                        for (var k = 0; k < LOOTBONUS_check; k++) {
+                            $.ajax({
+                                url: 'http://52.32.43.132:8080/addPowerup?',
+                                type: 'GET',
+                                data: 'powerID=LOOTBONUS' + '&userID=' + local_userID,
+                                crossDomain: 'true',
+                                success: function (response) {
+                                }
+                            });
+                        }
+                    }
+                    if (HPFULLREFRESH_check > 0) {
+                        for (var l = 0; l < HPFULLREFRESH_check; l++) {
+                            $.ajax({
+                                url: 'http://52.32.43.132:8080/addPowerup?',
+                                type: 'GET',
+                                data: 'powerID=HPFULLREFRESH' + '&userID=' + local_userID,
+                                crossDomain: 'true',
+                                success: function (response) {
+                                }
+                            });
+                        }
+                    }
+                    if (HPREGEN_check > 0) {
+                        for (var m = 0; m < HPREGEN_check; m++) {
+                            $.ajax({
+                                url: 'http://52.32.43.132:8080/addPowerup?',
+                                type: 'GET',
+                                data: 'powerID=HPREGEN' + '&userID=' + local_userID,
+                                crossDomain: 'true',
+                                success: function (response) {
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    alert('Enter a valid credit card number');
                 }
             }
         </script>
