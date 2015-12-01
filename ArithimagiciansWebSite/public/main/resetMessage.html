@@ -16,26 +16,20 @@
 <div class="container">
     <div class="row">
         <h1>Reset Message</h1>
-
-        <div class="leftNav">
-            <a href="index.html" class="btn-default btn">Home</a>
-            <a href="signup.html" class="btn-default btn">Sign Up</a>
-            <a href="login.html" class="btn-default btn">Login</a>
-            <a href="download.html" class="btn-default btn">Download</a>
-            <a href="leaderboard.html" class="btn-default btn">Leaderboard</a>
-            <a href="about.html" class="btn-default btn">About</a>
-            <a href="../loggedIn/accountInfo.html" class="btn-default btn">Account Info</a>';
-        </div>
-
         <div class="signedIn"></div>        <!-- Check if you are logged in -->
 
         <div class="scrollWrapper">
             <div class="restMessageWrapper">
-                // TODO: ADD MESSAGE WITH EMAIL AND SETTIMEOUT TO REDIRECT USER BACK TO INDEX
+                Check your email for a reset password link at <span class="email_reset"></span>
             </div>
         </div>
 
     </div>
 </div>
+<script>
+    var email_reset = sessionStorage.getItem('email_reset');
+    $('.email_reset').html(email_reset);
+    setTimeout("location.href = 'login.html'",5000);
+</script>
 </body>
 </html>
