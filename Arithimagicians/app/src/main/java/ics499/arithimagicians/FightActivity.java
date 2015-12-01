@@ -321,8 +321,8 @@ public class FightActivity extends AppCompatActivity {
                 player.swapDiceBackToInv();
                 generateResults(firstRowFirstDiceRoll, firstRowSecondDiceRoll, secondRowFirstDiceRoll, secondRowSecondDiceRoll, firstRowFirstOp.getText().toString(), secondRowFirstOp.getText().toString(), firstRowSecondOp.getText().toString(), secondRowSecondOp.getText().toString(), firstRowAns.getText().toString(), secondRowAns.getText().toString(), firstRowAttack, firstRowUser, secondRowAttack, secondRowUser, false, false, currOpponet.getAttack());
                 resetDicePics();
-                generateAns(level);
                 generateOperations(currOpponet.getOp());
+                generateAns(level);
 
                 ImageButton frfdTag = (ImageButton) findViewById(R.id.firstRowFirstDice);
                 frfdTag.setTag(null);
@@ -839,8 +839,8 @@ public class FightActivity extends AppCompatActivity {
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3) {
-                            opIndex = 3;
+                        if (opIndex < 2) {
+                            opIndex = 2;
                         }
                         break;
                     default:
@@ -851,7 +851,7 @@ public class FightActivity extends AppCompatActivity {
                         break;
                 }
                 firstRowAns.setText(Integer.toString(opIndex));
-            } else
+            } else {
                 switch (secondRowOp) {
                     case "+":
                         opIndex = r.nextInt(ansMax - 1);
@@ -873,8 +873,8 @@ public class FightActivity extends AppCompatActivity {
                         break;
                     case "/":
                         opIndex = r.nextInt(ansDiv - 1);
-                        if (opIndex < 3) {
-                            opIndex = 3;
+                        if (opIndex < 2) {
+                            opIndex = 2;
                         }
                         break;
                     default:
@@ -884,7 +884,8 @@ public class FightActivity extends AppCompatActivity {
                         }
                         break;
                 }
-            secondRowAns.setText(Integer.toString(opIndex));
+                secondRowAns.setText(Integer.toString(opIndex));
+            }
         }
     }
 
@@ -936,8 +937,8 @@ public class FightActivity extends AppCompatActivity {
             rl.setBackgroundColor(Color.WHITE);
             rl.setBackground(ContextCompat.getDrawable(this, resId));
             resetDicePics();
-            generateAns(level);
             generateOperations(currOpponet.getOp());
+            generateAns(level);
             opProgressBar.setProgress(currOpponet.getPercentHealthLeft());
             opHealth.setText(currOpponet.getName() + " HP: " + currOpponet.getCurrentHealth());
         }
