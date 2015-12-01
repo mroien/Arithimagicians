@@ -93,6 +93,20 @@ public class WebsiteController {
 		return web.getPowerups(userID);
 	}
 	
+	// Local URL : http://52.32.43.132:8080/getCards?userID=8
+	@RequestMapping("/getCards")
+	public String getCards(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.getCards(userID);
+	}
+	
+	// Local URL : http://52.32.43.132:8080/optOut?userID=8
+	@RequestMapping("/optOut")
+	public String optOut(@RequestParam(value = "userID", defaultValue = "0000") String userID)
+					throws SQLException, InstantiationException, IllegalAccessException, NoSuchAlgorithmException, InvalidKeySpecException {
+		return web.optOut(userID);
+	}
+	
 	// Local URL : http://52.32.43.132:8080/addCard?userID=8&creditCardNumber=1234&creditCardType=visa
 	@RequestMapping("/addCard")
 	public String addCard(@RequestParam(value = "userID", defaultValue = "0000") String userID, @RequestParam(value = "creditCardNumber", defaultValue = "0000") String creditCardNumber,
