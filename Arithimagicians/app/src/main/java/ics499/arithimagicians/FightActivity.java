@@ -926,10 +926,14 @@ public class FightActivity extends AppCompatActivity {
         ImageButton srsd = (ImageButton) findViewById(R.id.secondRowSecondDice);
         srsd.setTag(null);
         if (opponents.size() == 0) {
-            updateLeaderboard();
+            if(this.player.getUserId() != 0) {
+                updateLeaderboard();
+            }
             rewardsScreen();
         } else {
-            updateLeaderboard();
+            if(this.player.getUserId() != 0) {
+                updateLeaderboard();
+            }
             Opponent next = opponents.get(0);
             currOpponet = next;
             int resId = getResources().getIdentifier(next.getLayout(), "drawable", getPackageName());
