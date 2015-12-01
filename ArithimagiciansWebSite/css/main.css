@@ -105,7 +105,7 @@ label {
   text-align: left;
   width: 125px; }
 
-#deleteWrapper, .optWrapper, .restWrapper {
+#deleteWrapper, .optWrapper, .restWrapper, .restMessageWrapper {
   font-family: "Peas & Carrots";
   display: flex;
   justify-content: center;
@@ -196,7 +196,7 @@ tr, td, th {
   text-align: center;
   padding: 3px; }
 
-#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment, .restWrapper, .restMessage {
+#transactions, .img, .download, .cancel, #leaderboard, #powerUpsTable, .payment, .restWrapper, .restMessage, .restMessageWrapper {
   display: flex;
   margin: auto; }
 
