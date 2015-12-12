@@ -69,7 +69,7 @@ public class InventoryActivity extends Activity {
 
                 btn.setOnClickListener(new MyOnClickListener(item, itemCount.getId()));
 
-                if (i <= Item.Type.LAST.ordinal() / 2) {
+                if (i < Item.Type.LAST.ordinal() / 2) {
                     rowOne.addView(btnTotalWrap);
                 } else {
                     rowTwo.addView(btnTotalWrap);

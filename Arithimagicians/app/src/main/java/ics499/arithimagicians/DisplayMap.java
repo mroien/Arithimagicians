@@ -8,12 +8,21 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Display map activity that shows what location a player can fight on
@@ -31,6 +40,7 @@ public class DisplayMap extends AppCompatActivity {
         setContent();
         this.player.checkHealthRegen(System.nanoTime());
         setHealthBar();
+
     }
 
     /**
@@ -244,6 +254,9 @@ public class DisplayMap extends AppCompatActivity {
         }
     }
 
+
+
+
     /**
      * Overrides parent's onStop method. Saves the game when the app is shut down.
      */
@@ -263,5 +276,71 @@ public class DisplayMap extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getItems(int userId) {
+        String url = "http://52.32.43.132:8080/checkPowerUp?accountId=" + userId;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.start();
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (!response.equals("No Powerups")) {
+                            List<String> powerUps = Arrays.asList(response.split(","));
+                            for (String s : powerUps) {
+
+                                Item.Type itemType = Item.findType(s);
+                                PowerUpItem item = new PowerUpItem(itemType, itemType.getBonus(), 1);
+                                if (player != null)
+                                    player.addItem(item);
+                                updateDateInDB(s);
+
+                            }
+                            Intent mapIntent = new Intent(DisplayMap.this, DisplayMap.class);
+                            mapIntent.putExtra("player", player);
+                            startActivity(mapIntent);
+                        } else {
+                            Intent mapIntent = new Intent(DisplayMap.this, DisplayMap.class);
+                            mapIntent.putExtra("player", player);
+                            startActivity(mapIntent);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
+    public void updateDateInDB(String powerup) {
+        String url = "http://52.32.43.132:8080/powerUpAddedToInv?accountId=" + player.getUserId() + "&powerUpName=" + powerup;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.start();
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equals("User Updated")) {
+
+                        } else {
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }
